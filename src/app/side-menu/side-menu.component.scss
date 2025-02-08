@@ -1,0 +1,60 @@
+.containerMenuSide{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 10%;
+}
+
+.menuSide{
+  background-color: var(--bg-color-card);
+  height: 90%;
+  width: 70%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menuTop{
+  margin-top: 10px;
+  height: 18%;
+
+}
+
+.menuCenter{
+  height: 35%;
+
+}
+
+.menuBottom{
+  margin-bottom: 10px;
+  height: 18%;
+}
+
+.menuTop, .menuCenter, .menuBottom{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.menuTop div, .menuCenter div, .menuBottom div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3px;
+  background-color: var( --bg-icon);
+  border-radius: 50px;
+  max-width: 55%;
+  aspect-ratio: 1 / 1;
+}
+
+.menuTop div img , .menuCenter div img, .menuBottom div img{
+  width: 60%;
+}
+
+.menuTop div img svg path, .menuCenter div img svg path, .menuBottom div img svg path {
+  fill: var(--text-color);
+}
