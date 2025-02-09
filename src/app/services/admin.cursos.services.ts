@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Cursos } from '../models/curso.model'; 
+
+export interface Curso {
+  id: number;
+  titulo: string;
+  modalidad: 'Presencial' | 'Virtual';
+  certificacion: string;
+  duracion: string;
+  descripcion: string;
+  valor: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursoService {
-  private cursos: Cursos[] = [ 
+  private cursos: Curso[] = [
     { id: 1, 
       titulo: 'PROCESAMIENTO DE DATOS ', 
       modalidad: 'Virtual',
@@ -32,20 +41,23 @@ export class CursoService {
 
   constructor() {}
 
-  getCursos(): Cursos[] {
+  getCursos(): Curso[] {
     return this.cursos;
   }
 
-  getCurso(id: number): Cursos | undefined {
+  getCurso(id: number): Curso | undefined {
     return this.cursos.find(curso => curso.id === id);
   }
 
-  agregarCurso(curso: Cursos) {
+  agregarCurso(curso: Curso) {
     curso.id = this.cursos.length + 1;
     this.cursos.push(curso);
   }
 
   eliminarCurso(id: number) {
-    this.cursos = this.cursos.filter(curso => curso.id !== id);
-  } //acá quiero hacer que salga una pestaña antes de eliminar el curso para confirmar si se quiere eliminar o no
+    const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar este curso?');
+    if (confirmacion) {
+      this.cursos = this.cursos.filter(curso => curso.id !== id);
+    }
+  }
 }
