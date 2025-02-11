@@ -1,34 +1,44 @@
-<div class="containerMenuSide">
-  <div class="menuSide">
-    <div class="menuTop">
-      <div>
-        <img src="/icons-header/menu.svg" alt="">
+<div class="contentMenu">
+  <div #menuSide class="menuSide">
+    <div class="menuTop childrenMenu">
+      <div #openMenu class="elemetMenu">
+        <img src="/icons-header/menu.svg" alt="" />
+        <p class="textMenu">Inicio</p>
       </div>
-      <div>
-        <img src="/icons-header/header.svg" alt="">
-      </div>
-    </div>
-    <div class="menuCenter">
-      <div>
-        <img src="/icons-header/rocket.svg" alt="">
-      </div>
-      <div>
-        <img src="/icons-header/book.svg" alt="">
-      </div>
-      <div>
-        <img src="/icons-header/question.svg" alt="">
-      </div>
-      <div>
-        <img src="/icons-header/chat.svg" alt="">
+      <div class="elemetMenu">
+        <img src="/icons-header/header.svg" alt="" />
+        <p class="textMenu">Inicio</p>
       </div>
     </div>
-    <div class="menuBottom">
-      <div (click)="toggleTheme()">
-        <img src="/icons-header/dark.svg" alt="">
+    <div class="menuCenter childrenMenu">
+      <div class="elemetMenu">
+        <img src="/icons-header/rocket.svg" alt="" />
+        <p class="textMenu">Cursos</p>
       </div>
-      <div>
-        <img src="/icons-header/user.svg" alt="">
+      <div class="elemetMenu">
+        <img src="/icons-header/book.svg" alt="" />
+        <p class="textMenu">Blog</p>
+      </div>
+      <div class="elemetMenu">
+        <img src="/icons-header/question.svg" alt="" />
+        <p class="textMenu">Preguntas Frecuentes</p>
+      </div>
+      <div class="elemetMenu ">
+        <img src="/icons-header/chat.svg" alt="" />
+        <p class="textMenu">Comunidad</p>
       </div>
     </div>
+      <div class="menuBottom childrenMenu">
+        <div #theme class="elemetMenu">
+          <img class="dark" src="/icons-header/dark.svg" alt="" />
+          <img class="light" src="/icons-header/light.svg" alt="" />
+          <p class="textMenu">Oscuro / Claro</p>
+        </div>
+        <div class="elemetMenu">
+          <img src="/icons-header/user.svg" alt="" />
+          <p class="textMenu">Mi Perfil</p>
+        </div>
+      </div>
   </div>
 </div>
+

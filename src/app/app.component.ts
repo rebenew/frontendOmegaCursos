@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SideMenuComponent } from './side-menu/side-menu.component';
-import { FooterMenuComponent } from './footer-menu/footer-menu.component';
-
-
+import { VistaCursosComponent } from './vista-cursos/vista-cursos.component';
+import { SideMenuService } from './services/side-menu.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SideMenuComponent,FooterMenuComponent],
+  imports: [RouterOutlet, VistaCursosComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  providers:[SideMenuService]
 })
 export class AppComponent {
   title = 'omega';
