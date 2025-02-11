@@ -1,14 +1,103 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+* {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-h1{ font-size: 3,5em;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+body {
+  font-family: 'Inter', sans-serif;
 }
-h2{ font-size: 3,5em;}
-h3{ font-size: 2em;}
-p{ font-size: 1,25em ;}
 
-.welcome-section{
+header {
+  margin: 0;
+}
+
+.welcome-section {
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  background-color: #f3ece0;
+  padding: 3em;
+  max-width: 100%;
+  text-align: center;
+}
+
+h1 {
+  font-size: 5em;
+  font-weight: 700;
+  color: #040087;
+}
+
+h2 {
+  font-size: 2.5em;
+  font-weight: 400;
+  color: #000000;
+}
+
+.menu-section {
+  display: flex;
+  gap: 12%;
+  padding: 10px;
   background-color: #f2f3f2;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.bubble {
+  border: none;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.bubble:hover, .bubble.active {
+  background: #ff9b00;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 600px) {
+  .welcome-section {
+    padding: 1em;
+  }
+
+  h1 {
+    font-size: 3em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  .menu-section {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .bubble {
+    width: 100%;
+    justify-content: center;
+  }
 }
