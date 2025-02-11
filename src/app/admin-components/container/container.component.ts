@@ -7,7 +7,7 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-container',
-  imports: [SearchBarComponent, UserCardComponent, SearchFilterComponent, AddUserButtonComponent, RouterOutlet],
+  imports: [SearchBarComponent, UserCardComponent, SearchFilterComponent, AddUserButtonComponent],
   templateUrl: './container.component.html',
   styleUrl: './container.component.scss'
 })

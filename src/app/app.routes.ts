@@ -1,8 +1,9 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component.js';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { CreateUserDashboardComponent } from './create-user-dashboard/create-user-dashboard.component';
+
 import { NgModule } from '@angular/core';
+import { SearchUserDashboardComponent } from './search-user-dashboard/search-user-dashboard.component';
 
 export const routes: Routes = [    
     {
@@ -15,7 +16,7 @@ export const routes: Routes = [
     },
     {
         path: 'admin/user',
-        component: CreateUserDashboardComponent
+        component: SearchUserDashboardComponent
     }
     
 ];

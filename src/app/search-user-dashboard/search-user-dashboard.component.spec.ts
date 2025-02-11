@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateUserDashboardComponent } from './create-user-dashboard.component';
+import { CreateUserDashboardComponent } from './search-user-dashboard.component';
 
 describe('CreateUserDashboardComponent', () => {
   let component: CreateUserDashboardComponent;
