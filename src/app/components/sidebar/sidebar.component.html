@@ -1,8 +1,16 @@
-<div class="sidebar" [class.abierto]="menuAbierto">
-  <button class="cerrar-btn" (click)="onToggleMenu()">✖</button>
-  <ul>
-    <li><a routerLink="/dashboard">Dashboard</a></li>
-    <li><a routerLink="/cursos">Ver Cursos</a></li>
-    <li><a routerLink="/cursos/nuevo">Agregar Curso</a></li>
-  </ul>
-</div>
+<aside class="sidebar">
+  <div class="logo">
+    <h2>Panel Admin</h2> 
+  </div>
+  <nav>
+    <ul>
+      <li><a routerLink="/dashboard">Inicio</a></li>
+      <li><a routerLink="/cursos">Cursos</a></li>
+      <li><a routerLink="/nuevo-curso">Nuevo Curso</a></li>
+      <li><a routerLink="/categorias">Categorías</a></li>
+      <li><a routerLink="/usuarios">Usuarios</a></li>
+      <li><a routerLink="/soporte">Soporte</a></li>
+    </ul>
+  </nav>
+</aside>
+<!-- Rb: Quiero agregar y cambiar las opciones pero sigo sin tener idea de cuales. Podría ser un 'Editar cursos' o algo por el estilo -->
