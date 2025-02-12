@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
 * {
   box-sizing: border-box;
@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 header {
@@ -63,20 +63,12 @@ h2 {
   transition: all 0.3s ease-in-out;
 }
 
-.bubble:hover, .bubble.active {
+.bubble:hover,
+.bubble.active {
   background: #ff9b00;
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
-
-
-
-
-
-
-
-
-
 
 @media (max-width: 600px) {
   .welcome-section {

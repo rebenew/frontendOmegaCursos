@@ -1,7 +1,14 @@
 import { Routes } from '@angular/router';
-import { CoursesDetailsComponent } from './students-dashboard/courses-details/courses-details.component';
 
 export const routes: Routes = [
+  {
+    path: 'home-student',
+    title: 'Home - Student',
+    loadComponent: () =>
+      import('./students-dashboard/home-student/home-student.component').then(
+        (m) => m.HomeStudentComponent
+      ),
+  },
   {
     path: 'more-courses',
     title: 'More Courses',
@@ -18,5 +25,5 @@ export const routes: Routes = [
         './students-dashboard/courses-details/courses-details.component'
       ).then((m) => m.CoursesDetailsComponent),
   },
-  { path: '', redirectTo: '/more-courses', pathMatch: 'full' },
+  { path: '', redirectTo: '/home-student', pathMatch: 'full' },
 ];

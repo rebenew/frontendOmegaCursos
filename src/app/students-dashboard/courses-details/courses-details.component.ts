@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
+import { switchMap } from 'rxjs';
+
 import { Courses } from '../more-courses/interfaces/more-courses.interface';
 import { MoreCoursesService } from '../more-courses/services/more-courses.service';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'courses-details',
