@@ -1,0 +1,58 @@
+@import "../../students-dashboard/more-courses/more-courses.component.global.scss";
+
+h1 {
+  font-family: $titleFont;
+  font-weight: bolder;
+  font-size: 40px;
+}
+
+.courses-details-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  margin: 3%;
+}
+
+.course-details-img {
+  width: 60%;
+}
+
+.course-details-name {
+  font-size: 6em;
+  background-color: #1673ff;
+  color: #fff;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  gap: 20%;
+}
+
+.course-details-info {
+  font-family: $titleFont;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-right: 40px;
+}
+
+.description-label {
+  font-weight: 500;
+  font-size: larger;
+  color: #50ab7f;
+}
+
+.course-description {
+  font-weight: bold;
+}
+
+.course-price {
+  background-color: #ff8f1c;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  color: #fff;
+  border-radius: 3px;
+  border: 1px solid #000000;
+  font-weight: 500;
+}
