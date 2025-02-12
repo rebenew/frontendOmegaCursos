@@ -1,0 +1,32 @@
+<h1>Course Details</h1>
+<hr>
+
+<section *ngIf="moreCourses" class="courses-details-container">
+
+  <aside>
+    <img [src]="moreCourses.img" alt="{{moreCourses.name}}" class="course-details-img">
+  </aside>
+
+  <aside class="course-details-info">
+    <h1 class="course-details-name">{{ moreCourses.name | uppercase }}</h1>
+    <label class="description-label">Brief Description <br>
+    </label>
+    <h2 class="course-description">
+      {{ moreCourses.description}}
+    </h2>
+    <label class="description-label"> Price <br>
+    </label>
+    <h2 class="course-price">USD {{ moreCourses.price }}</h2>
+    <label class="description-label">Duration <br>
+    </label>
+    <h2>Duration of content <br> {{ moreCourses.duration }}</h2>
+    <label class="description-label">Type of content <br>
+    </label>
+    <h2>{{ moreCourses.type_of_course }}</h2>
+  </aside>
+
+  <section>
+    <h1>Course Content</h1>
+  </section>
+
+</section>

@@ -6,7 +6,7 @@ import { HomeStudentComponent } from "./students-dashboard/home-student/home-stu
   selector: 'app-root',
   imports: [RouterOutlet, HomeStudentComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'omega';
