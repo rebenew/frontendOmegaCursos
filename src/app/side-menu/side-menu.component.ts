@@ -23,22 +23,32 @@ export class SideMenuComponent  {
   ngAfterViewInit(){
 
     const theme = this.theme.nativeElement;
-    const dark = theme.querySelector('.dark')
-    const light = theme.querySelector('.light')
+    const dark = this.menuSide.nativeElement.querySelectorAll('.dark');
+    const light = this.menuSide.nativeElement.querySelectorAll('.light');
 
     theme.addEventListener('click', ()=>{
       this.darkTheme = !this.darkTheme;
       if (this.darkTheme) {
         this.renderer.addClass(document.body, 'dark-theme');
         this.renderer.removeClass(document.body, 'light-theme');
-        dark?.classList.add('darkOpen')
-        light?.classList.add('lightOpen')
+        dark?.forEach(element=>{
+          console.log(element)
+          element.classList.add('darkOpen')
+        })
+        light?.forEach(element=>{
+          console.log(element)
+          element.classList.add('lightOpen')
+        })
 
       } else {
         this.renderer.addClass(document.body, 'light-theme');
         this.renderer.removeClass(document.body, 'dark-theme');
-        dark?.classList.remove('darkOpen')
-        light?.classList.remove('lightOpen')
+        dark?.forEach(element=>{
+          element.classList.remove('darkOpen')
+        })
+        light?.forEach(element=>{
+          element.classList.remove('lightOpen')
+        })
 
       }
     })

@@ -99,14 +99,15 @@ p{
   transition: opacity 0.9s ease, max-width 0.3s ease;
 }
 
-.light{
+.dark{
   display: none;
-}
-
-.lightOpen{
-  display: block;
 }
 
 .darkOpen{
+  display: block;
+}
+
+.lightOpen{
   display: none;
 }
+
