@@ -1,7 +1,7 @@
 .contentMenu{
   position: fixed;
   left: 0;
-  min-width: 110px;
+  min-width: 10%;
   min-height: 100%;
   display: flex;
   justify-content: center;
@@ -18,85 +18,65 @@
   background-color: var(--bg-color-card);
   border-radius: 20px;
   min-width: 70px;
-}
-
-.menuSideOpen{
-  margin: 10px;
+  width: 50%;
 }
 
 .menuCenter{
   height: 40%;
+  width: 100%;
 }
 
 .menuTop, .menuBottom{
   height: 20%;
+  width: 100%;
 }
 
 .childrenMenu{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-}
-
-.childrenMenuOpen{
-  width: 95%;
+  align-items: center;
 }
 
 
 .elemetMenu{
+  position: relative;
+  display: inline-block;
   background-color: var(--background-color);
-  border-radius: 50px;
+  border-radius: 50%;
+  width: 60%;
   aspect-ratio: 1 / 1;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: 50px;
   margin-top: 2px;
   margin-bottom: 2px;
-  //transition:  width 0.8s ease, background-color 0.8s ease, border-radius 0.8s ease;
-  overflow: hidden;
 }
 
-.elemetMenuOpen{
-  background-color: var(--background-color);
-  border-radius: 30px;
-  margin-right: 10px;
-  margin-bottom: 2px;
-  margin-top: 2px;
-  padding: 10px;
-  display: flex;
-  justify-content:baseline;
-  align-items: center;
-  height: 50px;
-  width: 230px;
-  cursor: pointer;
-  transition:  width 0.8s ease, background-color 0.8s ease, border-radius 0.8s ease;
-}
-
-img{
-  width: 28px;
-  height: auto;
-}
-
-
-p{
+.elemetMenu::after {
+  content: attr(texto); /* Obtiene el texto del atributo texto */
+  position: absolute;
+  top:auto;
+  left: 100%;
+  min-width: 100%;
+  background-color: #f0f0f0;
+  padding: 5px;
+  visibility: hidden;
   opacity: 0;
-  max-width: 0;
-  transition: opacity 0.9s ease, max-width 0.3s ease;
-  white-space: nowrap;
+  transition: visibility 0s, opacity 0.3s ease;
 }
 
-.textMenuOpen{
-  font-family: 'Roboto Serif', serif;
-  color:var(--text-color);
+.elemetMenu:hover::after {
+  visibility: visible;
   opacity: 1;
-  height: 100%;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  transition: opacity 0.9s ease, max-width 0.3s ease;
+}
+
+.elemetMenu img{
+  position: absolute;
+  min-width: 24px;
+  width: 60%;
+  height: auto;
 }
 
 .dark{
@@ -107,7 +87,7 @@ p{
   display: block;
 }
 
-.lightOpen{
+.lightClose{
   display: none;
 }
 

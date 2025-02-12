@@ -1,3 +1,5 @@
+//@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
+
 // Tema claro
 :root, .light-theme {
   --background-color: #d7dadb;
@@ -8,19 +10,12 @@
 
 // Tema oscuro
 .dark-theme {
-  --background-color: #222936;
+  --background-color: #202020;
   --text-color:white;
   --bg-color-card: #354985;
   --bg-icon: #222936;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap');
-
-
-body{
-  background-color: var(--background-color);
-  font-family: 'Roboto Serif', serif;
-}
 
 
 
