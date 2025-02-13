@@ -1,19 +1,23 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
+
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from "./components/header/header.component";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  imports: [RouterOutlet, RouterModule, RouterLink, SidebarComponent, HeaderComponent],
   standalone: true,
-  imports: [RouterModule, SidebarComponent, HeaderComponent]
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  title = 'omega';
+  
   menuAbierto = false;
-
+  constructor(private readonly router: Router) { }
   toggleMenu() {
     this.menuAbierto = !this.menuAbierto;
   }
+
 }

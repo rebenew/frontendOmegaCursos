@@ -4,9 +4,9 @@ export interface Curso {
   id: number;
   titulo: string;
   modalidad: 'Presencial' | 'Virtual';
-  certificacion: string;
-  duracion: string;
-  descripcion: string;
+  certificacion: string; 
+  duracion:string;
+  descripcion: string;    
   valor: number;
 }
 
@@ -19,6 +19,7 @@ export class CursoService {
       titulo: 'PROCESAMIENTO DE DATOS ', 
       modalidad: 'Virtual',
       certificacion: 'Certificacion virtual',
+ 
       duracion: ' 3 Meses / 12 Semanas - 72 horas sincrónicas de mentorías con expertos en la industria / Contenido de apoyo en plataforma, diseñado con metodología Edublocks / Reto real, propuesto por empresa aliada   ',
       descripcion: ' ¡Fortalece tu potencial con nuestro curso de Procesamiento de Datos! Descubre las habilidades fundamentales que necesitas para conocer el mundo del procesamiento de datos. Los módulos especializados que conforman el curso son: Programación con Python; Estadística básica con Python; Bases de datos relacionales; y Limpieza y transformación de datos en Python. ¡No te pierdas esta oportunidad de adquirir conocimientos esenciales y aplicables en el mercado laboral actual! Con recursos de calidad, te acompañaremos en cada paso del camino. ¡Prepárate para acceder al mundo de posibilidades en el procesamiento de datos!', 
       valor: 2700000 },

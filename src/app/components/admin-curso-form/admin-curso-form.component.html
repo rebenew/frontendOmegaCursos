@@ -1,12 +1,33 @@
-<form (submit)="agregarCurso()">
-    <input type="text" [(ngModel)]="nuevoCurso.titulo" placeholder="Título" required>
-    <select [(ngModel)]="nuevoCurso.modalidad" required>
-        <option value="Presencial">Presencial</option>
-        <option value="Virtual">Virtual</option>
+<form [formGroup]="cursoForm" (ngSubmit)="agregarCurso()">
+    <label for="titulo">Título:</label>
+    <input id="titulo" formControlName="titulo" type="text" required>
+
+    <label for="modalidad">Modalidad:</label>
+    <select id="modalidad" formControlName="modalidad">
+      <option value="Presencial">Presencial</option>
+      <option value="Virtual">Virtual</option>
     </select>
-    <input type="text" [(ngModel)]="nuevoCurso.certificacion" placeholder="Certificación">
-    <input type="text" [(ngModel)]="nuevoCurso.duracion" placeholder="Duración">
-    <textarea [(ngModel)]="nuevoCurso.descripcion" placeholder="Descripción"></textarea>
-    <input type="number" [(ngModel)]="nuevoCurso.valor" placeholder="Valor">
-    <button type="submit">Agregar Curso</button>
+
+    <label for="certificacion">¿Incluye certificación?</label>
+    <input id="certificacion" formControlName="certificacion" type="checkbox">
+
+  <label for="duracion">Duración:</label>
+  <input id="duracion" formControlName="duracion" type="text" placeholder="Ej: 3 meses/2 horas">
+  <div *ngIf="cursoForm.get('duracion')?.invalid && cursoForm.get('duracion')?.touched">
+    *Ingrese un valor válido: "30 minutos", "1 hora". 
+  </div>
+
+  <label for="descripcion">Descripción:</label>
+  <textarea id="descripcion" formControlName="descripcion"></textarea>
+  <div *ngIf="cursoForm.get('descripcion')?.invalid && cursoForm.get('descripcion')?.touched">
+    *La descripción es obligatoria y debe tener al menos 10 caracteres.
+  </div>
+
+  <label for="valor">Valor (COP):</label>
+  <input id="valor" formControlName="valor" type="number">
+  <div *ngIf="cursoForm.get('valor')?.invalid && cursoForm.get('valor')?.touched">
+    *Ingresa un valor numérico válido.
+  </div>
+
+  <button type="submit" [disabled]="cursoForm.invalid">Crear Curso</button>
 </form>
