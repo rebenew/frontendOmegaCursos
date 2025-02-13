@@ -2,18 +2,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { AdminCursoFormComponent } from './admin-curso-form.component';
+import { AdminCourseFormComponent } from './admin-course-form.component';
 
-describe('AdminCursoFormComponent', () => {
-  let component: AdminCursoFormComponent;
-  let fixture: ComponentFixture<AdminCursoFormComponent>;
+describe('AdmincourseFormComponent', () => {
+  let component: AdminCourseFormComponent;
+  let fixture: ComponentFixture<AdminCourseFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsModule, CommonModule, AdminCursoFormComponent]
+      imports: [FormsModule, CommonModule, AdminCourseFormComponent]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminCursoFormComponent);
+    fixture = TestBed.createComponent(AdminCourseFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
