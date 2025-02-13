@@ -88,30 +88,6 @@ body {
         color: #666;
     }
 
-    .social-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-
-        button {
-            padding: 10px;
-            border: none;
-            border-radius: $border-radius;
-            cursor: pointer;
-            width: 100px;
-            font-size: 0.9em;
-
-            &.google {
-                background: #db4437;
-                color: white;
-            }
-
-            &.facebook {
-                background: #3b5998;
-                color: white;
-            }
-        }
-    }
 
     .signup {
         margin-top: 15px;
