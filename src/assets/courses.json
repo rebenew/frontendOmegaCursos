@@ -1,0 +1,20 @@
+[
+    {
+      "id": 1,
+      "name": "Angular Avanzado",
+      "progress": 75,
+      "students": [
+        { "id": 101, "name": "Carlos Pérez", "email": "carlos@example.com", "cc": "12345678", "grades": [85, 90, 78] },
+        { "id": 102, "name": "María Gómez", "email": "maria@example.com", "cc": "87654321", "grades": [80, 85, 88] }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "React para Expertos",
+      "progress": 60,
+      "students": [
+        { "id": 201, "name": "Juan López", "email": "juan@example.com", "cc": "11223344", "grades": [75, 80, 85] },
+        { "id": 202, "name": "Ana Torres", "email": "ana@example.com", "cc": "44332211", "grades": [78, 88, 90] }
+      ]
+    }
+  ]  
