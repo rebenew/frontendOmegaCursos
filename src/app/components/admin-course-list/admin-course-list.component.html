@@ -4,6 +4,6 @@
     <h3>{{ course.title }}</h3>
     <p><strong>Modalidad:</strong> {{ course.modality }}</p>
     <p><strong>Precio:</strong> {{ course.price | currency:'USD':'symbol':'1.0-2' }}</p>
-    <button (click)="editCourse(course.id)">Editar</button>
+    <button [routerLink]="['/courses/edit', course.id]">Editar</button>
   </div>
 </div>

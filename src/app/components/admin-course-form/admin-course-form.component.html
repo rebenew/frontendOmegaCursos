@@ -1,4 +1,4 @@
-<form [formGroup]="courseForm" (ngSubmit)="addCourse()">
+<form [formGroup]="courseForm" (ngSubmit)="saveCourse()">
   <label for="title">Título:</label>
   <input id="title" formControlName="title" type="text" required>
   <div *ngIf="courseForm.get('title')?.invalid && courseForm.get('title')?.touched">
@@ -35,5 +35,5 @@
     *Ingresa un valor numérico válido.
   </div>
 
-  <button type="submit" [disabled]="courseForm.invalid">Crear Curso</button>
+  <button type="submit" [disabled]="courseForm.invalid">{{ isEditMode ? 'Actualizar Curso' : 'Crear Curso' }}</button>
 </form>

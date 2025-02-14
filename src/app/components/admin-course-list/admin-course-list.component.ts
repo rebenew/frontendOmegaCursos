@@ -1,16 +1,16 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseService, Course } from '../../services/course-service/admin.course.services';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-admin-course-list',
   templateUrl: './admin-course-list.component.html',
   styleUrls: ['./admin-course-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, RouterModule],
   providers: [CourseService],
 })
 export class AdminCourseListComponent implements OnInit, OnDestroy {
@@ -18,9 +18,7 @@ export class AdminCourseListComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   errorMessage: string = '';
 
-  constructor(
-    @Inject(CourseService) public courseService: CourseService,
-    private router: Router){}
+  constructor(public courseService: CourseService, private router: Router) {}
 
   ngOnInit() {
     this.subscription.add(
@@ -42,7 +40,8 @@ export class AdminCourseListComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
   editCourse(id: number) {
-    this.router.navigate(['courses/edit/:id', id]);
+    this.router.navigate(['/courses/edit', id]);
   }
 }
