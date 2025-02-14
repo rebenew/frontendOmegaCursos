@@ -1,0 +1,30 @@
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #007bff; /* Azul */
+    color: white;
+    padding: 20px;
+    border-radius: 30px;
+  
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+  
+    li {
+      margin: 10px 0;
+    }
+  
+    a {
+      color: rgb(19, 18, 18);
+      text-decoration: none;
+      display: block;
+      padding: 8px;
+      font-weight: bold;
+      font-size: 30px;
+  
+      &:hover {
+        background: #0056b3;
+      }
+    }
+  }

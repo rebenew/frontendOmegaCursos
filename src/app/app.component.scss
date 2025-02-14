@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  app-sidebar {
+    flex: 0 0 250px; /* Ancho fijo para el sidebar */
+  }
+  
+  .content {
+    flex: 1; /* Toma el resto del espacio disponible */
+    padding: 20px;
+    overflow-y: auto;
+  }

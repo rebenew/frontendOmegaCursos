@@ -26,6 +26,51 @@
       "duration": "10 HORAS",
       "description": "¡Descubre cómo la IA está revolucionando el mundo! Conoce los conceptos clave de la IA, cómo surgió, cómo está impactando las industrias a nivel mundial, las posibilidades que nos brinda, cómo utilizarla y cómo esta tecnología está cambiando el futuro.",
       "price": 473000
+    },
+    {
+      "id": 4,
+      "title": "MACHINE LEARNING",
+      "modality": "Presencial",
+      "certification": "Certificación presencial",
+      "duration": "20 HORAS",
+      "description": "Aprende Machine Learning con aplicaciones prácticas en la actualidad.",
+      "price": 2000000
+    },
+    {
+      "id": 5,
+      "title": "DESARROLLO FULL STACK",
+      "modality": "Virtual",
+      "certification": "Certificación virtual",
+      "duration": "6 Meses",
+      "description": "Aprende desarrollo frontend con Angular y backend con Node.js, Express y bases de datos SQL/NoSQL.",
+      "price": 3500000
+    },
+    {
+      "id": 6,
+      "title": "DATA SCIENCE AVANZADO",
+      "modality": "Presencial",
+      "certification": "Certificación presencial",
+      "duration": "5 Meses",
+      "description": "Curso avanzado de Data Science utilizando Python, Pandas, Scikit-Learn y modelos de Machine Learning.",
+      "price": 4500000
+    },
+    {
+      "id": 7,
+      "title": "CIBERSEGURIDAD",
+      "modality": "Virtual",
+      "certification": "Certificación virtual",
+      "duration": "4 Meses",
+      "description": "Domina la seguridad informática, hacking ético y protección contra ciberataques.",
+      "price": 3200000
+    },
+    {
+      "id": 8,
+      "title": "BLOCKCHAIN Y CRIPTOMONEDAS",
+      "modality": "Virtual",
+      "certification": "Certificación virtual",
+      "duration": "3 Meses",
+      "description": "Conoce cómo funciona Blockchain, smart contracts y el ecosistema de criptomonedas.",
+      "price": 2800000
     }
   ]
 }
