@@ -1,14 +1,22 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule],
   standalone: true,
+  imports: [RouterModule, SidebarComponent], // Asegurar que RouterModule esté aquí
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'omega';
+export class AppComponent {}
 
-}
+
+
+
+
+
+
+
+
+
