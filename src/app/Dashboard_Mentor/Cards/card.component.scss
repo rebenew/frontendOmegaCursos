@@ -8,6 +8,17 @@
   background: white;
   transition: transform 0.3s ease-in-out;
 }
+.course-card h3 {
+  width: 20ch;
+  text-wrap: nowrap;
+  overflow: hidden;
+  animation: typing 3s steps(20) infinite alternate-reverse;
+}
+@keyframes typing {
+  from {
+    width: 0ch;
+  }
+}
 
 .course-card:hover {
   transform: scale(1.05);

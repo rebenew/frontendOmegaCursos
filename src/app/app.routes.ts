@@ -5,10 +5,21 @@ import { AdminCursoFormComponent } from './components/admin-curso-form/admin-cur
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
 
 export const routes: Routes = [
-    {path: 'dashboard_mentor', component: DashboardComponent},
-
-  { path: 'dashboard', component: AdminDashboardComponent },
-  { path: 'cursos', component: AdminCursoListComponent },
-  { path: 'cursos/nuevo', component: AdminCursoFormComponent },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard_mentor', 
+    component: DashboardComponent,
+    children: [
+      {
+        path: '', 
+        loadComponent: () => import('./Dashboard_Mentor/Courses_List/course-list.component').then(m => m.CourseListComponent)
+      },
+      {
+        path: ':mentorId/course/:id',
+        loadComponent: () => import('./Dashboard_Mentor/Courses_Detail/course-detail.component').then(m => m.CourseDetailComponent)
+      }
+    ]
+  },
+  // { path: 'dashboard', component: AdminDashboardComponent },
+  // { path: 'cursos', component: AdminCursoListComponent },
+  // { path: 'cursos/nuevo', component: AdminCursoFormComponent },
+  // // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 ];

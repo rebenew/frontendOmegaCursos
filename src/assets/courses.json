@@ -1,20 +1,68 @@
 [
-    {
-      "id": 1,
-      "name": "Angular Avanzado",
-      "progress": 75,
-      "students": [
-        { "id": 101, "name": "Carlos Pérez", "email": "carlos@example.com", "cc": "12345678", "grades": [85, 90, 78] },
-        { "id": 102, "name": "María Gómez", "email": "maria@example.com", "cc": "87654321", "grades": [80, 85, 88] }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "React para Expertos",
-      "progress": 60,
-      "students": [
-        { "id": 201, "name": "Juan López", "email": "juan@example.com", "cc": "11223344", "grades": [75, 80, 85] },
-        { "id": 202, "name": "Ana Torres", "email": "ana@example.com", "cc": "44332211", "grades": [78, 88, 90] }
-      ]
-    }
-  ]  
+  {
+    "id": 501,
+    "nombre": "José Ramírez",
+    "correo": "jose.ramirez@eafit.com",
+    "cursos": [
+      {
+        "id": 1,
+        "nombre": "Angular Avanzado",
+        "completado": 75,
+        "estudiantes": [
+          {
+            "id": 101,
+            "nombre": "Carlos Pérez",
+            "correo": "carlos@eafit.com",
+            "cc": "12345678",
+            "progreso": 80,
+            "notas": [
+              { "calificacion": 4.5, "porcentaje": 30 },
+              { "calificacion": 4.0, "porcentaje": 40 },
+              { "calificacion": 3.8, "porcentaje": 30 }
+            ]
+          },
+          {
+            "id": 102,
+            "nombre": "María Gómez",
+            "correo": "maria@eafit.com",
+            "cc": "87654321",
+            "progreso": 70,
+            "notas": [
+              { "calificacion": 4.0, "porcentaje": 30 },
+              { "calificacion": 3.5, "porcentaje": 40 },
+              { "calificacion": 3.9, "porcentaje": 30 }
+            ]
+          }
+        ],
+        "promedio_progreso_grupo": 75
+      }
+    ]
+  },
+  {
+    "id": 502,
+    "nombre": "Laura Fernández",
+    "correo": "laura.fernandez@eafit.com",
+    "cursos": [
+      {
+        "id": 2,
+        "nombre": "React para Expertos",
+        "completado": 60,
+        "estudiantes": [
+          {
+            "id": 201,
+            "nombre": "Juan López",
+            "correo": "juan@eafit.com",
+            "cc": "11223344",
+            "progreso": 65,
+            "notas": [
+              { "calificacion": 3.5, "porcentaje": 30 },
+              { "calificacion": 3.8, "porcentaje": 40 },
+              { "calificacion": 4.2, "porcentaje": 30 }
+            ]
+          }
+        ],
+        "promedio_progreso_grupo": 60
+      }
+    ]
+  }
+]

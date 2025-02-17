@@ -1,20 +1,24 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CourseDetailService {
-  private coursesUrl = '/assets/courses.json';
+  private apiUrl = '/api/courses';
+  constructor(private http: HttpClient) {}
 
-  async getCourseById(courseId: number): Promise<any | null> {
-    try {
-      const response = await fetch(this.coursesUrl);
-      if (!response.ok) throw new Error('Error al cargar la información del curso');
-      const courses = await response.json();
-      return courses.find((course: any) => course.id === courseId) || null;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
+  getCourseById(mentorId: number, courseId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${mentorId}/course/${courseId}`);
   }
+
+  // getCourseById(courseId: number, mentorId: number): Observable<any> {
+  //   return this.http.get<any>(`${this.apiUrl}/${courseId}?mentorId=${mentorId}`);
+  // }
+  
+
+  // getCourseById(courseId: number): Observable<any> {
+  //   return this.http.get<any>(`${this.apiUrl}/${courseId}`);
+  // }
 }
