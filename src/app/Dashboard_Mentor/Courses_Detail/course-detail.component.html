@@ -1,0 +1,92 @@
+<div class="container course-detail-container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="course-title">{{ courseDetail.nombre }}</h1>
+    </div>
+  </div>
+
+  <div class="row align-items-center progress-bar-container">
+    <div class="col-md-6">
+      <label>Progreso del curso: {{ courseDetail.completado }}%</label>
+      <div class="progress">
+        <div class="progress-bar bg-success" 
+             role="progressbar" 
+             [style.width.%]="courseDetail.completado"
+             [attr.aria-valuenow]="courseDetail.completado"
+             aria-valuemin="0"
+             aria-valuemax="100">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-center">Estudiantes</h2>
+      <table class="table table-hover student-table">
+        <thead class="table-dark">
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>CC</th>
+            <th>Progreso</th>
+            <th>Notas</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let estudiante of courseDetail.estudiantes">
+            <td>{{ estudiante.nombre }}</td>
+            <td>{{ estudiante.correo }}</td>
+            <td>{{ estudiante.cc }}</td>
+            <td>
+              <div class="progress-bar-container">
+                <div class="progress">
+                  <div class="progress-bar bg-info" 
+                       role="progressbar" 
+                       [style.width.%]="estudiante.progreso">
+                  </div>
+                </div>
+                <span>{{ estudiante.progreso }}%</span>
+              </div>
+            </td>
+            <td>
+              <ul class="list-unstyled">
+                <li *ngFor="let nota of estudiante.notas">
+                  <span class="badge bg-primary">{{ nota.calificacion }} ({{ nota.porcentaje }}%)</span>
+                </li>
+              </ul>
+            </td>
+            <td>
+              <button (click)="openEditModal(estudiante)" class="btn btn-warning btn-sm">
+                ✏️ Editar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade show" *ngIf="modalOpen">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar Notas de {{ selectedStudent?.nombre }}</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngFor="let nota of selectedStudent?.notas; let i = index">
+            <label>Calificación {{ i + 1 }}:</label>
+            <input type="number" class="form-control" [(ngModel)]="selectedStudent.notas[i].calificacion" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button (click)="saveChanges()" class="btn btn-success">Guardar</button>
+          <button (click)="closeModal()" class="btn btn-secondary">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
