@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
-import { Courses } from '../../interfaces/more-courses.interface';
+import { Courses } from '../../interfaces/students-dashboard-interfaces/more-courses.interface';
 import { RouterLink } from '@angular/router';
-import { MoreCoursesService } from '../../services/more-courses.service';
+import { MoreCoursesService } from '../../services/students-dashboard-services/more-courses.service';
 
 @Component({
   selector: 'more-courses',

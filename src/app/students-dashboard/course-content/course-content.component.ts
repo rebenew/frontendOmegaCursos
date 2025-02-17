@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CourseContent } from '../../interfaces/course-content.interface';
-import { CourseContentService } from '../../services/course-content.service';
+import { CourseContent } from '../../interfaces/students-dashboard-interfaces/course-content.interface';
+import { CourseContentService } from '../../services/students-dashboard-services/course-content.service';
 
 @Component({
   selector: 'course-content',

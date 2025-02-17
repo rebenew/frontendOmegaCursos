@@ -4,8 +4,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { switchMap } from 'rxjs';
 
-import { Courses } from '../../interfaces/more-courses.interface';
-import { MoreCoursesService } from '../../services/more-courses.service';
+import { Courses } from '../../interfaces/students-dashboard-interfaces/more-courses.interface';
+import { MoreCoursesService } from '../../services/students-dashboard-services/more-courses.service';
 
 @Component({
   selector: 'courses-details',
