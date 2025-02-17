@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
-import { MoreCoursesService } from './services/more-courses.service';
-import { Courses } from './interfaces/more-courses.interface';
+import { Courses } from '../../interfaces/more-courses.interface';
+import { RouterLink } from '@angular/router';
+import { MoreCoursesService } from '../../services/more-courses.service';
 
 @Component({
   selector: 'more-courses',
-  imports: [RouterModule, CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './more-courses.component.html',
   styleUrl: './more-courses.component.scss',
 })
