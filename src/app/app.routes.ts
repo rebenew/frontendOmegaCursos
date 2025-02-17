@@ -7,14 +7,12 @@ import { VistaCursosComponent } from './vista-cursos/vista-cursos.component';
 
 export const routes: Routes = [
   {
-    path:"",
-    component:VistaCursosComponent
+    path:"", component:VistaCursosComponent
   },
 
-    {path: 'dashboard_mentor', component: DashboardComponent},
-
+  {path: 'dashboard_mentor', component: DashboardComponent},
   { path: 'dashboard', component: AdminDashboardComponent },
   { path: 'cursos', component: AdminCursoListComponent },
   { path: 'cursos/nuevo', component: AdminCursoFormComponent },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  //{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
