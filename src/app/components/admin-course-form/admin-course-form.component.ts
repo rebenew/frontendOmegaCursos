@@ -95,3 +95,18 @@ export class AdminCourseFormComponent implements OnInit {
   }
 }
 
+/* To-do: 
+-agregar una barra de búsqueda para filtrar los cursos.
+-agregar menu desplegable para filtrar los cursos por modalidad, si son certificables o no, y por precio.
+- agregar un botón para cancelar la edición y redirigir al listado de cursos.
+- agregar validaciones personalizadas para el campo de duración. (?) 
+- agregar un mensaje de confirmación antes de eliminar un curso.
+- agregar un botón para eliminar un curso.
+- agregar un mensaje de confirmación antes de guardar un curso.
+- agregar un mensaje de error en el formulario.
+- agregar un mensaje de éxito en el formulario.
+- agregar tags para diferenciar los cursos.
+- Quitar el checkbox y agregar una lista desplegable para la certificación.
+- Idear la forma de separar los cursos de los bootcamps en la interfaz.
+- Al hacer click en las tarjetas ver a detalle toda la información, incluir un punto de carga de archivos y editor de texto para editar la información interna de los cursos 
+*/

@@ -1,44 +1,55 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { CourseService, Course } from '../../services/course-service/admin.course.services';
 import { Subscription } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
+import { SearchService } from '../../services/search-service/search.service';
+import { SearchBarComponent } from "../search-bar/search-bar.component";
 
 @Component({
   selector: 'app-admin-course-list',
   templateUrl: './admin-course-list.component.html',
   styleUrls: ['./admin-course-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule, RouterModule],
-  providers: [CourseService],
+  imports: [CommonModule, RouterModule, SearchBarComponent],
 })
 export class AdminCourseListComponent implements OnInit, OnDestroy {
+onSearch(searchValue: string) {
+this.searchService.setSearchTerm(searchValue);
+}
   courses: Course[] = [];
+  filteredCourses: Course[] = []
   private subscription: Subscription = new Subscription();
   errorMessage: string = '';
 
-  constructor(public courseService: CourseService, private router: Router) {}
+  constructor(private courseService: CourseService, 
+              private router: Router, 
+              private searchService: SearchService) {}
 
   ngOnInit() {
     this.subscription.add(
       this.courseService.getCourses().subscribe(
         courses => {
           this.courses = courses;
-          console.log('Cursos cargados:', this.courses);
+          this.filteredCourses = courses;
         },
         error => {
-          this.errorMessage = 'Error al cargar los cursos';
-          console.error('Error al cargar los cursos:', error);
+          this.errorMessage = `Error al cargar los cursos: ${error.message}`;
         }
       )
     );
+
+    this.subscription.add(
+      this.searchService.searchTerm$.subscribe(term => {
+      this.filteredCourses = this.courses.filter(course => 
+        course.title.toLowerCase().includes(term.toLowerCase()));
+  })
+);
+
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
       this.subscription.unsubscribe();
-    }
   }
 
   editCourse(id: number) {

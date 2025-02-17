@@ -4,11 +4,11 @@
   }
   
   app-sidebar {
-    flex: 0 0 250px; /* Ancho fijo para el sidebar */
+    flex: 0 0 250px; 
   }
   
   .content {
-    flex: 1; /* Toma el resto del espacio disponible */
+    flex: 1; 
     padding: 20px;
     overflow-y: auto;
   }
