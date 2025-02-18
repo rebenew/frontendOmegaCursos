@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { AdminCourseListComponent } from './admin-course-list.component';
-import { CourseService } from '../../services/course-service/admin.course.services';
+import { CourseService } from '../../../services/admin-course-services/course-service/admin.course.services';
 
 describe('AdminCourseListComponent', () => {
   let component: AdminCourseListComponent;

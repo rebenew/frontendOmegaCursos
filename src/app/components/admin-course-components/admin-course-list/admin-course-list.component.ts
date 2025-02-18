@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CourseService, Course } from '../../services/course-service/admin.course.services';
+import { CourseService, Course } from '../../../services/admin-course-services/course-service/admin.course.services';
 import { Subscription } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
-import { SearchService } from '../../services/search-service/search.service';
+import { SearchService } from '../../../services/admin-course-services/search-service/search.service';
 import { SearchBarComponent } from "../search-bar/search-bar.component";
 
 @Component({
@@ -27,16 +27,16 @@ this.searchService.setSearchTerm(searchValue);
               private searchService: SearchService) {}
 
   ngOnInit() {
-    this.subscription.add(
-      this.courseService.getCourses().subscribe(
-        courses => {
-          this.courses = courses;
-          this.filteredCourses = courses;
-        },
-        error => {
-          this.errorMessage = `Error al cargar los cursos: ${error.message}`;
-        }
-      )
+      this.subscription.add(
+        this.courseService.getCourses().subscribe({
+          next: (courses) => {
+            this.courses = courses;
+            this.filteredCourses = courses;
+          },
+          error: (error) => {
+            this.errorMessage = `Error al cargar los cursos: ${error.message}`;
+          }
+      })
     );
 
     this.subscription.add(

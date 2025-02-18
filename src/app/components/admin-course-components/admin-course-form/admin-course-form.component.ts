@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CourseService, Course } from '../../services/course-service/admin.course.services';
+import { CourseService, Course } from '../../../services/admin-course-services/course-service/admin.course.services';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -96,7 +96,7 @@ export class AdminCourseFormComponent implements OnInit {
 }
 
 /* To-do: 
--agregar una barra de búsqueda para filtrar los cursos.
+
 -agregar menu desplegable para filtrar los cursos por modalidad, si son certificables o no, y por precio.
 - agregar un botón para cancelar la edición y redirigir al listado de cursos.
 - agregar validaciones personalizadas para el campo de duración. (?) 
