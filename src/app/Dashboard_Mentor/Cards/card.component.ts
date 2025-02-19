@@ -1,8 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProgressCirculeComponent } from '../../common/progress-circule.component';
-
-
 
 @Component({
   selector: 'app-card',
@@ -13,7 +10,7 @@ import { ProgressCirculeComponent } from '../../common/progress-circule.componen
 export class CardComponent implements OnInit {
   
   @Input() course: any;
-  showButton = false;
+  @Input() mentorId: any;
   
   constructor(private router: Router) {}
 
@@ -22,10 +19,10 @@ export class CardComponent implements OnInit {
   }
 
   goToCourse() {
-    if (this.course && this.course.id) {
-      this.router.navigate(['/dashboard_mentor/course', this.course.id]);
+    if (this.course?.id && this.mentorId) {
+      this.router.navigate([`/dashboard_mentor/${this.mentorId}/course/${this.course.id}`]);
     } else {
-      console.error('Error: No hay ID en el curso', this.course);
+      console.error('Error: No hay ID de curso o mentor', this.mentorId);
     }
   }
 }
