@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { CourseService, Course } from '../../services/course-service/admin.course.services';
+import { CourseService, Course } from '../../../services/admin-course-services/course-service/admin.course.services';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
