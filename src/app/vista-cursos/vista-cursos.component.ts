@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { FooterMenuComponent } from '../footer-menu/footer-menu.component';
+
 
 @Component({
   selector: 'app-vista-cursos',

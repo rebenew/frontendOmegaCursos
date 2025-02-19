@@ -5,13 +5,15 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-
 import { ThemesService } from '../services/themes.service';
+import { ModalComponent } from '../modal/modal.component';
+import { ModalService } from '../services/modal.service';
+
 
 
 @Component({
   selector: 'app-side-menu',
-  imports: [],
+  imports: [ModalComponent],
   templateUrl: './side-menu.component.html',
   styleUrl: './side-menu.component.scss',
 })
@@ -20,7 +22,8 @@ export class SideMenuComponent implements OnInit {
 
   constructor(
     private renderer: Renderer2,
-    private themesService: ThemesService
+    private themesService: ThemesService,
+    private ModalService: ModalService
   ) {}
 
   @ViewChild('menuSide', { static: true }) menuSide!: ElementRef<HTMLElement>;
@@ -32,34 +35,37 @@ export class SideMenuComponent implements OnInit {
 
       this.themesService.isDarkMode$.subscribe((isDarkMode) => {
         this.isDarkMode = isDarkMode;
-          console.log('hola...')
+          //console.log('hola...')
           if (this.isDarkMode) {
             this.renderer.addClass(document.body, 'dark-theme');
             this.renderer.removeClass(document.body, 'light-theme');
             dark?.forEach((element) => {
-              this.renderer.addClass(element, 'darkOpen')
-              this.renderer.removeClass(element, 'dark')
+              this.renderer.addClass(element, 'darkOpen');
+              this.renderer.removeClass(element, 'dark');
             });
             light?.forEach((element) => {
-              this.renderer.addClass(element, 'lightClose')
+              this.renderer.addClass(element, 'lightClose');
             });
           } else {
             this.renderer.addClass(document.body, 'light-theme');
             this.renderer.removeClass(document.body, 'dark-theme');
             dark?.forEach((element) => {
-              this.renderer.removeClass(element, 'darkOpen')
-              this.renderer.addClass(element, 'dark')
-
+              this.renderer.removeClass(element, 'darkOpen');
+              this.renderer.addClass(element, 'dark');
             });
             light?.forEach((element) => {
-              this.renderer.removeClass(element, 'lightClose')
+              this.renderer.removeClass(element, 'lightClose');
             });
-          }
+          };
       });
-    }
-  }
+    };
+  };
 
   toggleDarkMode() {
     this.themesService.toggleDarkMode();
-  }
-}
+  };
+
+  toggleActivateMondal() {
+    this.ModalService.toggleActivateMondal();
+  };
+};
