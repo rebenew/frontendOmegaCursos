@@ -77,7 +77,7 @@ body {
             font-size: 1em;
 
             &:hover {
-                background: darken($primary-color, 10%);
+                background: ($primary-color, 10%);
             }
         }
     }
