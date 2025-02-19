@@ -1,1 +1,28 @@
-<p>admin-dashboard works!</p>
+<div class="dashboard-container">
+    <h2>Course Dashboard</h2>
+    
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <table *ngIf="courses.length > 0" class="course-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courses">
+          <td>{{ course.id }}</td>
+          <td>{{ course.title }}</td>
+          <td>
+            <button (click)="goToCourse(course.id)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <p *ngIf="courses.length === 0">No hay cursos disponibles.</p>
+  </div>
