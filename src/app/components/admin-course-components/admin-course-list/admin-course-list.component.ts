@@ -4,7 +4,7 @@ import { CourseService, Course } from '../../../services/admin-course-services/c
 import { Subscription } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { SearchService } from '../../../services/admin-course-services/search-service/search.service';
-import { SearchBarComponent } from "../search-bar/search-bar.component";
+import { SearchBarComponent } from "../admin-search-bar/search-bar.component";
 
 @Component({
   selector: 'app-admin-course-list',
