@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CourseService, Course } from '../../../services/admin-course-services/course-service/admin.course.services';
+import { CourseService } from '../../../services/admin-course-services/course-service/admin.course.services';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-admin-course-form',
   templateUrl: './admin-course-form.component.html',
   styleUrls: ['./admin-course-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule]
+  imports: [ReactiveFormsModule, CommonModule, SidebarComponent]
 }) 
 export class AdminCourseFormComponent implements OnInit {
   courseForm: FormGroup;

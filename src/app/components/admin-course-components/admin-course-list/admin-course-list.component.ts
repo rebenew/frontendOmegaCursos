@@ -5,13 +5,14 @@ import { Subscription } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { SearchService } from '../../../services/admin-course-services/search-service/search.service';
 import { SearchBarComponent } from "../admin-search-bar/search-bar.component";
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-admin-course-list',
   templateUrl: './admin-course-list.component.html',
   styleUrls: ['./admin-course-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, SearchBarComponent],
+  imports: [CommonModule, RouterModule, SearchBarComponent, SidebarComponent],
 })
 export class AdminCourseListComponent implements OnInit, OnDestroy {
 onSearch(searchValue: string) {

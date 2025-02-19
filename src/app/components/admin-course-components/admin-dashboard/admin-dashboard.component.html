@@ -1,5 +1,7 @@
 <div class="dashboard-container">
-    <h2>Course Dashboard</h2>
+  <app-sidebar></app-sidebar>
+  <h2 *ngIf="isAdmin">{{ mensajeBienvenida }}</h2>
+    <h2 >Course Dashboard</h2>
     
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}

@@ -1,5 +1,7 @@
 .dashboard-container {
     padding: 20px;
+    margin-left: 85px;
+    display: flex;
   }
   
   h2 {
@@ -38,4 +40,27 @@
   
   button:hover {
     background-color: #218838;
+  }
+
+  .sidebar {
+    width: 250px; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #f8f9fa; 
+    color: white;
+    padding: 20px;
+    border-radius: 30px;
+  }
+  
+  .main-content {
+    margin-left: 250px; 
+    padding: 20px;
+    width: calc(100% - 250px); 
+  }
+  
+  .main-content.full-width {
+    margin-left: 0;
+    width: 100%;
   }
