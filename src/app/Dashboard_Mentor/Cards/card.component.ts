@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProgressCirculeComponent } from '../../common/progress-circule.component';
+//import { ProgressCirculeComponent } from '../../common/progress-circule.component';
 
 
 
@@ -11,10 +11,10 @@ import { ProgressCirculeComponent } from '../../common/progress-circule.componen
   styleUrl: './card.component.scss'
 })
 export class CardComponent implements OnInit {
-  
+
   @Input() course: any;
   showButton = false;
-  
+
   constructor(private router: Router) {}
 
   ngOnInit() {
