@@ -14,6 +14,21 @@ const browserDistFolder = resolve(serverDistFolder, '../browser');
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
+app.get('/api/courses', (req, res) => {
+  import('fs').then(fs => {
+    const filePath = resolve(process.cwd(), 'src/assets/courses.json'); 
+    fs.readFile(filePath, 'utf-8', (err, data) => {
+      if (err) {
+        console.error('Error al leer el archivo JSON:', err);
+        res.status(500).json({ error: 'Error al obtener los cursos' });
+      } else {
+        res.json(JSON.parse(data));
+      }
+    });
+  });
+});
+
+
 /**
  * Example Express Rest API endpoints can be defined here.
  * Uncomment and define endpoints as necessary.
