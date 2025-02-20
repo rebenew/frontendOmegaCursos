@@ -1,31 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
-import { AuthService } from './services/admin-course-services/auth-service/auth.service';
+import { ViewEncapsulation } from '@angular/core';
+import { RouterModule, Router, RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  imports: [
+    RouterOutlet,
+    RouterModule,
+  ],
   standalone: true,
-  imports: [RouterOutlet]
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
-export class AppComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {}
+export class AppComponent {
+  title = 'omega';
 
-  ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-      }
-    });
+  menuAbierto = false;
+  constructor(private readonly router: Router) { }
+  toggleMenu() {
+    this.menuAbierto = !this.menuAbierto;
   }
+
 }
-
-
-
-
-
-
-
-
-
 
