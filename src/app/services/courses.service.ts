@@ -6,11 +6,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CoursesService {
-  private apiUrl = '/api/courses'; //uso la API en lugar de leer JSON directamente
+  private apiUrl = '/api/mentors'; //uso la API en lugar de leer JSON directamente
 
   constructor(private http: HttpClient) {}
 
-  getCourses(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getCoursesByMentor(mentorId: number): Observable<any> {
+    return this.http.get<any[]>(`${this.apiUrl}/${mentorId}/courses`);
   }
+
+  // getCourses(): Observable<any[]> {
+  //   return this.http.get<any[]>(this.apiUrl);
+  // }
 }

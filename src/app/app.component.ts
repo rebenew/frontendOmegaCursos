@@ -1,13 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import {
-  // Router,
-  // RouterLink,
-  // RouterModule,
-  RouterOutlet,
-} from '@angular/router';
+import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 
-// import { SidebarComponent } from './components/sidebar/sidebar.component';
-// import { HeaderComponent } from './components/header/header.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { HeaderComponent } from "./components/header/header.component";
 
 @Component({
   selector: 'app-root',
@@ -26,9 +21,10 @@ import {
 export class AppComponent {
   title = 'omega';
 
-  // menuAbierto = false;
-  // constructor(private readonly router: Router) {}
-  // toggleMenu() {
-  //   this.menuAbierto = !this.menuAbierto;
-  // }
+  menuAbierto = false;
+  constructor(private readonly router: Router) { }
+  toggleMenu() {
+    this.menuAbierto = !this.menuAbierto;
+  }
+
 }
