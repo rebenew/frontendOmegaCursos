@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+*{font-family: inter;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.menu-section {
+  display: flex;
+  gap: 25px;
+  padding: 10px;
+  background-color: #f2f3f2;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.bubble {
+  border: none;
+  background: #0076fc;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  color: white;
+}
+
+.bubble:hover, .bubble.active {
+  background: #ff9b00;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+h1{
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-family: inter;
+}
+
+thead{
+  background: #ff9b00;
+  color: #000000;
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
+table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td{
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #ffffff;
+  color: #ffffff;
+}
+
+tbody tr:hover{
+  background: #516ec2;
+  color: #000000;
+}
+
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: linear-gradient(90deg, #0076fc 0%, #000000 100%);
+  height: 100vh;
+  width: 100%;
+}
