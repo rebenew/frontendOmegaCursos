@@ -19,7 +19,7 @@ export const routes: Routes = [
   { path: 'cursos/nuevo', component: AdminCursoFormComponent },
   //{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
-    path: '',
+    path: 'home-student',
     title: 'Home - Student',
     component: HomeStudentComponent,
   },
