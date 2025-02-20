@@ -1,0 +1,10 @@
+<div class="dashboard-container">
+  <div class="row"><h1>{{mentor}}</h1></div>
+  <div class="row">
+    <div *ngFor="let course of courses">
+      <app-card [course]="course" [mentorId]="mentorId"></app-card>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="col-md-6">Cont</div> -->
