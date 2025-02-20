@@ -1,31 +1,34 @@
+import { Component, ViewEncapsulation } from '@angular/core';
+import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/admin-course-services/auth-service/auth.service';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { HeaderComponent } from "./components/header/header.component";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  imports: [
+    RouterOutlet,
+    RouterModule,
+    // RouterLink,
+    // SidebarComponent,
+    // HeaderComponent,
+  ],
   standalone: true,
-  imports: [RouterModule]
+
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {}
+export class AppComponent {
+  title = 'omega';
 
-  ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-      }
-    });
+  menuAbierto = false;
+  constructor(private readonly router: Router) { }
+  toggleMenu() {
+    this.menuAbierto = !this.menuAbierto;
   }
+
 }
-
-
-
-
-
-
-
-
-
 
