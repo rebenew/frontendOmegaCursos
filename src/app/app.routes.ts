@@ -11,6 +11,22 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'grades',
+    title: 'Grades',
+    loadComponent: () =>
+      import('./students-dashboard/grades/grades.component').then(
+        (m) => m.GradesComponent
+      ),
+  },
+  {
+    path: 'home-student',
+    title: 'Home - Student',
+    loadComponent: () =>
+      import('./students-dashboard/home-student/home-student.component').then(
+        (m) => m.HomeStudentComponent
+      ),
+  },
+  {
     path: 'courses-details/:id',
     title: 'Courses details',
     loadComponent: () =>
@@ -18,5 +34,5 @@ export const routes: Routes = [
         './students-dashboard/courses-details/courses-details.component'
       ).then((m) => m.CoursesDetailsComponent),
   },
-  { path: '', redirectTo: '/more-courses', pathMatch: 'full' },
+  { path: '', redirectTo: '/home-student', pathMatch: 'full' },
 ];
