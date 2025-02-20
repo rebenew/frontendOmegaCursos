@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/admin-course-services/auth-service/auth.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { AuthService } from './services/admin-course-services/auth-service/auth.
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [RouterModule]
+  imports: [RouterOutlet]
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
