@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
-import { Courses } from '../more-courses/interfaces/more-courses.interface';
-import { MoreCoursesService } from '../more-courses/services/more-courses.service';
 import { switchMap } from 'rxjs';
+
+import { Courses } from '../../interfaces/more-courses.interface';
+import { MoreCoursesService } from '../../services/more-courses.service';
 
 @Component({
   selector: 'courses-details',
-  imports: [RouterModule, CommonModule],
+  imports: [CommonModule],
   templateUrl: './courses-details.component.html',
   styleUrl: './courses-details.component.scss',
 })

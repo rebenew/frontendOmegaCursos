@@ -1,0 +1,33 @@
+<h1>Course name</h1>
+<hr>
+
+<section class="course-content-container">
+  <div class="left-column">
+    <section class="content-material">
+      <div class="content-options-display">
+
+      </div>
+    </section>
+
+    <section class="content-options">
+      <button [routerLink]="['content']">Content</button>
+      <button [routerLink]="['learning-tools']">Learning tools</button>
+      <button [routerLink]="['reviews']">reviews</button>
+      <button [routerLink]="['q&a']">Q&A</button>
+    </section>
+
+    <div class="content-options-display">
+      <router-outlet />
+    </div>
+  </div>
+
+  <section class="course-content-section-sidebar">
+    <h2 class="course-content-title">Course Content</h2>
+    <ul *ngIf="courseContent">
+      <li *ngFor="let content of courseContent">
+        <button>Introduction</button>
+      </li>
+    </ul>
+  </section>
+
+</section>
