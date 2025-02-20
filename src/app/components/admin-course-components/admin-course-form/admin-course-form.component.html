@@ -1,0 +1,40 @@
+<app-sidebar></app-sidebar>
+<form [formGroup]="courseForm" (ngSubmit)="saveCourse()">
+  <label for="title">Título:</label>
+  <input id="title" formControlName="title" type="text" required>
+  <div *ngIf="courseForm.get('title')?.invalid && courseForm.get('title')?.touched">
+    *El título es obligatorio.
+  </div>
+
+  <label for="modality">Modalidad:</label>
+  <select id="modality" formControlName="modality">
+    <option value="Presencial">Presencial</option>
+    <option value="Virtual">Virtual</option>
+  </select>
+  <div *ngIf="courseForm.get('modality')?.invalid && courseForm.get('modality')?.touched">
+    *La modalidad es obligatoria.
+  </div>
+
+  <label for="certification">¿Incluye certificación?</label>
+  <input id="certification" formControlName="certification" type="checkbox">
+
+  <label for="duration">Duración:</label>
+  <input id="duration" formControlName="duration" type="text" placeholder="Ej: 3 meses/2 horas">
+  <div *ngIf="courseForm.get('duration')?.invalid && courseForm.get('duration')?.touched">
+    *Ingrese un valor válido: "30 minutos", "1 hora".
+  </div>
+
+  <label for="description">Descripción:</label>
+  <textarea id="description" formControlName="description"></textarea>
+  <div *ngIf="courseForm.get('description')?.invalid && courseForm.get('description')?.touched">
+    *La descripción es obligatoria y debe tener al menos 10 caracteres.
+  </div>
+
+  <label for="price">Precio (COP):</label>
+  <input id="price" formControlName="price" type="number">
+  <div *ngIf="courseForm.get('price')?.invalid && courseForm.get('price')?.touched">
+    *Ingresa un valor numérico válido.
+  </div>
+
+  <button type="submit" [disabled]="courseForm.invalid">{{ isEditMode ? 'Actualizar Curso' : 'Crear Curso' }}</button>
+</form>
