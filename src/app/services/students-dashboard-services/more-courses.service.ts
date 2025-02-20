@@ -1,11 +1,11 @@
-import { Courses } from '../../interfaces/students-dashboard-interfaces/more-courses.interface';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Courses } from '../../interfaces/students-dashboard-interfaces/more-courses.interface';
 
 @Injectable({ providedIn: 'root' })
 export class MoreCoursesService {
-  private dataUrl: string = 'data/db.json';
+  private dataUrl: string = 'data/students-dashboard-data/db.json';
 
   constructor(private http: HttpClient) {}
 

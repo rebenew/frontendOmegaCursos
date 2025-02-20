@@ -26,7 +26,7 @@ export const routes: Routes = [
     title: 'Courses details',
     loadComponent: () =>
       import(
-        './students-dashboard/courses-details/courses-details.component'
+        './students-dashboard/more-courses/courses-details/courses-details.component'
       ).then((m) => m.CoursesDetailsComponent),
   },
 

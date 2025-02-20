@@ -3,7 +3,7 @@ export interface CourseContent {
   name: string;
   introduction: string;
   tags: string;
-  'graphic-image': string;
+  img: string;
   video: string;
   conclusion: string;
 }

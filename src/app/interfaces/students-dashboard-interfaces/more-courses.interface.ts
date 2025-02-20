@@ -12,6 +12,7 @@ export interface Courses {
   level_Required?: string;
   description: string;
   img: string;
+  bg: string;
   // 'what_does_it_include?': WhatDoesItInclude[];
   level_required?: string;
 }
