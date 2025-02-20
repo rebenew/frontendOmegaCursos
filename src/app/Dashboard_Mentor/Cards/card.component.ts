@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
   styleUrl: './card.component.scss'
 })
 export class CardComponent implements OnInit {
-  
+
   @Input() course: any;
   @Input() mentorId: any;
-  
+
   constructor(private router: Router) {}
 
   ngOnInit() {
