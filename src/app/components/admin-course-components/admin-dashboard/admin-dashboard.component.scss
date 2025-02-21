@@ -1,0 +1,66 @@
+.dashboard-container {
+    padding: 20px;
+    margin-left: 85px;
+    display: flex;
+  }
+  
+  h2 {
+    color: #007bff;
+  }
+  
+  .error-message {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .course-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .course-table th, .course-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .course-table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #218838;
+  }
+
+  .sidebar {
+    width: 250px; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #f8f9fa; 
+    color: white;
+    padding: 20px;
+    border-radius: 30px;
+  }
+  
+  .main-content {
+    margin-left: 250px; 
+    padding: 20px;
+    width: calc(100% - 250px); 
+  }
+  
+  .main-content.full-width {
+    margin-left: 0;
+    width: 100%;
+  }

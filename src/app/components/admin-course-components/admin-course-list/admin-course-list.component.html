@@ -1,0 +1,32 @@
+<div class="course-list-container">
+  <!-- Sidebar y Barra de Búsqueda -->
+  <header class="course-header">
+    <app-sidebar></app-sidebar>
+    <app-search-bar></app-search-bar>
+  </header>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="errorMessage" class="error-message" aria-live="assertive">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Mensaje cuando no hay resultados -->
+  <p *ngIf="filteredCourses.length === 0" class="no-results" aria-live="polite">
+    No se ha encontrado ningún curso con ese nombre.
+  </p>
+
+  <!-- Lista de cursos -->
+  <section class="course-container">
+    <ng-container *ngFor="let course of filteredCourses">
+      <div class="course-card">
+        <h3>{{ course.title }}</h3>
+        <p><strong>Modalidad:</strong> {{ course.modality }}</p>
+        <p>
+          <strong>Precio:</strong> 
+          {{ course.price | currency:'USD':'symbol':'1.0-2' }}
+        </p>
+        <button [routerLink]="['/courses/edit', course.id]">Editar</button>
+      </div>
+    </ng-container>
+  </section>
+</div>
