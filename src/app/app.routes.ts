@@ -122,8 +122,7 @@ export const routes: Routes = [
     ],
   },
   //Default path
-  { path: '**', redirectTo: '', pathMatch: 'full' },
-  { path: '', redirectTo: 'landing', pathMatch: 'full' }, // Redirige la raíz a la landing page
+  { path: '**', redirectTo: 'landing', pathMatch: 'full' }, // Redirige la raíz a la landing page
   { path: 'landing', component: LandingPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'cursos', component: CoursesPageComponent },
