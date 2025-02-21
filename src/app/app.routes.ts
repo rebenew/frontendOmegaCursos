@@ -81,6 +81,17 @@ export const routes: Routes = [
     ],
   },
 
+  {
+    path: 'grades',
+    title: 'Grades',
+    loadComponent: () =>
+      import('./students-dashboard/grades/grades.component').then(
+        (m) => m.GradesComponent
+      ),
+  },
+
+
   //Default path
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
+
