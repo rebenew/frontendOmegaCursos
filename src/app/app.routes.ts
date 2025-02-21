@@ -80,7 +80,14 @@ export const routes: Routes = [
       },
     ],
   },
-
+  {
+    path: 'community',
+    title: 'Community',
+    loadComponent: () =>
+      import('./students-dashboard/community/community.component').then(
+        (m) => m.CommunityComponent
+      ),
+  },
   //Default path
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
