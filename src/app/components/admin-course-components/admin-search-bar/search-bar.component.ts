@@ -12,7 +12,7 @@ import { SearchService } from '../../../services/admin-course-services/search-se
 export class SearchBarComponent {
   constructor(private searchService: SearchService) {}
 
-  onSearch(event: Event): void {
+  onInput(event: Event): void {
     const value = (event.target as HTMLInputElement). value;
     this.searchService.setSearchTerm(value);
   } 
