@@ -1,16 +1,17 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
-import { AdminDashboardComponent } from './components/admin-course-components/admin-dashboard/admin-dashboard.component';
+// import { AdminDashboardComponent } from './components/admin-course-components/admin-dashboard/admin-dashboard.component';
 import { HomeStudentComponent } from './students-dashboard/home-student/home-student.component';
 import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
 import { VistaCursosComponent } from './vista-cursos/vista-cursos.component';
-import { AdminLayoutComponent } from './components/admin-course-components/admin-layout/admin-layout.component';
+// import { AdminLayoutComponent } from './components/admin-course-components/admin-layout/admin-layout.component';
 
 import { LandingPageComponent } from './Pages/landing-page/landing-page.component';
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { CoursesPageComponent } from './Pages/courses-page/courses-page.component';
 import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
+import { AdminLayoutComponent } from './Components/admin-course-components/admin-layout/admin-layout.component';
 
 export const routes: Routes = [
   {
@@ -27,35 +28,35 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full'
       },
-      {
-        path: 'dashboard',
-        loadComponent: () => import('./components/admin-course-components/admin-dashboard/admin-dashboard.component')
-          .then(m => m.AdminDashboardComponent),
-        // canActivate: [AuthGuard]
-      },
-      {
-        path: 'courses',
-        loadComponent: () => import('./components/admin-course-components/admin-course-list/admin-course-list.component')
-          .then(m => m.AdminCourseListComponent),
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'courses/new',
-        loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
-          .then(m => m.AdminCourseFormComponent),
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'courses/edit/:id',
-        loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
-          .then(m => m.AdminCourseFormComponent),
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'login',
-        loadComponent: () => import('./components/admin-course-components/login/login.component')
-          .then(m => m.LoginComponent)
-      },
+    //   {
+    //     path: 'dashboard',
+    //     loadComponent: () => import('./components/admin-course-components/admin-dashboard/admin-dashboard.component')
+    //       .then(m => m.AdminDashboardComponent),
+    //     // canActivate: [AuthGuard]
+    //   },
+    //   {
+    //     path: 'courses',
+    //     loadComponent: () => import('./components/admin-course-components/admin-course-list/admin-course-list.component')
+    //       .then(m => m.AdminCourseListComponent),
+    //     //canActivate: [AuthGuard]
+    //   },
+    //   {
+    //     path: 'courses/new',
+    //     loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
+    //       .then(m => m.AdminCourseFormComponent),
+    //     //canActivate: [AuthGuard]
+    //   },
+    //   {
+    //     path: 'courses/edit/:id',
+    //     loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
+    //       .then(m => m.AdminCourseFormComponent),
+    //     //canActivate: [AuthGuard]
+    //   },
+    //   {
+    //     path: 'login',
+    //     loadComponent: () => import('./components/admin-course-components/login/login.component')
+    //       .then(m => m.LoginComponent)
+    //   },
 
       // {
       //   path: '',
