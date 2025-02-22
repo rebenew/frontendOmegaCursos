@@ -13,7 +13,7 @@ import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'vistacursos',
     component: VistaCursosComponent
   },
   //admin-dashboard
@@ -122,9 +122,9 @@ export const routes: Routes = [
     ],
   },
   //Default path
-  { path: '**', redirectTo: 'landing', pathMatch: 'full' }, // Redirige la raíz a la landing page
+  { path: '', redirectTo: 'landing', pathMatch: 'full' }, // Redirige la raíz a la landing page
   { path: 'landing', component: LandingPageComponent },
-  { path: 'login', component: LoginPageComponent },
+  { path: 'login2', component: LoginPageComponent },
   { path: 'cursos', component: CoursesPageComponent },
   { path: 'signup', component: SignupPageComponent},
 
