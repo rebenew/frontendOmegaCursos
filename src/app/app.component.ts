@@ -1,3 +1,4 @@
+
 import { Component, ViewEncapsulation } from '@angular/core';
 import {
   Router,
@@ -6,17 +7,12 @@ import {
   RouterOutlet,
 } from '@angular/router';
 
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    // RouterModule,
-    // RouterLink,
-    // SidebarComponent,
-    // HeaderComponent,
+    RouterModule,
   ],
   standalone: true,
   templateUrl: './app.component.html',
@@ -32,3 +28,4 @@ export class AppComponent {
     this.menuAbierto = !this.menuAbierto;
   }
 }
+
