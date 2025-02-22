@@ -6,10 +6,14 @@ import { CourseContentComponent } from './students-dashboard/course-content/cour
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
 import { VistaCursosComponent } from './vista-cursos/vista-cursos.component';
 
+import { LandingPageComponent } from './Pages/landing-page/landing-page.component';
+import { LoginPageComponent } from './Pages/login-page/login-page.component';
+import { CoursesPageComponent } from './Pages/courses-page/courses-page.component';
+import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'vistacursos',
     component: VistaCursosComponent
   },
   //admin-dashboard
@@ -118,7 +122,12 @@ export const routes: Routes = [
     ],
   },
   //Default path
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '', redirectTo: 'landing', pathMatch: 'full' }, // Redirige la raíz a la landing page
+  { path: 'landing', component: LandingPageComponent },
+  { path: 'login2', component: LoginPageComponent },
+  { path: 'cursos', component: CoursesPageComponent },
+  { path: 'signup', component: SignupPageComponent},
+
 ];
 
 
