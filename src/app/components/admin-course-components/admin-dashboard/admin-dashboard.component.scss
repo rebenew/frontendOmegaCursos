@@ -1,66 +1,148 @@
+/* Contenedor principal */
 .dashboard-container {
-    padding: 20px;
-    margin-left: 85px;
-    display: flex;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*Barra de busqueda */
+.search-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1350px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #edeeee;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1)
+}
+.search-bar-container .button { 
+  padding: 10px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.btn-create {
+  background: #28a745;
+  color: white;
+
+  &:hover {
+    background: #218838;
   }
-  
+}
+
+.toggle-view-btn {
+  background: #007bff;
+  color: white;
+
+  &:hover {
+    background: #0056b3;
+  }
+}
+
+/* Tabla */
+
+.course-table {
+  width: 100%;
+  max-width: 900px;
+  background: #fff;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.course-table th, .course-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.course-table th {
+  background-color: #007bff;
+  color: #fff;
+}
+.course-table tr:hover {
+  background: #f1f1f1;
+}
+
+/* Estilos de botones de la tabla*/
+button {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  margin: 4px; 
+  cursor: pointer;
+  transition: all 0.3s ease; 
+}
+
+.btn-edit { 
+  background: #ffc107;
+  color: #333;
+}
+.btn-edit:hover {
+  background: #e0a800;
+}
+.btn-content {
+  background: #17a2b8;
+  color: #fff;
+}
+.btn-content:hover {
+  background: #138496;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Estilos para la vista de tarjetas */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 20px;
+}
+
   h2 {
     color: #007bff;
   }
   
   .error-message {
-    color: red;
+    color: #d9534f;
+    font-size: 1rem;
+    padding: 10px;
+    background: #f8d7da;
+    border-left: 5px solid #d9534f;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+  }
+  .no-results {
+    font-size: 1rem;
+    color: #666;
     font-weight: bold;
+    margin-top: 10px;
   }
   
-  .course-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
   
-  .course-table th, .course-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
   
-  .course-table th {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #218838;
-  }
-
-  .sidebar {
-    width: 250px; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background-color: #f8f9fa; 
-    color: white;
-    padding: 20px;
-    border-radius: 30px;
-  }
-  
-  .main-content {
-    margin-left: 250px; 
-    padding: 20px;
-    width: calc(100% - 250px); 
-  }
-  
-  .main-content.full-width {
-    margin-left: 0;
-    width: 100%;
-  }
+ 

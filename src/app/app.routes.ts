@@ -5,6 +5,7 @@ import { HomeStudentComponent } from './students-dashboard/home-student/home-stu
 import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
 import { VistaCursosComponent } from './vista-cursos/vista-cursos.component';
+import { AdminLayoutComponent } from './components/admin-course-components/admin-layout/admin-layout.component';
 
 
 export const routes: Routes = [
@@ -15,8 +16,13 @@ export const routes: Routes = [
   //admin-dashboard
   {
     path: 'admin-dashboard',
-    component: AdminDashboardComponent,
+    component: AdminLayoutComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
       {
         path: 'dashboard',
         loadComponent: () => import('./components/admin-course-components/admin-dashboard/admin-dashboard.component')
@@ -27,19 +33,19 @@ export const routes: Routes = [
         path: 'courses',
         loadComponent: () => import('./components/admin-course-components/admin-course-list/admin-course-list.component')
           .then(m => m.AdminCourseListComponent),
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
       },
       {
         path: 'courses/new',
         loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
           .then(m => m.AdminCourseFormComponent),
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
       },
       {
         path: 'courses/edit/:id',
         loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
           .then(m => m.AdminCourseFormComponent),
-        canActivate: [AuthGuard]
+        //canActivate: [AuthGuard]
       },
       {
         path: 'login',
