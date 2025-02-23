@@ -1,0 +1,47 @@
+<h1>{{courseContent[0].name}}</h1>
+<hr>
+
+<section *ngFor="let courses of courseContent" class="course-content-container">
+  <div class="left-column">
+    <section class="content-material">
+      <h1 *ngIf="selectedContent === 'introduction'">{{ courses.introduction }}</h1>
+      <h2 *ngIf="selectedContent === 'tags'">{{ courses.tags }}</h2>
+      <iframe class="content-video" *ngIf="selectedContent === 'video'" [src]="getVideoUrl(courses.video)"
+        frameborder="0"></iframe>
+      <img class="content-image" *ngIf="selectedContent === 'graphic_image'" [src]="courses.img" alt="html image">
+      <h2 *ngIf="selectedContent === 'conclusion'">{{ courses.conclusion }}</h2>
+    </section>
+
+    <section class="content-options">
+      <button class="content-options-buttons" [routerLink]="['content']">Content</button>
+      <button class="content-options-buttons" [routerLink]="['learning-tools']">Learning tools</button>
+      <button class="content-options-buttons" [routerLink]="['reviews']">reviews</button>
+      <button class="content-options-buttons" [routerLink]="['q&a']">Q&A</button>
+    </section>
+
+    <div class="content-options-display">
+      <router-outlet />
+    </div>
+  </div>
+
+  <section class="course-content-section-sidebar">
+    <h2 class="course-content-title">Course Content</h2>
+    <div class="content-list">
+      <button (click)="visible =!visible" class="course-title">
+        <h1>{{courses.name}}</h1>
+        <img class="toggle-arrow"
+          [src]="visible ? 'assets/students-dashboard-imgs/arrow-up-outline.svg' : 'assets/students-dashboard-imgs/arrow-down-outline.svg'"
+          alt="toggle-arrow">
+      </button>
+      @if (visible) {
+      <button class="sidebar-buttons" (click)="showContent('introduction')">Introduction</button>
+      <button class="sidebar-buttons" (click)="showContent('tags')">What are "tags" on HTML?</button>
+      <button class="sidebar-buttons" (click)="showContent('video')">Please check the next video for more information
+        about HTML!</button>
+      <button class="sidebar-buttons" (click)="showContent('graphic_image')">Take a look at the next image:</button>
+      <button class="sidebar-buttons" (click)="showContent('conclusion')">Conclusion</button>
+      }
+    </div>
+  </section>
+
+</section>

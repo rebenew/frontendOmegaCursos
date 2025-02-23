@@ -1,0 +1,19 @@
+  <section class="course-container">
+    <ng-container *ngIf="filteredCourses.length > 0; else noCourses">
+      <div class="course-card" *ngFor="let course of filteredCourses">
+        <h3>{{ course.title }}</h3>
+        <p><strong>Modalidad:</strong> {{ course.modality }}</p>
+        <p>
+          <strong>Precio:</strong> 
+          {{ course.price | currency:'USD':'symbol':'1.0-2' }}
+        </p>
+        <div class="course-actions">
+          <button class="button btn-edit" (click)="editCourseView(course.id)">Editar</button>
+          <button class="button btn-delete" (click)="deleteCourse(course.id)">Eliminar</button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noCourses>
+      <p>No se encontraron cursos.</p>
+    </ng-template>
+  </section>

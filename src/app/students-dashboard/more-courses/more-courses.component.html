@@ -1,0 +1,27 @@
+<h1 style="color: #000000;">Get more courses!</h1>
+<hr>
+<h2 class="courses-available-title">courses available</h2>
+
+<section>
+  <ul class="courses-cards">
+    <li class="courses-available" *ngFor="let course of moreCourses"
+      [ngStyle]="{'background-image': 'url(' + course.bg + ')','opacity': '0.9' }">
+      <div class="logo-container">
+        <img class="technologies-images" [src]="course.img" alt="{{ course.name }}">
+        <h1 class="course-name">
+          {{ course.name }}
+          <hr>
+        </h1>
+      </div>
+      <h3 class="course-details">Modality: {{ course.modality }}</h3>
+      <h4 class="course-details">{{ course.type_of_course }}</h4>
+      <h4 class="course-details">{{ course.price }}</h4>
+      <div class="buttons-container">
+        <button [routerLink]="['/courses-details', course.id]" class="details-button">
+          Details
+        </button>
+        <button class="buy-button">Buy Course</button>
+      </div>
+    </li>
+  </ul>
+</section>
