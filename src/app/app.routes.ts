@@ -137,6 +137,8 @@ export const routes: Routes = [
   { path: 'cursos', component: CoursesPageComponent },
   { path: 'signup', component: SignupPageComponent},
 
+  //Admin User
+
 ];
 
 
