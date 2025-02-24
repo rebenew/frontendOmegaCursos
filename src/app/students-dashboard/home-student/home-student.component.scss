@@ -138,6 +138,57 @@ h2 {
   color: #666;
 }
 
+.student-profile {
+  flex: 1;
+  margin-left: 20px; /* Espacio entre las secciones */
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px; /* Ancho fijo para el perfil */
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-header img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.skills {
+  margin-top: 20px;
+}
+
+.skills h3 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.skills ul {
+  list-style: none;
+  padding: 0;
+}
+
+.skills li {
+  background: #fdd900;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.skills ul li:hover {
+  background: #ff9b00;
+  color: black;
+}
+
 @media (max-width: 768px) {
   .welcome-section {
     padding: 1em;
