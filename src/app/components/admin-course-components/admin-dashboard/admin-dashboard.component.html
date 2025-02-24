@@ -1,0 +1,44 @@
+<div class="search-bar-container">
+  <button class="button btn-create" (click)="createNewCourse()">+ Crear Curso</button>
+  <button (click)="toggleView()" class="button toggle-view-btn">
+    {{ isGridView ? 'Ver en Lista' : 'Ver en Tarjetas' }}
+  </button>
+  <app-search-bar></app-search-bar>
+</div>
+
+<div class="dashboard-container">
+  <h2 *ngIf="isAdmin">{{ mensajeBienvenida }}</h2>
+  <h2 >Course Dashboard</h2>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+  <div *ngIf="!isGridView">
+    <table *ngIf="courses.length > 0" class="course-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of filteredCourses">
+          <td>{{ course.id }}</td>
+          <td>{{ course.title }}</td>
+          <td>
+          <button class="button btn-edit"(click)="editCourseView(course.id)">Editar vista</button>
+            <button class="button btn-content"(click)="editCourseContent(course.id)"> Editar contenido </button>
+            <button class="button btn-delete"(click)="deleteCourse(course.id)"> Eliminar </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<p *ngIf="filteredCourses.length === 0 && courses.length > 0" class="no-results">
+      No se encontraron cursos con ese nombre. </p>
+</div>   
+</div>
+     
+<div *ngIf="isGridView" class="course-grid">
+  <app-admin-course-list [filteredCourses]="filteredCourses"></app-admin-course-list>
+</div>
