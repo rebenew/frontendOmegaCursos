@@ -3,7 +3,9 @@
 
 <div class="community-header">
   <h1>{{ "Omega" | uppercase }}</h1>
-  <button [routerLink]="['/home-student']" routerLinkActive="router-link-active" class="go-back-btn">Go back</button>
+  <button [routerLink]="['/home-student']" routerLinkActive="router-link-active" class="go-back-btn">
+    Go back
+  </button>
 </div>
 
 <table>
@@ -27,7 +29,11 @@
         {{community.role}}
       </td>
       <td>{{community.desired_position}}</td>
-      <td><button class="send-message-btn">Send a message</button></td>
+      <td>
+        <button class="send-message-btn">
+          Send a message
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

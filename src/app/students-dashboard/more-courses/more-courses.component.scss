@@ -4,15 +4,7 @@
   margin: 10px;
 }
 
-@keyframes grow {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.1);
-  }
-}
-
+// Header & button
 .more-courses-header {
   display: flex;
   justify-content: space-between;
@@ -26,13 +18,19 @@
     border-radius: 10px;
     padding: 10px;
   }
-
+  @media screen and (max-width: 768px) {
+    .go-back-btn {
+      height: 20%;
+      width: 20%;
+    }
+  }
   .go-back-btn:hover {
     background-color: #ff9b00;
     color: #fff;
   }
 }
 
+// Cards
 .courses-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(200px, 1fr));
@@ -101,7 +99,7 @@ h4 {
   text-shadow: 2px 2px 4px rgb(150, 200, 200);
 }
 
-// Buttons
+// Cards Buttons
 .buttons-container {
   display: flex;
   flex-direction: row;
