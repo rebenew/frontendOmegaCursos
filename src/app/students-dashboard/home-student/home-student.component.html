@@ -78,7 +78,10 @@
     <!--PERFIL DEL ESTUDIANTE-->
 
     <div class="profile">
-      <aside class="student-profile">
+      <button (click)="visible =!visible" class="btn">
+        {{visible ? 'Cerrar perfil' : 'Abrir perfil'}}
+        </button>
+      <aside class="student-profile" [class.visible]="visible">
         <div class="profile-header">
           <img src="assets/students-dashboard-imgs/perfil-generico.jpg" alt="Foto de perfil">
           <h2>Nombre del estudiante</h2>
@@ -91,8 +94,6 @@
             <li>Analítica de Datos</li>
           </ul>
         </div>
-        <button class="bubble">Modificar perfil</button>
-        <!----Pendiente agregar funcionalidad para que se pueda abrir y cerrar------->
       </aside>
     </div>
   </div>
