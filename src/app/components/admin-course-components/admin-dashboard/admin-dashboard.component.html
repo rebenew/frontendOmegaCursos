@@ -23,43 +23,44 @@
           <th>Acciones</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let course of filteredCourses">
-          <td>{{ course?.id }}</td>
-          <td>
-            <span class="course-name" (click)="course?.id !== undefined && toggleCourseDetails(course.id)">
-              {{ course?.title }}
-            </span>
-          </td>
-          <td>
-            <button class="button btn-edit" (click)="course?.id !== undefined && editCourseView(course.id)">Editar vista</button>
-            <button class="button btn-content" (click)="course?.id !== undefined && editCourseContent(course.id)">Editar contenido</button>
-            <button class="button btn-delete" (click)="course?.id !== undefined && deleteCourse(course.id)">Eliminar</button>
-          </td>
-        </tr>
-
-        <!-- Fila desplegable con info del curso -->
-        <tr *ngIf="selectedCourseId">
+      
+<tbody>
+  <ng-container *ngFor="let course of filteredCourses">
+    <tr>
+      <td>{{ course.id }}</td>
+      <td>
+        <span class="course-name" (click)="toggleCourseDetails(course.id)">
+          {{ course.title }}
+        </span>
+      </td>
+      <td class="actions">
+        <button class="button btn-edit" (click)="editCourseView(course.id)">Editar vista</button>
+        <button class="button btn-content" (click)="editCourseContent(course.id)">Editar contenido</button>
+        <button class="button btn-delete" (click)="deleteCourse(course.id)">Eliminar</button>
+      </td>
+        
+      <tr *ngIf="selectedCourseId === course.id">
           <td colspan="3">
-            <div class="course-info" *ngIf="getSelectedCourse() as selectedCourse">
-              <p><strong>Modalidad:</strong> {{ selectedCourse.modality }}</p>
-              <p *ngIf="selectedCourse.certification !== undefined">
-                <strong>Certificación:</strong> {{ selectedCourse.certification ? 'Sí' : 'No' }}
+            <div class="course-info">
+              <p><strong>Modalidad:</strong> {{ course.modality }}</p>
+              <p *ngIf="course.certification !== undefined">
+                <strong>Certificación:</strong> {{ course.certification ? 'Sí' : 'No' }}
               </p>
-              <p *ngIf="selectedCourse.duration"><strong>Duración:</strong> {{ selectedCourse.duration }}</p>
-              <p *ngIf="selectedCourse.description"><strong>Descripción:</strong> {{ selectedCourse.description }}</p>
-              <p *ngIf="selectedCourse.price"><strong>Valor:</strong> ${{ selectedCourse.price }}</p>
+              <p *ngIf="course.duration"><strong>Duración:</strong> {{ course.duration }}</p>
+              <p *ngIf="course.description"><strong>Descripción:</strong> {{ course.description }}</p>
+              <p *ngIf="course.price"><strong>Valor:</strong> ${{ course.price }}</p>
             </div>
           </td>
         </tr>
-        
+      </ng-container>
       </tbody>
     </table>
-    <p *ngIf="filteredCourses.length === 0 && courses.length > 0" class="no-results">
+  </div>
+  <p *ngIf="filteredCourses.length === 0 && courses.length > 0" class="no-results">
       No se encontraron cursos con ese nombre.
     </p>
   </div>   
-</div>
+
 
 <!-- Vista en tarjetas -->
 <div *ngIf="isGridView" class="course-grid">

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
-import { AdminDashboardComponent } from './components/admin-course-components/admin-dashboard/admin-dashboard.component';
+
 import { HomeStudentComponent } from './students-dashboard/home-student/home-student.component';
 import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
@@ -65,11 +64,16 @@ export const routes: Routes = [
         //canActivate: [AuthGuard]
       },
       {
-        path: 'courses/edit/:id',
+        path: 'courses/edit-view/:id',
         loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
           .then(m => m.AdminCourseFormComponent),
         //canActivate: [AuthGuard]
       },
+      {
+        path: 'courses/edit-content/:id', 
+        loadComponent: () => import('./components/admin-course-components/admin-course-editor/course-editor.component')
+        .then(m=> m.CourseEditorComponent)            
+        },
       {
         path: 'login',
         loadComponent: () => import('./components/admin-course-components/login/login.component')

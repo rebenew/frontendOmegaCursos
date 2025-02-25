@@ -1,0 +1,25 @@
+<div *ngIf="selectedCourse">
+  <h2>{{ selectedCourse.title }}</h2>
+  <button (click)="addModule()">Agregar Módulo</button>
+
+  <!-- Contenedor con Drag & Drop -->
+  <div cdkDropList (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let module of selectedCourse?.modules; let i = index" cdkDrag>
+
+      <!-- Vista normal -->
+      <div *ngIf="!module.isEditing">
+        <h3>{{ module.title }}</h3>
+        <button (click)="editModule(module)">Editar</button>
+        <button (click)="deleteModule(module)">Eliminar</button>
+      </div>
+
+      <!-- Vista de edición -->
+      <div *ngIf="module.isEditing">
+        <input [(ngModel)]="module.title" />
+        <button (click)="saveModule(module)">Guardar</button>
+        <button (click)="module.isEditing = false">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>

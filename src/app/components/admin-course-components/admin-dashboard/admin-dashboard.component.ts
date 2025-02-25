@@ -28,7 +28,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   isGridView = false;
 
   constructor(
-    @Inject(CourseService) public courseService: CourseService,
+    private courseService: CourseService,
     private router: Router, 
     private authService: AuthService,
     private searchService: SearchService
@@ -74,11 +74,12 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   editCourseView(id: number) {
     console.log(`Editar información del curso con ID: ${id}`);
-    this.router.navigate(['admin-dashboard/courses/edit', id]);
+    this.router.navigate(['admin-dashboard/courses/edit-view', id]);
   }
 
   editCourseContent(id: number) {
     console.log(`Editar contenido del curso con ID: ${id}`);
+    this.router.navigate(['admin-dashboard/courses/edit-content', id]);
   }
 
   deleteCourse(id: number) {
