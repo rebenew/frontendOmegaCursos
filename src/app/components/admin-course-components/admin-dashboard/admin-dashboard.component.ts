@@ -1,12 +1,14 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CourseService, Course } from '../../../services/admin-course-services/course-service/admin.course.services';
+import { CourseService, Course as AdminCourse } from '../../../services/admin-course-services/course-service/admin.course.services';
 import { Subscription } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/admin-course-services/auth-service/auth.service';
 import { SearchBarComponent } from '../admin-search-bar/search-bar.component';
 import { SearchService } from '../../../services/admin-course-services/search-service/search.service';
 import { AdminCourseListComponent } from "../admin-course-list/admin-course-list.component";
+
+export type Course = AdminCourse;
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -17,7 +19,8 @@ import { AdminCourseListComponent } from "../admin-course-list/admin-course-list
 })
 export class AdminDashboardComponent implements OnInit, OnDestroy {
   courses: Course[] = [];
-  filteredCourses: any[] = [];
+  selectedCourseId: number | null = null;
+  filteredCourses: Course[] = [];
   private subscription: Subscription = new Subscription();
   errorMessage: string = '';
   mensajeBienvenida: string = '';
@@ -41,7 +44,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       this.courseService.getCourses().subscribe({
         next: (courses) => {
           this.courses = courses;
-          this.filteredCourses= [...this.courses]
+          this.filteredCourses = [...this.courses];
+          console.log("Cursos cargados:", this.filteredCourses);
         },
         error: (error) => {
           this.errorMessage = `Error al cargar los cursos: ${error.message}`;
@@ -75,7 +79,6 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   editCourseContent(id: number) {
     console.log(`Editar contenido del curso con ID: ${id}`);
-    // this.router.navigate(['/admin/cursos/editar-contenido', id]);
   }
 
   deleteCourse(id: number) {
@@ -83,15 +86,23 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       console.log(`Eliminar curso con ID: ${id}`);
       this.courses = this.courses.filter(course => course.id !== id);
     }
-}
-  onInput(searchTerm: string) {
-  this.filteredCourses = this.courses.filter(course =>
-    course.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-}
-toggleView() {
-  this.isGridView = !this.isGridView;
-  console.log('isGridView cambiado a:', this.isGridView);
-}
+  }
 
+  onInput(searchTerm: string) {
+    this.filteredCourses = this.courses.filter(course =>
+      course.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
+  toggleView() {
+    this.isGridView = !this.isGridView;
+    console.log('isGridView cambiado a:', this.isGridView);
+  }
+
+  toggleCourseDetails(courseId: number) {
+    this.selectedCourseId = this.selectedCourseId === courseId ? null : courseId;
+  }
+  getSelectedCourse(): Course | undefined {
+    return this.filteredCourses.find(course => course.id === this.selectedCourseId);
+  }
 }

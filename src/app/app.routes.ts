@@ -5,14 +5,33 @@ import { HomeStudentComponent } from './students-dashboard/home-student/home-stu
 import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
 import { VistaCursosComponent } from './vista-cursos/vista-cursos.component';
-import { AdminLayoutComponent } from './components/admin-course-components/admin-layout/admin-layout.component';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 
 import { LandingPageComponent } from './Pages/landing-page/landing-page.component';
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { CoursesPageComponent } from './Pages/courses-page/courses-page.component';
 import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
+import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 
 export const routes: Routes = [
+  { path: 'home',
+    component: HomeLayoutComponent,
+    children: [
+      {
+        path: 'home-student',
+        component: HomeStudentComponent,
+        children:[
+          {
+            path: 'more-courses',
+            loadComponent: () =>
+              import('./students-dashboard/more-courses/more-courses.component').then(i=>
+                i.MoreCoursesComponent)
+          },
+        ]
+      },
+    ],
+  },
+
   {
     path: 'vistacursos',
     component: VistaCursosComponent
