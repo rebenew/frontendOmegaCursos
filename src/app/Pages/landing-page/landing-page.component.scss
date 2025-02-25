@@ -6,15 +6,12 @@ body {
     color: #333;
 }
 
-
-/* Estilos para las secciones */
 section {
     padding: 40px 20px;
     text-align: center;
 }
 
-/* Estilos para el botón de llamada a la acción */
-.cta-button {
+.cta-button, .login-button {
     background-color: #041570;
     color: white;
     padding: 10px 20px;
@@ -24,7 +21,6 @@ section {
     margin-top: 20px;
 }
 
-/* Estilos para las secciones de beneficios y testimonios */
 .benefits, .testimonials {
     display: flex;
     justify-content: space-around;
@@ -40,7 +36,6 @@ section {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para el formulario de contacto */
 .form-group input, .form-group textarea {
     width: 100%;
     padding: 10px;
@@ -48,5 +43,4 @@ section {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
 
