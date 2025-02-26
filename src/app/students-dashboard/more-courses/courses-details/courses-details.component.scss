@@ -1,0 +1,150 @@
+@import "../../../../styles.scss";
+
+* {
+  margin: 10px;
+}
+
+// Header & button
+.course-details-header {
+  display: flex;
+  justify-content: space-between;
+
+  .go-back-btn {
+    background-color: #0076fc;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    margin-right: 100px;
+    padding: 10px;
+    width: 6%;
+  }
+  @media screen and (max-width: 768px) {
+    .go-back-btn {
+      height: 20%;
+      width: 20%;
+    }
+  }
+  .go-back-btn:hover {
+    background-color: #ff9b00;
+    color: #fff;
+  }
+}
+
+h1 {
+  font-family: $titleFont;
+  font-size: 40px;
+  font-weight: bolder;
+}
+
+.courses-details-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+}
+@media screen and (max-width: 768px) {
+  .courses-details-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+.course-details-img {
+  width: 70%;
+}
+
+.course-details-img:hover {
+  @include grow();
+}
+
+// course info
+.course-details-name {
+  color: #040087;
+  display: flex;
+  font-size: 6em;
+  justify-content: center;
+  width: 80%;
+}
+
+.course-details-info {
+  display: flex;
+  flex-direction: column;
+  font-family: $titleFont;
+  font-weight: bolder;
+  font-size: large;
+  justify-content: flex-start;
+}
+
+.description-label {
+  font-weight: 600;
+  font-size: larger;
+  color: #50ab7f;
+  margin-bottom: 1px;
+}
+
+.course-description {
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
+.course-price {
+  background-color: #ff8f1c;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  color: #fff;
+  border-radius: 3px;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.course-price:hover {
+  background-color: #fff;
+  color: #50ab7f;
+}
+
+// Course content list
+.course-content-list {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: large;
+  justify-content: flex-start;
+}
+
+.list-content {
+  font-weight: 500;
+}
+
+// Course details button
+.course-details-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.buy-buttons {
+  margin-top: 10%;
+  height: 20%;
+  width: 20%;
+  color: #040087;
+  font-weight: bolder;
+  font-size: 1.4em;
+  border-radius: 10px;
+  font-family: "Roboto", sans-serif;
+
+  @media screen and (max-width: 768px) {
+    height: 20%;
+    width: 50%;
+  }
+  @media screen and (max-width: 1300px) {
+    height: 20%;
+    width: 50%;
+  }
+  @media screen and (max-width: 700px) {
+    height: 50%;
+    width: 50%;
+  }
+}
+
+.buy-buttons:hover {
+  background-color: #00d5aa;
+}

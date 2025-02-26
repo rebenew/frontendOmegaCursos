@@ -1,0 +1,88 @@
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.sidebar {
+    width: 70px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.sidebar ul li {
+    padding: 10px;
+    cursor: pointer;
+}
+.main-content {
+    margin-left: 220px;
+    padding: 20px;
+    flex-grow: 1;
+}
+.search-bar {
+    margin-bottom: 20px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.search-bar input {
+    width: 100%;
+    padding: 8px; 
+    font-size: 14px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.search-bar button {
+    padding: 10px 15px;
+    min-width: 80px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    
+}
+.search-bar button:hover {
+    background-color: #007BFF;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.course-card {
+    background-color: #f4f4f4;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.course-card img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+.course-card button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.course-card button:hover {
+    background-color: #0056b3;
+}
