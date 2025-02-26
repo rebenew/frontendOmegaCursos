@@ -1,15 +1,16 @@
-<h1>{{courseContent[0].name}}</h1>
+<h1>{{ selectedCourse?.name }}</h1>
 <hr>
 
-<section *ngFor="let courses of courseContent" class="course-content-container">
+<section class="course-content-container">
   <div class="left-column">
     <section class="content-material">
-      <h1 *ngIf="selectedContent === 'introduction'">{{ courses.introduction }}</h1>
-      <h2 *ngIf="selectedContent === 'tags'">{{ courses.tags }}</h2>
-      <iframe class="content-video" *ngIf="selectedContent === 'video'" [src]="getVideoUrl(courses.video)"
-        frameborder="0"></iframe>
-      <img class="content-image" *ngIf="selectedContent === 'graphic_image'" [src]="courses.img" alt="html image">
-      <h2 *ngIf="selectedContent === 'conclusion'">{{ courses.conclusion }}</h2>
+      <ng-container *ngIf="selectedCourse?.content">
+        <div *ngFor="let content of selectedCourse?.content">
+          <div *ngIf="content.type === selectedContent">
+            <p>{{ content?.value }}</p>
+          </div>
+        </div>
+      </ng-container>
     </section>
 
     <section class="content-options">
@@ -27,20 +28,20 @@
   <section class="course-content-section-sidebar">
     <h2 class="course-content-title">Course Content</h2>
     <div class="content-list">
-      <button (click)="visible =!visible" class="course-title">
-        <h1>{{courses.name}}</h1>
+      <button (click)="toggleCourse(course)" *ngFor="let course of courseContent" (click)="selectCourse(course)"
+        class="course-title">
+        <h1>{{course.name}}</h1>
         <img class="toggle-arrow"
-          [src]="visible ? 'assets/students-dashboard-imgs/arrow-up-outline.svg' : 'assets/students-dashboard-imgs/arrow-down-outline.svg'"
+          [src]="course.isVisible ? 'assets/students-dashboard-imgs/arrow-up-outline.svg' : 'assets/students-dashboard-imgs/arrow-down-outline.svg'"
           alt="toggle-arrow">
       </button>
-      @if (visible) {
-      <button class="sidebar-buttons" (click)="showContent('introduction')">Introduction</button>
-      <button class="sidebar-buttons" (click)="showContent('tags')">What are "tags" on HTML?</button>
-      <button class="sidebar-buttons" (click)="showContent('video')">Please check the next video for more information
-        about HTML!</button>
-      <button class="sidebar-buttons" (click)="showContent('graphic_image')">Take a look at the next image:</button>
-      <button class="sidebar-buttons" (click)="showContent('conclusion')">Conclusion</button>
-      }
+
+      <div *ngIf="selectedCourse?.isVisible">
+        <button *ngFor="let content of selectedCourse?.content" class="sidebar-buttons"
+          (click)="showContent(content.type)">
+          {{ content.label }}
+        </button>
+      </div>
     </div>
   </section>
 
