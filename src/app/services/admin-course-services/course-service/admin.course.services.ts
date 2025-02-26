@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 export interface Course { 
   id: number;
   title: string;
+  imageUrl?: string;
   modality: 'Presencial' | 'Virtual';
   certification: string;
   duration: string;

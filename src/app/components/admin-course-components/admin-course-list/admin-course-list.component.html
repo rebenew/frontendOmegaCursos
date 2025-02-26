@@ -1,6 +1,6 @@
   <section class="course-container">
     <ng-container *ngIf="filteredCourses.length > 0; else noCourses">
-      <div class="course-card" *ngFor="let course of filteredCourses">
+      <div class="course-card" *ngFor="let course of filteredCourses" [ngStyle]="{'background-image': 'url(' + course.imageUrl + ')'}">
         <h3>{{ course.title }}</h3>
         <p><strong>Modalidad:</strong> {{ course.modality }}</p>
         <p>
