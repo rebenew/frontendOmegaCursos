@@ -165,6 +165,16 @@ export const routes: Routes = [
       },
     ],
   },
+
+  {
+    path: 'grades',
+    title: 'Grades',
+    loadComponent: () =>
+      import('./students-dashboard/grades/grades.component').then(
+        (m) => m.GradesComponent
+      ),
+  },
+
   {
     path: 'community',
     title: 'Community',
