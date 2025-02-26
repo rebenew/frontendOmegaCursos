@@ -5,7 +5,7 @@ import { Courses } from '../../interfaces/students-dashboard-interfaces/more-cou
 
 @Injectable({ providedIn: 'root' })
 export class MoreCoursesService {
-  private dataUrl: string = 'data/students-dashboard-data/db.json';
+  private dataUrl: string = 'assets/students-dashboard-data/db.json';
 
   constructor(private http: HttpClient) {}
 
