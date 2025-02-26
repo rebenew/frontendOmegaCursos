@@ -54,7 +54,7 @@
 }
 
 .elemetMenu::after {
-  content: attr(texto); /* Obtiene el texto del atributo texto */
+  content: attr(texto);
   position: absolute;
   top:auto;
   left: 100%;
@@ -89,4 +89,11 @@
 .lightClose{
   display: none;
 }
+
+@media (max-width: 767px){
+  .contentMenu{
+    display: none;
+  }
+}
+
 

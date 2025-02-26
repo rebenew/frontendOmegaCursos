@@ -4,7 +4,13 @@ h1 {
   font-family: $titleFont;
   font-weight: bolder;
   font-size: 40px;
+  color: var(--text-color);
 }
+
+.courses-available-title{
+  color: var(--text-color);
+}
+
 
 .courses-details-container {
   display: grid;

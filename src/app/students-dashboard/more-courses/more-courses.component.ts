@@ -5,10 +5,11 @@ import { RouterLink } from '@angular/router';
 
 import { MoreCoursesService } from '../../services/students-dashboard-services/more-courses.service';
 import { Courses } from '../../interfaces/students-dashboard-interfaces/more-courses.interface';
+import { SideMenuComponent } from "../../side-menu/side-menu.component";
 
 @Component({
   selector: 'more-courses',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ],
   templateUrl: './more-courses.component.html',
   styleUrl: './more-courses.component.scss',
 })

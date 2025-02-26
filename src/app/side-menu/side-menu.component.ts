@@ -28,6 +28,7 @@ export class SideMenuComponent implements OnInit {
 
   @ViewChild('menuSide', { static: true }) menuSide!: ElementRef<HTMLElement>;
 
+  // logica de los themas
   ngOnInit() {
     if (typeof document !== 'undefined') {
       const dark = this.menuSide.nativeElement.querySelectorAll('.dark');
@@ -35,7 +36,6 @@ export class SideMenuComponent implements OnInit {
 
       this.themesService.isDarkMode$.subscribe((isDarkMode) => {
         this.isDarkMode = isDarkMode;
-          //console.log('hola...')
           if (this.isDarkMode) {
             this.renderer.addClass(document.body, 'dark-theme');
             this.renderer.removeClass(document.body, 'light-theme');
@@ -61,10 +61,14 @@ export class SideMenuComponent implements OnInit {
     };
   };
 
+  // Boton de los themas
   toggleDarkMode() {
     this.themesService.toggleDarkMode();
   };
 
+
+
+  // logica del modal
   toggleActivateMondal() {
     this.ModalService.toggleActivateMondal();
   };
