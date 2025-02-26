@@ -8,7 +8,8 @@
           {{ course.price | currency:'USD':'symbol':'1.0-2' }}
         </p>
         <div class="course-actions">
-          <button class="button btn-edit" (click)="editCourseView(course.id)">Editar</button>
+          <button class="button btn-edit" (click)="editCourseView(course.id)">Editar vista</button>
+          <button class="button btn-content" (click)="editCourseContent(course.id)">Editar contenido</button>
           <button class="button btn-delete" (click)="deleteCourse(course.id)">Eliminar</button>
         </div>
       </div>
