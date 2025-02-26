@@ -1,0 +1,39 @@
+<h1>Community</h1>
+<hr>
+
+<div class="community-header">
+  <h1>{{ "Omega" | uppercase }}</h1>
+  <button [routerLink]="['/home-student']" routerLinkActive="router-link-active" class="go-back-btn">
+    Go back
+  </button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Profile Picture</th>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Desire Position</th>
+      <th>messages</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let community of community">
+      <td>
+        <img class="default-pic" [src]="community.profile_picture" alt="default-profile-pic">
+      </td>
+      <td>{{community.name}}</td>
+      <td [ngStyle]="{'font-weight': community.role === 'student' ? 'normal' : 'bold' }">
+        {{community.role}}
+      </td>
+      <td>{{community.desired_position}}</td>
+      <td>
+        <button class="send-message-btn">
+          Send a message
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -13,29 +13,32 @@ import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 
 export const routes: Routes = [
-  { path: 'home',
+  {
+    path: 'home',
     component: HomeLayoutComponent,
     children: [
       {
         path: 'home-student',
         component: HomeStudentComponent,
-        children:[
+        children: [
           {
             path: 'more-courses',
             loadComponent: () =>
-              import('./students-dashboard/more-courses/more-courses.component').then(i=>
-                i.MoreCoursesComponent)
+              import(
+                './students-dashboard/more-courses/more-courses.component'
+              ).then((i) => i.MoreCoursesComponent),
           },
-        ]
+        ],
       },
     ],
   },
 
   {
     path: 'vistacursos',
-    component: VistaCursosComponent
+    component: VistaCursosComponent,
   },
   //admin-dashboard
+
   {
     path: 'admin-dashboard',
     component: AdminLayoutComponent,
@@ -43,41 +46,53 @@ export const routes: Routes = [
       {
         path: '',
         redirectTo: 'dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'dashboard',
-        loadComponent: () => import('./components/admin-course-components/admin-dashboard/admin-dashboard.component')
-          .then(m => m.AdminDashboardComponent),
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
+          ).then((m) => m.AdminDashboardComponent),
         // canActivate: [AuthGuard]
       },
       {
         path: 'courses',
-        loadComponent: () => import('./components/admin-course-components/admin-course-list/admin-course-list.component')
-          .then(m => m.AdminCourseListComponent),
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-course-list/admin-course-list.component'
+          ).then((m) => m.AdminCourseListComponent),
         //canActivate: [AuthGuard]
       },
       {
         path: 'courses/new',
-        loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
-          .then(m => m.AdminCourseFormComponent),
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-course-form/admin-course-form.component'
+          ).then((m) => m.AdminCourseFormComponent),
         //canActivate: [AuthGuard]
       },
       {
         path: 'courses/edit-view/:id',
-        loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
-          .then(m => m.AdminCourseFormComponent),
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-course-form/admin-course-form.component'
+          ).then((m) => m.AdminCourseFormComponent),
         //canActivate: [AuthGuard]
       },
       {
-        path: 'courses/edit-content/:id', 
-        loadComponent: () => import('./components/admin-course-components/admin-course-editor/course-editor.component')
-        .then(m=> m.CourseEditorComponent)            
-        },
+        path: 'courses/edit-content/:id',
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-course-editor/course-editor.component'
+          ).then((m) => m.CourseEditorComponent),
+      },
       {
         path: 'login',
-        loadComponent: () => import('./components/admin-course-components/login/login.component')
-          .then(m => m.LoginComponent)
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/login/login.component'
+          ).then((m) => m.LoginComponent),
       },
 
       // {
@@ -161,11 +176,18 @@ export const routes: Routes = [
   },
 
 
+  {
+    path: 'community',
+    title: 'Community',
+    loadComponent: () =>
+      import('./students-dashboard/community/community.component').then(
+        (m) => m.CommunityComponent
+      ),
+  },
   //Default path
   { path: '', redirectTo: 'landing', pathMatch: 'full' }, // Redirige la raíz a la landing page
   { path: 'landing', component: LandingPageComponent },
   { path: 'login2', component: LoginPageComponent },
   { path: 'cursos', component: CoursesPageComponent },
-  { path: 'signup', component: SignupPageComponent},
-
+  { path: 'signup', component: SignupPageComponent },
 ];

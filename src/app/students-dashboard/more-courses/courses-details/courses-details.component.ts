@@ -9,7 +9,7 @@ import { Courses } from '../../../interfaces/students-dashboard-interfaces/more-
 
 @Component({
   selector: 'courses-details',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './courses-details.component.html',
   styleUrl: './courses-details.component.scss',
 })
