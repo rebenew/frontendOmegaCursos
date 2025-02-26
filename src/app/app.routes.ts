@@ -18,6 +18,7 @@ export const routes: Routes = [
     component: VistaCursosComponent,
   },
   //admin-dashboard
+
   {
     path: 'admin-dashboard',
     component: AdminLayoutComponent,

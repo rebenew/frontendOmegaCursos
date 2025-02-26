@@ -15,6 +15,8 @@ import { CourseContent } from '../../interfaces/students-dashboard-interfaces/co
 export class CourseContentComponent implements OnInit {
   protected visible = false;
   public courseContent: CourseContent[] = [];
+  public selectedCourse: CourseContent | null = null;
+  public selectedContent: string = '';
 
   constructor(
     private courseContentService: CourseContentService,
@@ -24,11 +26,18 @@ export class CourseContentComponent implements OnInit {
   ngOnInit(): void {
     this.courseContentService.getCourseContent().subscribe((data) => {
       this.courseContent = data;
+      if (data.length > 0) {
+        this.selectedCourse = data[0];
+      }
     });
   }
 
   // Show content
-  selectedContent: string = '';
+  selectCourse(course: CourseContent) {
+    this.selectedCourse = course;
+    this.selectedContent = 'introduction';
+  }
+
   showContent(section: string) {
     this.selectedContent = section;
   }
@@ -36,5 +45,10 @@ export class CourseContentComponent implements OnInit {
   // Show video
   getVideoUrl(url: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  // Show Toggle
+  toggleCourse(course: CourseContent) {
+    course.isVisible = !course.isVisible;
   }
 }

@@ -5,7 +5,7 @@ import { Community } from '../../interfaces/students-dashboard-interfaces/commun
 
 @Injectable({ providedIn: 'root' })
 export class CommunityService {
-  private dataUrl: string = 'data/students-dashboard-data/students-list.json';
+  private dataUrl: string = 'assets/students-dashboard-data/students-list.json';
   constructor(private http: HttpClient) {}
 
   getCommunityInfo(): Observable<Community[]> {
