@@ -10,18 +10,23 @@ export interface Course {
     title: string;
     topics: Topic[];
     isEditing?: boolean;
+    fileName?: string;
   }
   
   export interface Topic {
     id: number;
     title: string;
     subtopics: Subtopic[];
+    isEditing?: boolean;
+    fileName?: string;
   }
   
   export interface Subtopic {
     id: number;
     title: string;
     files: FileData[];
+    isEditing?: boolean;
+    fileName?: string;
   }
   
   export interface FileData {
