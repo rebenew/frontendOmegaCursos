@@ -101,8 +101,6 @@ export class AdminCourseFormComponent implements OnInit {
 -agregar menu desplegable para filtrar los cursos por modalidad, si son certificables o no, y por precio.
 - agregar un botón para cancelar la edición y redirigir al listado de cursos.
 - agregar validaciones personalizadas para el campo de duración. (?) 
-- agregar un mensaje de confirmación antes de eliminar un curso.
-- agregar un botón para eliminar un curso.
 - agregar un mensaje de confirmación antes de guardar un curso.
 - agregar un mensaje de error en el formulario.
 - agregar un mensaje de éxito en el formulario.
