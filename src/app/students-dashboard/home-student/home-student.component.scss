@@ -73,7 +73,7 @@ h2 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.btn{
+.btn {
   border: none;
   background: #0076fc;
   padding: 10px 20px;
@@ -102,13 +102,14 @@ h2 {
   align-items: flex-start;
 }
 
-
 .courses-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Se adaptan al ancho */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Se adaptan al ancho */
   gap: 20px; /* Espaciado entre tarjetas */
   padding: 20px;
-
 }
 
 .course-card {
@@ -163,7 +164,7 @@ h2 {
   }
 }
 
-.profile{
+.profile {
   display: flex;
   align-items: left;
   flex-direction: column;

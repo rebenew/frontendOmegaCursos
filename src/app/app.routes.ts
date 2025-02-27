@@ -134,36 +134,36 @@ export const routes: Routes = [
     path: 'course-content/:id',
     title: 'Content',
     component: CourseContentComponent,
-    children: [
-      {
-        path: 'content',
-        loadComponent: () =>
-          import(
-            './students-dashboard/course-content/content/content.component'
-          ).then((m) => m.ContentComponent),
-      },
-      {
-        path: 'learning-tools',
-        loadComponent: () =>
-          import(
-            './students-dashboard/course-content/learning-tools/learning-tools.component'
-          ).then((m) => m.LearningToolsComponent),
-      },
-      {
-        path: 'reviews',
-        loadComponent: () =>
-          import(
-            './students-dashboard/course-content/reviews/reviews.component'
-          ).then((m) => m.ReviewsComponent),
-      },
-      {
-        path: 'q&a',
-        loadComponent: () =>
-          import(
-            './students-dashboard/course-content/questions-answers/questions-answers.component'
-          ).then((m) => m.QuestionsAnswersComponent),
-      },
-    ],
+    // children: [
+    //   {
+    //     path: 'content',
+    //     loadComponent: () =>
+    //       import(
+    //         './students-dashboard/course-content/content/content.component'
+    //       ).then((m) => m.ContentComponent),
+    //   },
+    //   {
+    //     path: 'learning-tools',
+    //     loadComponent: () =>
+    //       import(
+    //         './students-dashboard/course-content/learning-tools/learning-tools.component'
+    //       ).then((m) => m.LearningToolsComponent),
+    //   },
+    //   {
+    //     path: 'reviews',
+    //     loadComponent: () =>
+    //       import(
+    //         './students-dashboard/course-content/reviews/reviews.component'
+    //       ).then((m) => m.ReviewsComponent),
+    //   },
+    //   {
+    //     path: 'q&a',
+    //     loadComponent: () =>
+    //       import(
+    //         './students-dashboard/course-content/questions-answers/questions-answers.component'
+    //       ).then((m) => m.QuestionsAnswersComponent),
+    //   },
+    // ],
   },
 
   {
