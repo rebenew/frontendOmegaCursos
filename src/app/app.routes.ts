@@ -123,10 +123,18 @@ export const routes: Routes = [
   },
   //Default path
   { path: '', redirectTo: 'landing', pathMatch: 'full' }, // Redirige la raíz a la landing page
-  { path: 'landing', component: LandingPageComponent },
-  { path: 'login2', component: LoginPageComponent },
-  { path: 'cursos', component: CoursesPageComponent },
-  { path: 'signup', component: SignupPageComponent},
+  { path: 'landing',
+    title: 'Inicio',
+     component: LandingPageComponent },
+  { path: 'login2',
+    title: 'Iniciar sesión',
+     component: LoginPageComponent },
+  { path: 'cursos', 
+    title: 'Cursos',
+    component: CoursesPageComponent },
+  { path: 'signup', 
+    title: 'Registro' ,
+    component: SignupPageComponent},
 
 ];
 
