@@ -28,41 +28,7 @@
       "certification": "Certificación virtual",
       "duration": "10 HORAS",
       "description": "¡Descubre cómo la IA está revolucionando el mundo! Conoce los conceptos clave de la IA, cómo surgió, cómo está impactando las industrias a nivel mundial, las posibilidades que nos brinda, cómo utilizarla y cómo esta tecnología está cambiando el futuro.",
-      "price": 473000,
-      "modules": [
-        {
-          "id": 100,
-          "title": "Introducción al curso",
-          "fileName": "",
-          "subtopics": [
-            {
-              "id":1000,
-              "title": "¿Qué verás en este curso?",
-              "fileName": ""
-            }]
-        },
-        {
-          "id":101,
-          "title":"Unidad 1: Introducción a la inteligencia artificial",
-          "fileName":"",
-          "subtopics":[
-          { 
-            "id":1001,
-            "title":"¿Qué verás en este curso?",
-            "fileName":""
-          }],
-          "topics":[
-            {
-            "id":102,
-            "title":"Tema 1: Definición y origen de la inteligencia artificial",
-            "fileName":"",
-            "subtopics":[
-
-            ]
-            }
-          ]
-        }
-      ]
+      "price": 473000
     },
     {
       "id": 4,

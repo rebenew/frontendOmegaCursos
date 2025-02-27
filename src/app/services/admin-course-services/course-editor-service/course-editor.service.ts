@@ -1,70 +1,104 @@
 import { Injectable } from '@angular/core';
-import { Course, Topic, Subtopic, Module } from '../../../models/admin-course-models/course-editor-model'
+import { Course, Unit, Resource } from '../../../models/admin-course-models/course-editor-model';
 import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CourseEditorService{
-  private jsonUrl = 'assets/db.json'
-  private courses: Course[] = [];
+export class CourseEditorService {
+  private courseInfo = 'assets/resources_IA_para_todos.json';
+  private course: Course | null = null;
 
   constructor(private http: HttpClient) {
-    this.loadCourses(); 
-  } 
+    this.loadCourse(); 
+  }
 
-  getCourses(): Observable<Course[]> {
-    return this.http.get<{ courses: Course[] }>(this.jsonUrl).pipe(
-      map(data => data.courses || []) 
+  // Obtener curso desde el JSON
+  getCourse(): Observable<Course> {
+    return this.http.get<Course>(this.courseInfo).pipe(
+      map(data => ({
+        course: data.course,
+        content: data.content.map((unit: any) => ({
+          unidad: unit.unidad,
+          contenido: unit.contenido.map((res: any) => ({
+            ResourceName: res.ResourceName,
+            Link: res.Link,
+            Embed: res.Embed
+          }))
+        }))
+      }))
     );
   }
 
-  addModule (courseId: number, title: string) { 
-    this.getCourses().subscribe(courses =>{
-    const course = courses.find(c => c.id === courseId)
-    if (course) {
-      course.modules.push({
-        id: Date.now(),
-        title,
-        topics: [],
-      });
-      this.saveCourses();
+  // Obtener todas las unidades de un curso específico
+  getCourseContent(courseTitle: string): Observable<Unit[]> {
+    return this.http.get<{ course: string, content: Unit[] }>(this.courseInfo).pipe(
+      map(data => (data.course === courseTitle ? data.content : []))
+    );
+  }
+
+  // Agregar una nueva unidad al curso
+  addUnit(title: string) {
+    if (this.course) {
+      const newUnit: Unit = {
+        unidad: this.course.content.length + 1,
+        contenido: []
+      };
+      this.course.content.push(newUnit);
+      this.saveCourse();
     }
-  });
-  
-}
-  addTopic(module: Module, title: string) {
-    const newTopic: Topic = {
-      id: Date.now(),
-      title,
-      subtopics: [],
-      isEditing: false
-    };
-    module.topics.push(newTopic);
-    this.saveCourses();
   }
 
-addSubtopic(topic: Topic, title: string) {
-  const newSubtopic: Subtopic = {
-    id: Date.now(),
-    title,
-    isEditing: false,
-    files: []
-  };
-  topic.subtopics.push(newSubtopic);
-  this.saveCourses();
-}
-
-private loadCourses() {
-  if (typeof window !== 'undefined' && localStorage.getItem('courses')) {
-    const data = localStorage.getItem('courses');
-    this.courses = data ? JSON.parse(data) : [];
-  } else {
-    this.courses = [];
+  // Agregar un nuevo recurso a una unidad específica
+  addResource(unitIndex: number, resourceName: string, link: string, embed: string) {
+    if (this.course && this.course.content[unitIndex]) {
+      const newResource: Resource = {
+        ResourceName: resourceName,
+        Link: link,
+        Embed: embed
+      };
+      this.course.content[unitIndex].contenido.push(newResource);
+      this.saveCourse();
+    }
   }
-}
-  saveCourses() {
-    localStorage.setItem('courses', JSON.stringify(this.courses));
+
+  // Eliminar una unidad
+  removeUnit(unitIndex: number) {
+    if (this.course && this.course.content[unitIndex]) {
+      this.course.content.splice(unitIndex, 1);
+      this.reorderUnits();
+      this.saveCourse();
+    }
+  }
+
+  // Eliminar un recurso de una unidad
+  removeResource(unitIndex: number, resourceIndex: number) {
+    if (this.course && this.course.content[unitIndex]) {
+      this.course.content[unitIndex].contenido.splice(resourceIndex, 1);
+      this.saveCourse();
+    }
+  }
+
+  // Reordena los números de las unidades después de eliminar una
+  private reorderUnits() {
+    if (this.course) {
+      this.course.content.forEach((unit, index) => {
+        unit.unidad = index + 1;
+      });
+    }
+  }
+
+  // Cargar datos desde `localStorage`
+  private loadCourse() {
+    const data = localStorage.getItem('course');
+    this.course = data ? JSON.parse(data) : null;
+  }
+
+  // Guardar cambios en `localStorage`
+   saveCourse() {
+    if (this.course) {
+      localStorage.setItem('course', JSON.stringify(this.course));
+    }
   }
 }

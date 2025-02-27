@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseEditorService } from '../../../services/admin-course-services/course-editor-service/course-editor.service';
-import { Course, Module, Topic, Subtopic } from '../../../models/admin-course-models/course-editor-model';
+import { Course, Unit, Resource } from '../../../models/admin-course-models/course-editor-model';
 import { CommonModule } from '@angular/common';
-import { CdkDragDrop, CdkDropList, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course-editor',
-  imports: [CommonModule, CdkDropList, FormsModule, DragDropModule],
+  imports: [CommonModule, DragDropModule, FormsModule],
   standalone: true,
   templateUrl: './course-editor.component.html',
   styleUrl: './course-editor.component.scss'
 })
+
 export class CourseEditorComponent implements OnInit {
-  courses: Course[] = [];
-  selectedCourse: Course | null = null;
-  selectedModule: Module | null = null;
-  selectedTopic: Topic | null = null;
+  course: Course | null = null;
+  selectedUnit: Unit | null = null;
+  selectedResource: Resource | null = null;
+  externalLink: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -25,113 +26,73 @@ export class CourseEditorComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const courseId = Number(this.route.snapshot.paramMap.get('id'));
-
-    this.courseService.getCourses().subscribe(data => {
-      this.courses = data;
-      this.selectedCourse = this.courses.find(course => course.id === courseId) || null;
+    this.courseService.getCourse().subscribe(course => {
+      this.course = course;
     });
   }
 
-  selectModule(module: Module) {
-    this.selectedModule = module;
-    this.selectedTopic = null;
+ selectUnit(unit: Unit) {
+    this.selectedUnit = unit;
+    this.selectedResource = null;
   }
 
-  selectTopic(topic: Topic) {
-    this.selectedTopic = topic;
-    this.selectedModule = null;
+  selectResource(resource: Resource) {
+    this.selectedResource = resource;
   }
 
   deselectSelections() {
-    this.selectedModule = null;
-    this.selectedTopic = null;
+    this.selectedUnit = null;
+    this.selectedResource = null;
   }
 
-  addModule() {
-    if (this.selectedCourse) {
-      this.courseService.addModule(this.selectedCourse.id, "Nuevo Módulo");
-      this.selectedCourse = { ...this.selectedCourse };
+  // Agregar nueva unidad
+
+  addUnit() {
+    this.courseService.addUnit("Nueva Unidad");
+    if (this.course) {
+      this.course = { ...this.course };
     }
   }
 
-  addTopic(module: Module) {
-    this.courseService.addTopic(module, "Nuevo Topic");
-  }
+  // Agregar nuevo recurso a una unidad específica
 
-  addSubtopic(topic: Topic) {
-    this.courseService.addSubtopic(topic, "Nuevo Subtopic");
-  }
-
-  drop(event: CdkDragDrop<any[]>) {
-    console.log('Evento detectado:', event);
-    if (!event.container.data || !event.previousContainer.data) {
-      console.warn('No hay datos en el contenedor');
-      return;
-    }
-  
-    console.log('Índice previo:', event.previousIndex);
-    console.log('Índice nuevo:', event.currentIndex);
-  
-    if (this.selectedCourse && this.selectedCourse.modules) {
-      moveItemInArray(this.selectedCourse.modules, event.previousIndex, event.currentIndex);
-    }
-  }
-  deleteDrop(event: CdkDragDrop<Module[]>) {
-    console.log("Intentando eliminar un módulo");
-
-    if (!this.selectedCourse) return;
-
-    const moduleToDelete = this.selectedCourse.modules[event.previousIndex];
-    console.log("Eliminando:", moduleToDelete);
-
-    this.selectedCourse.modules = this.selectedCourse.modules.filter(m => m !== moduleToDelete);
-    this.courseService.saveCourses();
-  }
-
-  editModule(module: Module) {
-    module.isEditing = true;
-  }
-
-  deleteModule(module: Module) {
-    if (!this.selectedCourse) return;
-    this.selectedCourse.modules = this.selectedCourse.modules.filter(m => m !== module);
-  }
-
-  editTopic(topic: Topic) {
-    topic.isEditing = true;
-  }
-
-  deleteTopic(topic: Topic) {
-    if (this.selectedModule) {
-      this.selectedModule.topics = this.selectedModule.topics.filter(t => t !== topic);
+  addResource(unitIndex: number) {
+    this.courseService.addResource(unitIndex, "Nuevo Recurso", "https://example.com", "<iframe></iframe>");
+    if (this.course) {
+      this.course = { ...this.course };
     }
   }
 
-  onFileSelected(event: Event, entity: Module | Topic | null, fileType: string) {
-    if (!entity) return;
+  // Eliminar una unidad
+  deleteUnit(unitIndex: number) {
+    this.courseService.removeUnit(unitIndex);
+    if (this.course) {
+      this.course = { ...this.course };
+    }
+  }
+  // Eliminar un recurso de una unidad
+  deleteResource(unitIndex: number, resourceIndex: number) {
+    this.courseService.removeResource(unitIndex, resourceIndex);
+    if (this.course) {
+      this.course = { ...this.course };
+    }
+  }
 
+ // Manejo de arrastrar y soltar unidades
+ dropUnit(event: CdkDragDrop<Unit[]>) {
+  if (this.course) {
+    moveItemInArray(this.course.content, event.previousIndex, event.currentIndex);
+    this.courseService.saveCourse();
+  }
+}
+
+  // Manejo de carga de archivos
+  onFileSelected(event: Event, resource: Resource) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      entity.fileName = file.name;
-      console.log(`Archivo (${fileType}) cargado en ${entity.title}:`, file.name);
+      resource.ResourceName = file.name;
+      console.log(`Archivo cargado en ${resource.ResourceName}:`, file.name);
     }
   }
-  get externalLink(): string {
-    return this.selectedModule?.externalLink || this.selectedTopic?.externalLink || '';
-  }
-  
-  set externalLink(value: string) {
-    if (this.selectedModule) {
-      this.selectedModule.externalLink = value;
-    } else if (this.selectedTopic) {
-      this.selectedTopic.externalLink = value;
-    }
-  }
-  debugModule(module: any) {
-    console.log("Módulo detectado:", module);
-  }
-
-  
 }

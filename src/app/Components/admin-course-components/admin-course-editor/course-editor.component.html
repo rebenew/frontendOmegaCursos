@@ -1,46 +1,47 @@
 <div class="course-container">
   <!-- Menú de administración -->
-  <div class="admin-menu" [class.active]="selectedModule || selectedTopic">
+  <div class="admin-menu" [class.active]="selectedUnit || selectedResource">
     <h3>Opciones</h3>
-    <button (click)="addModule()">Agregar Módulo</button>
-    <button *ngIf="selectedModule" (click)="addTopic(selectedModule)">Agregar Topic</button>
-    <button *ngIf="selectedTopic" (click)="addSubtopic(selectedTopic)">Agregar Subtopic</button>
-    <button *ngIf="selectedModule" (click)="editModule(selectedModule)">Editar Módulo</button>
-    <button *ngIf="selectedTopic" (click)="editTopic(selectedTopic)">Editar Topic</button>
+    <button (click)="addUnit()">Agregar Unidad</button>
+    <button *ngIf="selectedUnit" (click)="addResource(course?.content?.indexOf(selectedUnit) ?? -1)">
+      Agregar Recurso</button>
+    <button *ngIf="selectedUnit" (click)="deleteUnit(course?.content?.indexOf(selectedUnit) ?? -1)">
+      Eliminar Unidad</button>
+    <button *ngIf="selectedResource && selectedUnit" (click)="deleteResource(course?.content?.indexOf(selectedUnit) ?? -1, selectedUnit.contenido.indexOf(selectedResource))">
+      Eliminar Recurso</button>
     
     <div class="file-uploads">
       <input type="text" [(ngModel)]="externalLink" placeholder="Pegar enlace externo" />
-
     </div>
-  </div>
+  </div>  
 
   <!-- Sección de edición -->
-  <div class="editor-section" cdkDropList [cdkDropListData]="selectedCourse?.modules || []" (cdkDropListDropped)="drop($event)">
-    <h2>{{ selectedCourse?.title }}</h2>
-    <div *ngFor="let module of selectedCourse?.modules; let i = index" cdkDrag>
-      <h3>{{ module.title }}</h3>
-      <p>ID: {{ module.id }}</p>
-      <div *ngFor="let topic of module.topics" cdkDrag class="draggable-module" (click)="selectTopic(topic)">
-        <h4>{{ topic.title }}</h4>
+  <div class="editor-section" cdkDropList [cdkDropListData]="course?.content || []" (cdkDropListDropped)="dropUnit($event)">
+    <h2>{{ course?.course }}</h2>
+    
+    <div *ngFor="let unit of course?.content; let i = index" cdkDrag (click)="selectUnit(unit)" class="draggable-unit">
+      <h3>{{ unit.unidad }}</h3>
+      <div *ngFor="let resource of unit.contenido; let j = index" class="resource" (click)="selectResource(resource)">
+        <h4>{{ resource.ResourceName }}</h4>
+        <a [href]="resource.Link" target="_blank">Ver recurso</a>
+        <div [innerHTML]="resource.Embed"></div>
+        <button (click)="deleteResource(i, j)">❌</button>
       </div>
     </div>
   </div>
+
   <!-- Sección de organización -->
   <div class="drop-section">
-    <h3>Organiza los Módulos</h3>
-    <div cdkDropList 
-       [cdkDropListData]="selectedCourse?.modules || []"
-       (cdkDropListDropped)="drop($event)"
-       class="drop-container">
-      <div *ngFor="let module of selectedCourse?.modules" cdkDrag class="draggable-module">
-        {{ module.title }}
+    <h3>Organiza las Unidades</h3>
+    <div cdkDropList [cdkDropListData]="course?.content || []" (cdkDropListDropped)="dropUnit($event)" class="drop-container">
+      <div *ngFor="let unit of course?.content" cdkDrag class="draggable-unit">
+        {{ unit.unidad }}
       </div>
     </div>
     
     <!-- Área para eliminar -->
-    <div cdkDropList (cdkDropListDropped)="deleteDrop($event)" class="delete-zone">
+    <div cdkDropList (cdkDropListDropped)="deleteUnit($event.previousIndex)">
       🗑️ Arrastra aquí para eliminar
-    </div>
-    </div>
- 
-
+    </div> 
+  </div>    
+</div> 
