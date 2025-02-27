@@ -11,6 +11,7 @@ export interface Course {
     topics: Topic[];
     isEditing?: boolean;
     fileName?: string;
+    externalLink?: string;
   }
   
   export interface Topic {
@@ -19,6 +20,7 @@ export interface Course {
     subtopics: Subtopic[];
     isEditing?: boolean;
     fileName?: string;
+    externalLink?: string;
   }
   
   export interface Subtopic {
@@ -27,6 +29,7 @@ export interface Course {
     files: FileData[];
     isEditing?: boolean;
     fileName?: string;
+    externalLink?: string;
   }
   
   export interface FileData {

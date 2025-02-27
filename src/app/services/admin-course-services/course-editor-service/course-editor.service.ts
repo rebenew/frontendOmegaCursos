@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Course } from '../../../models/admin-course-models/course-editor-model'
-import { map, Observable, of } from 'rxjs';
+import { Course, Topic, Subtopic, Module } from '../../../models/admin-course-models/course-editor-model'
+import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -32,7 +32,30 @@ export class CourseEditorService{
       this.saveCourses();
     }
   });
+  
 }
+  addTopic(module: Module, title: string) {
+    const newTopic: Topic = {
+      id: Date.now(),
+      title,
+      subtopics: [],
+      isEditing: false
+    };
+    module.topics.push(newTopic);
+    this.saveCourses();
+  }
+
+addSubtopic(topic: Topic, title: string) {
+  const newSubtopic: Subtopic = {
+    id: Date.now(),
+    title,
+    isEditing: false,
+    files: []
+  };
+  topic.subtopics.push(newSubtopic);
+  this.saveCourses();
+}
+
 private loadCourses() {
   if (typeof window !== 'undefined' && localStorage.getItem('courses')) {
     const data = localStorage.getItem('courses');
