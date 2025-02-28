@@ -7,6 +7,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss'
 })
-export class AdminDashboardComponent {
+export class AdminComponent {
   title = `Admin Dashboard`;
 }
