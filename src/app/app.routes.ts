@@ -10,6 +10,9 @@ import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { CoursesPageComponent } from './Pages/courses-page/courses-page.component';
 import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
+import { HomelayoutComponent } from './layout/homelayout/homelayout.component';
+import { MoreCoursesComponent } from './students-dashboard/more-courses/more-courses.component';
+import { CoursesDetailsComponent } from './students-dashboard/more-courses/courses-details/courses-details.component';
 
 export const routes: Routes = [
   {
