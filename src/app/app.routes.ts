@@ -15,37 +15,29 @@ import { MoreCoursesComponent } from './students-dashboard/more-courses/more-cou
 import { CoursesDetailsComponent } from './students-dashboard/more-courses/courses-details/courses-details.component';
 
 export const routes: Routes = [
-  {
-    path: 'home',
-    data: { renderMode: 'client' },
-    component: HomeLayoutComponent,
-    children: [
-      {
-        path: 'home-student',
-        data: { renderMode: 'client' },
-        component: HomeStudentComponent,
-        children:  [
-          {
-            path: 'more-courses',
-            data: { renderMode: 'client' },
-            loadComponent: () =>
-              import(
-                './students-dashboard/more-courses/more-courses.component'
-              ).then((i) => i.MoreCoursesComponent),
-              import(
-                './students-dashboard/more-courses/more-courses.component'
-              ).then((i) => i.MoreCoursesComponent),
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   path: 'home',
+  //   data: { renderMode: 'client' },
+  //   component: HomeLayoutComponent,
+  //   children: [
+  //     {
+  //       path: 'home-student',
+  //       data: { renderMode: 'client' },
+  //       component: HomeStudentComponent,
+  //       children:  [
+  //         {
+  //           path: 'more-courses',
+  //           data: { renderMode: 'client' },
+  //           loadComponent: () =>
+  //             import(
+  //               './students-dashboard/more-courses/more-courses.component'
+  //             ).then((i) => i.MoreCoursesComponent),
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 
-  {
-    path: 'vistacursos',
-    data: { renderMode: 'client' },
-    component: VistaCursosComponent,
-  },
 
   //admin-dashboard
 
@@ -120,28 +112,35 @@ export const routes: Routes = [
       // { path: 'dashboard', component: AdminDashboardComponent },
     ],
   },
-  //Dashboard mentor
   {
-    path: 'dashboard_mentor',
-    data: { renderMode: 'client' },
-    component: DashboardComponent
-  },
-  //Home Student Component
-  {
-    path: 'home-student',
-    data: { renderMode: 'client' },
-    title: 'Home - Student',
-    component: HomeStudentComponent,
-  },
-  // More courses
-  {
-    path: 'more-courses',
-    data: { renderMode: 'client' },
-    title: 'More Courses',
-    loadComponent: () =>
-      import('./students-dashboard/more-courses/more-courses.component').then(
-        (m) => m.MoreCoursesComponent
-      ),
+    path: '',
+    component: HomelayoutComponent,
+    children: [
+      //Dashboard mentor
+      {
+        path: 'dashboard_mentor',
+        data: { renderMode: 'client' },
+        component: DashboardComponent
+      },
+      //Home Student Component
+      {
+        path: 'home-student',
+        data: { renderMode: 'client' },
+        title: 'Home - Student',
+        component: HomeStudentComponent,
+      },
+      // More courses
+
+      {
+        path: 'more-courses',
+        data: { renderMode: 'client' },
+        title: 'More Courses',
+        loadComponent: () =>
+          import('./students-dashboard/more-courses/more-courses.component').then(
+            (m) => m.MoreCoursesComponent
+          ),
+      },
+    ]
   },
 
   //More course details
