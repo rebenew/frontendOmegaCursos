@@ -2,46 +2,71 @@
   <!-- Menú de administración -->
   <div class="admin-menu" [class.active]="selectedUnit || selectedResource">
     <h3>Opciones</h3>
-    <button (click)="addUnit()">Agregar Unidad</button>
-    <button *ngIf="selectedUnit" (click)="addResource(course?.content?.indexOf(selectedUnit) ?? -1)">
-      Agregar Recurso</button>
-    <button *ngIf="selectedUnit" (click)="deleteUnit(course?.content?.indexOf(selectedUnit) ?? -1)">
-      Eliminar Unidad</button>
-    <button *ngIf="selectedResource && selectedUnit" (click)="deleteResource(course?.content?.indexOf(selectedUnit) ?? -1, selectedUnit.contenido.indexOf(selectedResource))">
-      Eliminar Recurso</button>
-    
-    <div class="file-uploads">
-      <input type="text" [(ngModel)]="externalLink" placeholder="Pegar enlace externo" />
-    </div>
-  </div>  
+  </div>
 
   <!-- Sección de edición -->
-  <div class="editor-section" cdkDropList [cdkDropListData]="course?.content || []" (cdkDropListDropped)="dropUnit($event)">
+  <div class="editor-section">
     <h2>{{ course?.course }}</h2>
+
+    <div *ngFor="let unit of course?.content; let i = index" class="unit">
+      <!-- Encabezado de la Unidad -->
+      <div (click)="toggleUnit(i)" class="unit-header">
+        <h3>{{ unit.unidad }}</h3>
+        <span>{{ expandedUnits[i] ? '▲' : '▼' }}</span>
+      </div>
     
-    <div *ngFor="let unit of course?.content; let i = index" cdkDrag (click)="selectUnit(unit)" class="draggable-unit">
-      <h3>{{ unit.unidad }}</h3>
-      <div *ngFor="let resource of unit.contenido; let j = index" class="resource" (click)="selectResource(resource)">
-        <h4>{{ resource.ResourceName }}</h4>
-        <a [href]="resource.Link" target="_blank">Ver recurso</a>
-        <div [innerHTML]="resource.Embed"></div>
-        <button (click)="deleteResource(i, j)">❌</button>
+      <!-- Contenido de la Unidad (Acordeón) -->
+      <div *ngIf="expandedUnits[i]" class="unit-content">
+        <div cdkDropList [cdkDropListData]="unit.contenido"
+             (cdkDropListDropped)="dropResource($event, i)"
+             [cdkDropListLockAxis]="'y'"
+             class="resource-list">
+          <div *ngFor="let resource of unit.contenido; let j = index"
+               class="draggable-resource" 
+               cdkDrag>
+            <div class="resource-content">
+              <h4 *ngIf="editingResourceIndex !== j" (click)="editResourceName(j)">
+                {{ resource.ResourceName }}
+              </h4>
+              <input *ngIf="editingResourceIndex === j" [(ngModel)]="resource.ResourceName"
+                     (blur)="saveResourceName(j)" (keyup.enter)="saveResourceName(j)" autofocus />
+    
+              <a [href]="resource.Link" target="_blank">Ver recurso</a>
+          </div>
+
+          <!-- Menú de opciones -->
+          <div class="menu-container">
+            <button class="menu-btn" (click)="toggleMenu(j)">⋮</button>
+            <div class="menu-dropdown" *ngIf="openMenuIndex === j">
+              <button (click)="editResourceName(j)">Editar nombre</button>
+              <button (click)="editResourceContent(i, j)">Editar recurso</button>
+              <button (click)="deleteResource(i, j)">Eliminar</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
 
   <!-- Sección de organización -->
   <div class="drop-section">
     <h3>Organiza las Unidades</h3>
-    <div cdkDropList [cdkDropListData]="course?.content || []" (cdkDropListDropped)="dropUnit($event)" class="drop-container">
+
+    <!-- Lista de unidades con arrastrar y soltar -->
+    <div cdkDropList [cdkDropListData]="course?.content || []" 
+         (cdkDropListDropped)="dropUnit($event)" 
+         class="drop-container">
+
       <div *ngFor="let unit of course?.content" cdkDrag class="draggable-unit">
         {{ unit.unidad }}
       </div>
     </div>
-    
-    <!-- Área para eliminar -->
-    <div cdkDropList (cdkDropListDropped)="deleteUnit($event.previousIndex)">
+
+    <!-- Área de eliminación -->
+    <div cdkDropList class="delete-zone" 
+         (cdkDropListDropped)="deleteDroppedItem($event)">
       🗑️ Arrastra aquí para eliminar
-    </div> 
-  </div>    
-</div> 
+    </div>
+  </div>
+</div>
