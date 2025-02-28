@@ -1,6 +1,11 @@
-<h1>Get more courses!</h1>
-<!-- <hr> -->
-<h2 class="courses-available-title">courses available</h2>
+<h1 style="color: #000000;">Get more courses!</h1>
+<hr>
+
+<div class="more-courses-header">
+  <h2 class="courses-available-title">courses available</h2>
+  <button [routerLink]="['/home-student']" routerLinkActive="router-link-active" class="go-back-btn">Go back</button>
+</div>
+
 
 <section #contentCards class="content-cards">
   <div class="card-courses" *ngFor="let course of moreCourses">
