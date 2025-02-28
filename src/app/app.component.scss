@@ -1,46 +1,100 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+body{
+  background-color: var(--background-color) ;
+  font-family: 'Roboto Serif', serif ;
+  color: var(--text-color);
+}
+
+h1{
+  font-size: 3vw;
+}
+h2{
+  font-size: 2.5vw;
+}
+h3{
+  font-size: 2vw;
+}
+
+h4{
+  font-size: 1.5vw;
+}
+h5{
+  font-size: 1.3vw;
+}
+h6{
+  font-size: 1.2vw;
+}
+
+p{
+  font-size: 1.2vw;
+}
+
+a{
+  font-size: 1.2vw;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+button{
+  font-size: 1.2vw;;
+}
+
+@media (max-width: 767px){
+  h1{
+    font-size: 4vw;
   }
-  
-  .contenedor-principal {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  h2{
+    font-size: 3vw;
   }
-  
-  app-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px; 
-    background: #34495e;
-    color: white;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    z-index: 1000;
+  h3{
+    font-size: 3vw;
   }
-  
-  app-sidebar {
-    position: fixed;
-    top: 60px; 
-    left: 0;
-    width: 250px;
-    height: calc(100vh - 60px); 
-    background: #2c3e50;
-    color: white;
-    padding: 20px;
-    overflow-y: auto; 
+  h4{
+    font-size: 2.5vw;
   }
-  
-  .contenido {
-    margin-left: 285px; 
-    margin-top: 60px; 
-    padding: 20px;
-    height: calc(100vh - 60px); 
-    overflow-y: auto; 
+  h5{
+    font-size: 2vw;
   }
-  
+  h6{
+    font-size: 1.8vw;
+  }
+  p{
+    font-size: 1.8vw;
+  }
+  a{
+    font-size: 1.8vw;
+  }
+  button{
+    font-size: 1.8vw;
+  }
+}
+
+@media (max-width: 480px){
+  h1{
+    font-size: 5vw;
+  }
+  h2{
+    font-size: 4vw;
+  }
+  h3{
+    font-size: 3.5vw;
+  }
+  h4{
+    font-size: 3vw;
+  }
+  h5{
+    font-size: 2.5vw;
+  }
+  h6{
+    font-size: 2vw;
+  }
+
+  p{
+    font-size: 2.5vw;
+  }
+  a{
+    font-size: 2.5vw;
+  }
+  button{
+    font-size: 2.5vw;
+  }
+}
