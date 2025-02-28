@@ -7,7 +7,7 @@ import { User } from '../../model/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  private usersUrl = 'public/data/admin-user-dashboard-data/user.json';
+  private usersUrl = 'assets/admin-user-dashboard-data/user.json';
   users: any;
 
   constructor(private http: HttpClient) { }
@@ -16,11 +16,12 @@ export class UserService {
     return this.http.get<User[]>(this.usersUrl);
   }
 
-  // getUserById(id: number): Observable<User | undefined> {
-  //   return this.http.get<User[]>(this.usersUrl).pipe(
-  //     map((users) => users.find(user => user.id === id))
-  //   );
-  // }
+  getUserById(id: number): Observable<any> {
+    return this.http.get<any[]>(this.usersUrl).pipe(
+      map(users => users.find(user => user.id === id))
+    );
+  }
+
 
   addUser(user: User): Observable<User> {
     return this.http.get<User[]>(this.usersUrl).pipe(
@@ -31,6 +32,16 @@ export class UserService {
       })
     );
   }
+
+  // createUser(user: any): Observable<any> {
+  //   return this.http.get<any[]>(this.usersUrl).pipe(
+  //     map(users => {
+  //       user.id = users.length + 1; 
+  //       users.push(user);
+  //       return user;
+  //     })
+  //   );
+  // }
 
   updateUser(id: number, updatedUser: any): Observable<any> {
     return this.http.get<any[]>(this.usersUrl).pipe(
@@ -44,7 +55,16 @@ export class UserService {
     );
   }
 
-//   addCourse(course: Course): Observable<Course> {
-//     return this.http.post<Course>(this.jsonUrl, course);
-//   }
+  deleteUser(id: number): Observable<any> {
+    return this.http.get<any[]>(this.usersUrl).pipe(
+      map(users => {
+        const index = users.findIndex(user => user.id === id);
+        if (index > -1) {
+          users.splice(index, 1);
+        }
+        return users;
+      })
+    );
+  }
 }
+
