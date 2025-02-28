@@ -1,15 +1,19 @@
 import { Routes } from '@angular/router';
-
+import { AuthGuard } from './guards/auth.guard';
+// import { AdminDashboardComponent } from './components/admin-course-components/admin-dashboard/admin-dashboard.component';
 import { HomeStudentComponent } from './students-dashboard/home-student/home-student.component';
 import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
 import { VistaCursosComponent } from './vista-cursos/vista-cursos.component';
-import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+// import { AdminLayoutComponent } from './components/admin-course-components/admin-layout/admin-layout.component';
 
 import { LandingPageComponent } from './Pages/landing-page/landing-page.component';
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { CoursesPageComponent } from './Pages/courses-page/courses-page.component';
 import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
+import { AdminLayoutComponent } from './Components/admin-course-components/admin-layout/admin-layout.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminDashboardComponent } from './Components/admin-course-components/admin-dashboard/admin-dashboard.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 
 export const routes: Routes = [
@@ -80,11 +84,11 @@ export const routes: Routes = [
           .then(m => m.LoginComponent)
       },
 
-      // {
-      //   path: '',
-      //   component: VistaCursosComponent,
-      // },
-      // { path: 'dashboard', component: AdminDashboardComponent },
+      {
+        path: '',
+        component: VistaCursosComponent,
+      },
+      { path: 'dashboard', component: AdminDashboardComponent },
     ],
   },
   //Dashboard mentor
@@ -156,6 +160,8 @@ export const routes: Routes = [
   { path: 'login2', component: LoginPageComponent },
   { path: 'cursos', component: CoursesPageComponent },
   { path: 'signup', component: SignupPageComponent},
+
+  //Admin User
 
 ];
 

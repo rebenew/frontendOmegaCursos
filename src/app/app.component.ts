@@ -20,10 +20,14 @@ import { FooterComponent } from './components/footer/footer.component';
 export class AppComponent {
   title = 'omega';
 
+<<<<<<< HEAD
   menuAbierto = false;
   constructor(private readonly router: Router) {}
   toggleMenu() {
     this.menuAbierto = !this.menuAbierto;
   }
+=======
+
+>>>>>>> 5dc53ef41fe107b3173eb32463d54aa16cf2039a
 }
 
