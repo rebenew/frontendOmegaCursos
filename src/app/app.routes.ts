@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
-// import { AdminDashboardComponent } from './components/admin-course-components/admin-dashboard/admin-dashboard.component';
+import { AdminDashboardComponent } from './components/admin-course-components/admin-dashboard/admin-dashboard.component';
 import { HomeStudentComponent } from './students-dashboard/home-student/home-student.component';
 import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
 import { VistaCursosComponent } from './vista-cursos/vista-cursos.component';
-// import { AdminLayoutComponent } from './components/admin-course-components/admin-layout/admin-layout.component';
+import { AdminLayoutComponent } from './components/admin-course-components/admin-layout/admin-layout.component';
 
 import { LandingPageComponent } from './Pages/landing-page/landing-page.component';
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
@@ -14,6 +14,10 @@ import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
 import { AdminLayoutComponent } from './Components/admin-course-components/admin-layout/admin-layout.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminDashboardComponent } from './Components/admin-course-components/admin-dashboard/admin-dashboard.component';
+import {AdminComponent} from "./admin-dashboard/admin-dashboard.component";
+import {SearchUserDashboardComponent} from './search-user-dashboard/search-user-dashboard.component';
+import { UserFormComponent } from "./admin-components/user-form/user-form.component";
+import { UserDetailComponent } from "./admin-components/user-detail/user-detail.component";
 
 export const routes: Routes = [
   {
@@ -138,15 +142,23 @@ export const routes: Routes = [
   { path: 'signup', component: SignupPageComponent},
 
   //Admin User
+  {path: 'admin',
+        component: AdminComponent,        
+    },
+
+  {
+    path: 'admin/user',
+    component: SearchUserDashboardComponent,
+  },
+
+  {
+    path: 'admin/adduser',
+    component: UserFormComponent,
+  },
+  
+  {
+    path: 'admin/user-detail/:id',
+    component: UserDetailComponent,
+  },
 
 ];
-
-
-
-
-
-
-
-
-
-
