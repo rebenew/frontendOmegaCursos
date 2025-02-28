@@ -13,7 +13,7 @@ import { CoursesPageComponent } from './Pages/courses-page/courses-page.componen
 import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
 import { AdminLayoutComponent } from './Components/admin-course-components/admin-layout/admin-layout.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { AdminDashboardComponent } from './Components/admin-course-components/admin-dashboard/admin-dashboard.component';
+// import { AdminDashboardComponent } from './Components/admin-course-components/admin-dashboard/admin-dashboard.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 
 export const routes: Routes = [
