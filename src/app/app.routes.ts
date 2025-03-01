@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 import { HomeStudentComponent } from './students-dashboard/home-student/home-student.component';
 import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
-import { VistaCursosComponent } from './vista-cursos/vista-cursos.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 
 import { LandingPageComponent } from './Pages/landing-page/landing-page.component';
@@ -11,31 +10,32 @@ import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { CoursesPageComponent } from './Pages/courses-page/courses-page.component';
 import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
+import { HomelayoutComponent } from './layout/homelayout/homelayout.component';
+import { MoreCoursesComponent } from './students-dashboard/more-courses/more-courses.component';
+import { CoursesDetailsComponent } from './students-dashboard/more-courses/courses-details/courses-details.component';
 import { MainLayoutComponent } from './Pages/main-layout/main-layout.component';
 
 export const routes: Routes = [
-  {
-    path: 'home',
-    data: { renderMode: 'client' },
-    component: HomeLayoutComponent,
-    children: [
-      {
-        path: 'home-student',
-        data: { renderMode: 'client' },
-        component: HomeStudentComponent,
-        children: [
-          {
-            path: 'more-courses',
-            data: { renderMode: 'client' },
-            loadComponent: () =>
-              import(
-                './students-dashboard/more-courses/more-courses.component'
-              ).then((i) => i.MoreCoursesComponent),
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   path: 'home',
+  //   data: { renderMode: 'client' },
+  //   component: HomeLayoutComponent,
+  //   children: [
+  //     {
+  //       path: 'home-student',
+  //       data: { renderMode: 'client' },
+  //       component: HomeStudentComponent,
+  //       children:  [
+  //         {
+  //           path: 'more-courses',
+  //           data: { renderMode: 'client' },
+  //           loadComponent: () =>
+  //             import(
+  //               './students-dashboard/more-courses/more-courses.component'
+  //             ).then((i) => i.MoreCoursesComponent),
+  //         },
+  //       ],
+  //     },
   //RUTAS LANDING OK
   {
     path: '',
@@ -46,12 +46,10 @@ export const routes: Routes = [
       { path: 'login2', data: { renderMode: 'client' }, component: LoginPageComponent },
       { path: 'cursos', data: { renderMode: 'client' }, component: CoursesPageComponent },
       { path: 'signup', data: { renderMode: 'client' }, component: SignupPageComponent },]
-  },
-  {
-    path: 'vistacursos',
-    data: { renderMode: 'client' },
-    component: VistaCursosComponent,
-  },
+  },  //   ],
+  // },
+
+
   //Dashboard mentor
   {
     path: 'dashboard_mentor',
@@ -137,16 +135,35 @@ export const routes: Routes = [
       },
     ],
   },
-
-  // More courses
   {
-    path: 'more-courses',
-    data: { renderMode: 'client' },
-    title: 'More Courses',
-    loadComponent: () =>
-      import('./students-dashboard/more-courses/more-courses.component').then(
-        (m) => m.MoreCoursesComponent
-      ),
+    path: '',
+    component: HomelayoutComponent,
+    children: [
+      //Dashboard mentor
+      {
+        path: 'dashboard_mentor',
+        data: { renderMode: 'client' },
+        component: DashboardComponent
+      },
+      //Home Student Component
+      {
+        path: 'home-student',
+        data: { renderMode: 'client' },
+        title: 'Home - Student',
+        component: HomeStudentComponent,
+      },
+      // More courses
+
+      {
+        path: 'more-courses',
+        data: { renderMode: 'client' },
+        title: 'More Courses',
+        loadComponent: () =>
+          import('./students-dashboard/more-courses/more-courses.component').then(
+            (m) => m.MoreCoursesComponent
+          ),
+      },
+    ]
   },
 
   //More course details
