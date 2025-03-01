@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Fulano Nodo",
+    "role": "student",
+    "desired_position": "FrontEnd",
+    "profile_picture": "assets/students-dashboard-imgs/profile-pic-default.png"
+  },
+  {
+    "name": "Fulano Nodo 2",
+    "role": "student",
+    "desired_position": "QA",
+    "profile_picture": "assets/students-dashboard-imgs/profile-pic-default.png"
+  },
+  {
+    "name": "Fulano Nodo 3",
+    "role": "student",
+    "desired_position": "Fullstack",
+    "profile_picture": "assets/students-dashboard-imgs/profile-pic-default.png"
+  },
+  {
+    "name": "Fulano Nodo mentor",
+    "role": "Mentor",
+    "profile_picture": "assets/students-dashboard-imgs/profile-pic-default.png"
+  },
+  {
+    "name": "Fulano Nodo 4",
+    "role": "student",
+    "desired_position": "Fullstack",
+    "profile_picture": "assets/students-dashboard-imgs/profile-pic-default.png"
+  },
+  {
+    "name": "Fulano Nodo 5",
+    "role": "student",
+    "desired_position": "DevOps",
+    "profile_picture": "assets/students-dashboard-imgs/profile-pic-default.png"
+  }
+]

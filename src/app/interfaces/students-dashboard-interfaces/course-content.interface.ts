@@ -1,9 +1,12 @@
 export interface CourseContent {
   id: string;
   name: string;
-  introduction: string;
-  tags: string;
-  img: string;
-  video: string;
-  conclusion: string;
+  title: string;
+  isVisible: boolean;
+  content: Content[];
+}
+export interface Content {
+  type: string;
+  label: string;
+  value: string;
 }
