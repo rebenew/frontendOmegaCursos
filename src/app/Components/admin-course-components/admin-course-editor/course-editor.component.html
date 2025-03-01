@@ -7,6 +7,7 @@
   <!-- Sección de edición -->
   <div class="editor-section">
     <h2>{{ course?.course }}</h2>
+    <button mat-raised-button color="primary" (click)="openAddUnitModal()">+ Agregar unidad</button>
 
     <div *ngFor="let unit of course?.content; let i = index" class="unit">
       <!-- Encabezado de la Unidad -->
@@ -25,21 +26,14 @@
                class="draggable-resource" 
                cdkDrag>
             <div class="resource-content">
-              <h4 *ngIf="editingResourceIndex !== j" (click)="editResourceName(j)">
-                {{ resource.ResourceName }}
-              </h4>
-              <input *ngIf="editingResourceIndex === j" [(ngModel)]="resource.ResourceName"
-                     (blur)="saveResourceName(j)" (keyup.enter)="saveResourceName(j)" autofocus />
-    
+              <h4>{{ resource.ResourceName }}</h4>
               <a [href]="resource.Link" target="_blank">Ver recurso</a>
-          </div>
-
+            </div>
           <!-- Menú de opciones -->
           <div class="menu-container">
             <button class="menu-btn" (click)="toggleMenu(j)">⋮</button>
             <div class="menu-dropdown" *ngIf="openMenuIndex === j">
-              <button (click)="editResourceName(j)">Editar nombre</button>
-              <button (click)="editResourceContent(i, j)">Editar recurso</button>
+              <button (click)="openEditModal(resource)">Editar</button>
               <button (click)="deleteResource(i, j)">Eliminar</button>
             </div>
           </div>

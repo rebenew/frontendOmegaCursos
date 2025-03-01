@@ -5,10 +5,14 @@ import { CommonModule } from '@angular/common';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { EditResourceDialogComponent } from '../edit-resource-dialog/edit-resource-dialog.component';
+import { AddUnitDialogComponent } from '../add-unit-dialog/add-unit-dialog.component';
 
 @Component({
   selector: 'app-course-editor',
-  imports: [CommonModule, DragDropModule, FormsModule],
+  imports: [CommonModule, DragDropModule, FormsModule, MatDialogModule],
   standalone: true,
   templateUrl: './course-editor.component.html',
   styleUrl: './course-editor.component.scss'
@@ -17,17 +21,21 @@ import { ActivatedRoute } from '@angular/router';
 export class CourseEditorComponent implements OnInit {
   course: Course | null = null;
   selectedUnit: Unit | null = null;
-  selectedResource: Resource | null = null;
+  selectedResource: any = null;
   externalLink: string = '';
   expandedUnits: { [key: number]: boolean } = {};
   openMenuIndex: number | null = null;
   openUnitIndex: number | null = null;
   editingResourceIndex: number | null = null;
-  editingContentIndex: number | null = null;
+  newUnitName = '';
+  droppedLink = '';
+  loading = false;
+
 
   constructor(
     private route: ActivatedRoute,
-    private courseService: CourseEditorService
+    private courseService: CourseEditorService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -37,9 +45,6 @@ export class CourseEditorComponent implements OnInit {
   }
 
   toggleUnit(index: number) {
-    if (!this.expandedUnits.hasOwnProperty(index)) {
-      this.expandedUnits[index] = false;
-    }
     this.expandedUnits[index] = !this.expandedUnits[index];
   }
 
@@ -57,12 +62,10 @@ export class CourseEditorComponent implements OnInit {
     this.selectedResource = null;
   }
 
-  
-  toggleMenu(index: number) {
-    console.log("Índice del menú antes:", this.openMenuIndex);
+   // Alternar el menú de opciones
+   toggleMenu(index: number) {
     this.openMenuIndex = this.openMenuIndex === index ? null : index;
-    console.log("Índice del menú después:", this.openMenuIndex);
-  }
+   }
 
   editResourceName(index: number) {
     this.editingResourceIndex = index;
@@ -72,39 +75,20 @@ export class CourseEditorComponent implements OnInit {
     this.editingResourceIndex = null; 
   }
   
-  editResourceContent(unitIndex: number, resourceIndex: number) {
-    console.log(`Editando recurso en unidad ${unitIndex}, recurso ${resourceIndex}`);
-    this.editingContentIndex = resourceIndex;
-    this.selectedUnit = this.course?.content[unitIndex] ?? null;
-    this.selectedResource = this.selectedUnit?.contenido[resourceIndex] ?? null;
-  }
-  
-  saveResourceContent(unitIndex: number, resourceIndex: number) {
-    if (this.selectedResource && this.selectedUnit) {
-      console.log(`Guardando cambios en recurso ${resourceIndex} de la unidad ${unitIndex}`);
-      this.selectedResource.Link = this.selectedResource.Link.trim(); // Evitar espacios extra
+ // Función para abrir el modal con la información del recurso seleccionado
+  openEditModal(resource: Resource): void {
+      const dialogRef = this.dialog.open(EditResourceDialogComponent, {
+        width: '400px',
+        data: { resource },
+      });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      console.log('Cambios guardados:', result);
     }
-  
-    this.editingContentIndex = null; // Salir del modo de edición
-  }
+  });
+}
 
-  // Agregar nueva unidad
-  addUnit() {
-    this.courseService.addUnit("Nueva Unidad");
-    if (this.course) {
-      this.course = { ...this.course };
-    }
-  }
-
-
-
-  // Eliminar una unidad
-  deleteUnit(unitIndex: number) {
-    this.courseService.removeUnit(unitIndex);
-    if (this.course) {
-      this.course = { ...this.course };
-    }
-  }
   // Eliminar un recurso de una unidad
   deleteResource(unit: any, index: number): void {
     if (confirm("¿Seguro que quieres eliminar este recurso?")) {
@@ -140,13 +124,55 @@ dropResource(event: CdkDragDrop<Resource[]>, unitIndex: number) {
     this.courseService.saveCourse();
   }
 }
-  // Manejo de carga de archivos
-  onFileSelected(event: Event, resource: Resource) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      resource.ResourceName = file.name;
-      console.log(`Archivo cargado en ${resource.ResourceName}:`, file.name);
+
+openAddUnitDialog(): void {
+  const dialogRef = this.dialog.open(AddUnitDialogComponent, {
+    width: '400px'
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result && result.contenido) {
+      this.courseService.addUnit(result.contenido); 
+      if (this.course) {
+        this.course = { ...this.course };
+      }
     }
+  });
+}
+
+openAddUnitModal() {
+  this.openAddUnitDialog();
+}
+
+onDragOver(event: DragEvent) {
+  event.preventDefault();
+}
+
+onDrop(event: DragEvent) {
+  event.preventDefault();
+  this.loading = true;
+  setTimeout(() => {
+    const data = event.dataTransfer?.getData('text');
+    if (data) {
+      this.droppedLink = data;
+    }
+    this.loading = false;
+  }, 1000);
+}
+
+addUnit(content: Resource[]) {
+  if (this.course) {
+    const newUnit: Unit = {
+      unidad: this.course.content.length + 1, 
+      contenido: content 
+    };
+    this.course.content.push(newUnit);
+    this.courseService.saveCourse(); 
   }
+}
+
+closeDialog() {
+  this.dialog.closeAll();
+}
+
 }

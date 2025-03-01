@@ -1,0 +1,31 @@
+<h2>Agregar Recurso a Nueva Unidad</h2>
+
+<mat-form-field appearance="fill">
+  <mat-label>Nombre del Recurso</mat-label>
+  <input matInput [(ngModel)]="resourceName" placeholder="Ej. Introducción al curso" />
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Enlace (opcional)</mat-label>
+  <input matInput [(ngModel)]="externalLink" placeholder="https://example.com" />
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Código Embebido (opcional)</mat-label>
+  <textarea matInput [(ngModel)]="embed" placeholder="<iframe>...</iframe>"></textarea>
+</mat-form-field>
+
+<div 
+  class="drop-area"
+  (dragover)="onDragOver($event)"
+  (drop)="onDrop($event)"
+>
+  Arrastra y suelta un enlace aquí
+</div>
+
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+<div class="dialog-actions">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-button color="primary" (click)="onSave()" [disabled]="!resourceName.trim()">Guardar</button>
+</div>
