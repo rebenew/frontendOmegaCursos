@@ -31,10 +31,11 @@
 }
 
 h1 {
-  font-family: $titleFont;
+  // font-family: $titleFont;
   font-size: 40px;
   font-weight: bolder;
 }
+
 
 .courses-details-container {
   display: grid;
@@ -51,7 +52,7 @@ h1 {
 }
 
 .course-details-img:hover {
-  @include grow();
+  // @include grow();
 }
 
 // course info
@@ -66,7 +67,7 @@ h1 {
 .course-details-info {
   display: flex;
   flex-direction: column;
-  font-family: $titleFont;
+  // font-family: $titleFont;
   font-weight: bolder;
   font-size: large;
   justify-content: flex-start;
