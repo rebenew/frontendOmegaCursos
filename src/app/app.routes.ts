@@ -14,12 +14,31 @@ import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
 import { AdminLayoutComponent } from './Components/admin-course-components/admin-layout/admin-layout.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminDashboardComponent } from './Components/admin-course-components/admin-dashboard/admin-dashboard.component';
+import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 import {AdminComponent} from "./admin-dashboard/admin-dashboard.component";
 import {SearchUserDashboardComponent} from './search-user-dashboard/search-user-dashboard.component';
 import { UserFormComponent } from "./admin-components/user-form/user-form.component";
 import { UserDetailComponent } from "./admin-components/user-detail/user-detail.component";
 
 export const routes: Routes = [
+  { path: 'home',
+    component: HomeLayoutComponent,
+    children: [
+      {
+        path: 'home-student',
+        component: HomeStudentComponent,
+        children:[
+          {
+            path: 'more-courses',
+            loadComponent: () =>
+              import('./students-dashboard/more-courses/more-courses.component').then(i=>
+                i.MoreCoursesComponent)
+          },
+        ]
+      },
+    ],
+  },
+
   {
     path: 'vistacursos',
     component: VistaCursosComponent
@@ -53,11 +72,16 @@ export const routes: Routes = [
         //canActivate: [AuthGuard]
       },
       {
-        path: 'courses/edit/:id',
+        path: 'courses/edit-view/:id',
         loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
           .then(m => m.AdminCourseFormComponent),
         //canActivate: [AuthGuard]
       },
+      {
+        path: 'courses/edit-content/:id', 
+        loadComponent: () => import('./components/admin-course-components/admin-course-editor/course-editor.component')
+        .then(m=> m.CourseEditorComponent)            
+        },
       {
         path: 'login',
         loadComponent: () => import('./components/admin-course-components/login/login.component')
