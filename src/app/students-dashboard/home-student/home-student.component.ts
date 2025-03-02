@@ -8,4 +8,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home-student.component.html',
   styleUrl: './home-student.component.scss',
 })
-export class HomeStudentComponent {}
+export class HomeStudentComponent {
+  protected visible: boolean = false;
+}

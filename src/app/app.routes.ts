@@ -13,7 +13,7 @@ import { CoursesPageComponent } from './Pages/courses-page/courses-page.componen
 import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
 import { AdminLayoutComponent } from './Components/admin-course-components/admin-layout/admin-layout.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { AdminDashboardComponent } from './Components/admin-course-components/admin-dashboard/admin-dashboard.component';
+// import { AdminDashboardComponent } from './Components/admin-course-components/admin-dashboard/admin-dashboard.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 import {AdminComponent} from "./admin-dashboard/admin-dashboard.component";
 import {SearchUserDashboardComponent} from './search-user-dashboard/search-user-dashboard.component';
@@ -21,71 +21,98 @@ import { UserFormComponent } from "./admin-components/user-form/user-form.compon
 import { UserDetailComponent } from "./admin-components/user-detail/user-detail.component";
 
 export const routes: Routes = [
-  { path: 'home',
+  {
+    path: 'home',
+    data: { renderMode: 'client' },
     component: HomeLayoutComponent,
     children: [
       {
         path: 'home-student',
+        data: { renderMode: 'client' },
         component: HomeStudentComponent,
-        children:[
+        children: [
           {
             path: 'more-courses',
+            data: { renderMode: 'client' },
             loadComponent: () =>
-              import('./students-dashboard/more-courses/more-courses.component').then(i=>
-                i.MoreCoursesComponent)
+              import(
+                './students-dashboard/more-courses/more-courses.component'
+              ).then((i) => i.MoreCoursesComponent),
           },
-        ]
+        ],
       },
     ],
   },
 
   {
     path: 'vistacursos',
-    component: VistaCursosComponent
+    data: { renderMode: 'client' },
+    component: VistaCursosComponent,
   },
   //admin-dashboard
+
   {
     path: 'admin-dashboard',
+    data: { renderMode: 'client' },
     component: AdminLayoutComponent,
     children: [
       {
         path: '',
+        data: { renderMode: 'client' },
         redirectTo: 'dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'dashboard',
-        loadComponent: () => import('./components/admin-course-components/admin-dashboard/admin-dashboard.component')
-          .then(m => m.AdminDashboardComponent),
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
+          ).then((m) => m.AdminDashboardComponent),
         // canActivate: [AuthGuard]
       },
       {
         path: 'courses',
-        loadComponent: () => import('./components/admin-course-components/admin-course-list/admin-course-list.component')
-          .then(m => m.AdminCourseListComponent),
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-course-list/admin-course-list.component'
+          ).then((m) => m.AdminCourseListComponent),
         //canActivate: [AuthGuard]
       },
       {
         path: 'courses/new',
-        loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
-          .then(m => m.AdminCourseFormComponent),
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-course-form/admin-course-form.component'
+          ).then((m) => m.AdminCourseFormComponent),
         //canActivate: [AuthGuard]
       },
       {
         path: 'courses/edit-view/:id',
-        loadComponent: () => import('./components/admin-course-components/admin-course-form/admin-course-form.component')
-          .then(m => m.AdminCourseFormComponent),
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-course-form/admin-course-form.component'
+          ).then((m) => m.AdminCourseFormComponent),
         //canActivate: [AuthGuard]
       },
       {
-        path: 'courses/edit-content/:id', 
-        loadComponent: () => import('./components/admin-course-components/admin-course-editor/course-editor.component')
-        .then(m=> m.CourseEditorComponent)            
-        },
+        path: 'courses/edit-content/:id',
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-course-editor/course-editor.component'
+          ).then((m) => m.CourseEditorComponent),
+      },
       {
         path: 'login',
-        loadComponent: () => import('./components/admin-course-components/login/login.component')
-          .then(m => m.LoginComponent)
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/login/login.component'
+          ).then((m) => m.LoginComponent),
       },
 
       {
@@ -96,16 +123,22 @@ export const routes: Routes = [
     ],
   },
   //Dashboard mentor
-  { path: 'dashboard_mentor', component: DashboardComponent },
+  {
+    path: 'dashboard_mentor',
+    data: { renderMode: 'client' },
+    component: DashboardComponent
+  },
   //Home Student Component
   {
     path: 'home-student',
+    data: { renderMode: 'client' },
     title: 'Home - Student',
     component: HomeStudentComponent,
   },
   // More courses
   {
     path: 'more-courses',
+    data: { renderMode: 'client' },
     title: 'More Courses',
     loadComponent: () =>
       import('./students-dashboard/more-courses/more-courses.component').then(
@@ -116,6 +149,7 @@ export const routes: Routes = [
   //More course details
   {
     path: 'courses-details/:id',
+    data: { renderMode: 'client' },
     title: 'Courses details',
     loadComponent: () =>
       import(
@@ -125,11 +159,13 @@ export const routes: Routes = [
   //Course content
   {
     path: 'course-content/:id',
+    data: { renderMode: 'client' },
     title: 'Content',
     component: CourseContentComponent,
     children: [
       {
         path: 'content',
+        data: { renderMode: 'client' },
         loadComponent: () =>
           import(
             './students-dashboard/course-content/content/content.component'
@@ -137,6 +173,7 @@ export const routes: Routes = [
       },
       {
         path: 'learning-tools',
+        data: { renderMode: 'client' },
         loadComponent: () =>
           import(
             './students-dashboard/course-content/learning-tools/learning-tools.component'
@@ -144,6 +181,7 @@ export const routes: Routes = [
       },
       {
         path: 'reviews',
+        data: { renderMode: 'client' },
         loadComponent: () =>
           import(
             './students-dashboard/course-content/reviews/reviews.component'
@@ -151,6 +189,7 @@ export const routes: Routes = [
       },
       {
         path: 'q&a',
+        data: { renderMode: 'client' },
         loadComponent: () =>
           import(
             './students-dashboard/course-content/questions-answers/questions-answers.component'
@@ -158,7 +197,38 @@ export const routes: Routes = [
       },
     ],
   },
+
+  {
+    path: 'grades',
+    data: { renderMode: 'client' },
+    title: 'Grades',
+    loadComponent: () =>
+      import('./students-dashboard/grades/grades.component').then(
+        (m) => m.GradesComponent
+      ),
+  },
+
+  {
+    path: 'community',
+    data: { renderMode: 'client' },
+    title: 'Community',
+    loadComponent: () =>
+      import('./students-dashboard/community/community.component').then(
+        (m) => m.CommunityComponent
+      ),
+  },
   //Default path
+  {
+    path: '',
+    data: { renderMode: 'client' },
+    redirectTo: 'landing',
+    pathMatch: 'full'
+  }, // Redirige la raíz a la landing page
+  { path: 'landing', data: { renderMode: 'client' }, component: LandingPageComponent },
+  { path: 'login2', data: { renderMode: 'client' }, component: LoginPageComponent },
+  { path: 'cursos', data: { renderMode: 'client' }, component: CoursesPageComponent },
+  { path: 'signup', data: { renderMode: 'client' }, component: SignupPageComponent },
+];
   { path: '', redirectTo: 'landing', pathMatch: 'full' }, // Redirige la raíz a la landing page
   { path: 'landing', component: LandingPageComponent },
   { path: 'login2', component: LoginPageComponent },
