@@ -96,7 +96,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   checkScreenWidth(): void {
-    console.log('screenWidth', this.screenWidth, "| hideMenu", this.hideMenu);
+    //console.log('screenWidth', this.screenWidth, "| hideMenu", this.hideMenu);
     if (this.screenWidth <= 767 && this.hideMenu === false) {
       this.hideMenuService.toggleHideMenu();
     } else if (this.screenWidth > 767 && this.hideMenu === true) {
