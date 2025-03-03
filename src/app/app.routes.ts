@@ -13,7 +13,11 @@ import { HomeLayoutComponent } from './layout/home-layout/home-layout.component'
 import { HomelayoutComponent } from './layout/homelayout/homelayout.component';
 import { MoreCoursesComponent } from './students-dashboard/more-courses/more-courses.component';
 import { CoursesDetailsComponent } from './students-dashboard/more-courses/courses-details/courses-details.component';
+import path from 'path';
+import { Component } from '@angular/core';
+import { SidecontentComponent } from './sidecontent/sidecontent.component';
 import { MainLayoutComponent } from './Pages/main-layout/main-layout.component';
+
 
 export const routes: Routes = [
   // {
@@ -48,7 +52,6 @@ export const routes: Routes = [
       { path: 'signup', data: { renderMode: 'client' }, component: SignupPageComponent },]
   },  //   ],
   // },
-
 
   //Dashboard mentor
   {
@@ -143,7 +146,7 @@ export const routes: Routes = [
       {
         path: 'dashboard_mentor',
         data: { renderMode: 'client' },
-        component: DashboardComponent
+        component: DashboardComponent,
       },
       //Home Student Component
       {
@@ -159,22 +162,21 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         title: 'More Courses',
         loadComponent: () =>
-          import('./students-dashboard/more-courses/more-courses.component').then(
-            (m) => m.MoreCoursesComponent
-          ),
+          import(
+            './students-dashboard/more-courses/more-courses.component'
+          ).then((m) => m.MoreCoursesComponent),
       },
-    ]
+    ],
   },
-
   //More course details
   {
     path: 'courses-details/:id',
     data: { renderMode: 'client' },
     title: 'Courses details',
     loadComponent: () =>
-      import(
-        './students-dashboard/more-courses/courses-details/courses-details.component'
-      ).then((m) => m.CoursesDetailsComponent),
+    import(
+      './students-dashboard/more-courses/courses-details/courses-details.component'
+    ).then((m) => m.CoursesDetailsComponent),
   },
   //Course content
   {
@@ -237,6 +239,31 @@ export const routes: Routes = [
         (m) => m.CommunityComponent
       ),
   },
-
-
+  //Default path
+  {
+    path: '',
+    data: { renderMode: 'client' },
+    redirectTo: 'landing',
+    pathMatch: 'full',
+  }, // Redirige la raíz a la landing page
+  {
+    path: 'landing',
+    data: { renderMode: 'client' },
+    component: LandingPageComponent,
+  },
+  {
+    path: 'login2',
+    data: { renderMode: 'client' },
+    component: LoginPageComponent,
+  },
+  {
+    path: 'cursos',
+    data: { renderMode: 'client' },
+    component: CoursesPageComponent,
+  },
+  {
+    path: 'signup',
+    data: { renderMode: 'client' },
+    component: SignupPageComponent,
+  },
 ];
