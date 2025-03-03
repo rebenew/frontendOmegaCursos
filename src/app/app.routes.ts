@@ -16,6 +16,8 @@ import { CoursesDetailsComponent } from './students-dashboard/more-courses/cours
 import path from 'path';
 import { Component } from '@angular/core';
 import { SidecontentComponent } from './sidecontent/sidecontent.component';
+import { MainLayoutComponent } from './Pages/main-layout/main-layout.component';
+
 
 export const routes: Routes = [
   // {
@@ -38,9 +40,37 @@ export const routes: Routes = [
   //         },
   //       ],
   //     },
-  //   ],
+  //RUTAS LANDING OK
+  {
+    path: '',
+    data: { renderMode: 'client' },
+    component: MainLayoutComponent,
+    children: [
+      { path: '', data: { renderMode: 'client' }, component: LandingPageComponent },
+      { path: 'login2', data: { renderMode: 'client' }, component: LoginPageComponent },
+      { path: 'cursos', data: { renderMode: 'client' }, component: CoursesPageComponent },
+      { path: 'signup', data: { renderMode: 'client' }, component: SignupPageComponent },]
+  },  //   ],
   // },
 
+  //Dashboard mentor
+  {
+    path: 'dashboard_mentor',
+    data: { renderMode: 'client' },
+    component: DashboardComponent
+  },
+  //Home Student Component
+  {
+    path: 'home-student',
+    data: { renderMode: 'client' },
+    title: 'Home - Student',
+    component: HomeStudentComponent,
+  },
+  {
+    path: 'dashboard_mentor',
+    data: { renderMode: 'client' },
+    component: DashboardComponent
+  },
   //admin-dashboard
 
   {
@@ -106,12 +136,6 @@ export const routes: Routes = [
             './components/admin-course-components/login/login.component'
           ).then((m) => m.LoginComponent),
       },
-
-      // {
-      //   path: '',
-      //   component: VistaCursosComponent,
-      // },
-      // { path: 'dashboard', component: AdminDashboardComponent },
     ],
   },
   {
