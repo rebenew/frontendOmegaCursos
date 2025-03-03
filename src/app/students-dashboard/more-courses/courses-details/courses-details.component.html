@@ -1,0 +1,50 @@
+<div class="course-details-header">
+  <h1>Course Details</h1>
+  <button [routerLink]="['/more-courses']" routerLinkActive="router-link-active" class="go-back-btn">
+    Go back
+  </button>
+</div>
+<hr>
+
+<section *ngIf="moreCourses" class="courses-details-container">
+
+  <aside>
+    <img [src]="moreCourses.img" alt="{{moreCourses.name}}" class="course-details-img">
+  </aside>
+
+  <aside class="course-details-info">
+    <h1 class="course-details-name">{{ moreCourses.name | uppercase }}</h1>
+    <label class="description-label">Brief Description <br>
+    </label>
+    <h2 class="course-description">
+      {{ moreCourses.description}}
+    </h2>
+    <label class="description-label"> Price <br>
+    </label>
+    <h2 class="course-price">USD {{ moreCourses.price }}</h2>
+    <label class="description-label">Duration of content<br>
+    </label>
+    <h2 class="course-description">{{ moreCourses.duration }}</h2>
+    <label class="description-label">Type of content <br>
+    </label>
+    <h2 class="course-description">{{ moreCourses.type_of_course }}</h2>
+    <label class="description-label">Level required <br>
+    </label>
+    <h2 class="course-description">{{ moreCourses.level_required }}</h2>
+  </aside>
+
+  <section class="course-content-list">
+    <h1>Course Content</h1>
+    <ul>
+      <li class="list-content" *ngFor="let items of moreCourses?.what_does_it_include">
+        {{ items }}
+      </li>
+    </ul>
+  </section>
+
+  <section class="course-details-buttons">
+    <button class="buy-buttons">Add to Cart</button>
+    <button class="buy-buttons">Buy now</button>
+  </section>
+
+</section>

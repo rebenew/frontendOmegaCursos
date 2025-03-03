@@ -1,0 +1,48 @@
+<h1>{{ selectedCourse?.name }}</h1>
+<hr>
+
+<section class="course-content-container">
+  <div class="left-column">
+    <section class="content-material">
+      <ng-container *ngIf="selectedCourse?.content">
+        <div *ngFor="let content of selectedCourse?.content">
+          <div *ngIf="content.type === selectedContent">
+            <p>{{ content?.value }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </section>
+
+    <section class="content-options">
+      <button class="content-options-buttons" [routerLink]="['content']">Content</button>
+      <button class="content-options-buttons" [routerLink]="['learning-tools']">Learning tools</button>
+      <button class="content-options-buttons" [routerLink]="['reviews']">reviews</button>
+      <button class="content-options-buttons" [routerLink]="['q&a']">Q&A</button>
+    </section>
+
+    <div class="content-options-display">
+      <router-outlet />
+    </div>
+  </div>
+
+  <section class="course-content-section-sidebar">
+    <h2 class="course-content-title">Course Content</h2>
+    <div class="content-list">
+      <button (click)="toggleCourse(course)" *ngFor="let course of courseContent" (click)="selectCourse(course)"
+        class="course-title">
+        <h1>{{course.name}}</h1>
+        <img class="toggle-arrow"
+          [src]="course.isVisible ? 'assets/students-dashboard-imgs/arrow-up-outline.svg' : 'assets/students-dashboard-imgs/arrow-down-outline.svg'"
+          alt="toggle-arrow">
+      </button>
+
+      <div *ngIf="selectedCourse?.isVisible">
+        <button *ngFor="let content of selectedCourse?.content" class="sidebar-buttons"
+          (click)="showContent(content.type)">
+          {{ content.label }}
+        </button>
+      </div>
+    </div>
+  </section>
+
+</section>
