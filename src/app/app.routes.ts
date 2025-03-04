@@ -18,31 +18,8 @@ import { Component } from '@angular/core';
 import { SidecontentComponent } from './sidecontent/sidecontent.component';
 
 export const routes: Routes = [
-  // {
-  //   path: 'home',
-  //   data: { renderMode: 'client' },
-  //   component: HomeLayoutComponent,
-  //   children: [
-  //     {
-  //       path: 'home-student',
-  //       data: { renderMode: 'client' },
-  //       component: HomeStudentComponent,
-  //       children:  [
-  //         {
-  //           path: 'more-courses',
-  //           data: { renderMode: 'client' },
-  //           loadComponent: () =>
-  //             import(
-  //               './students-dashboard/more-courses/more-courses.component'
-  //             ).then((i) => i.MoreCoursesComponent),
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
 
   //admin-dashboard
-
   {
     path: 'admin-dashboard',
     data: { renderMode: 'client' },
@@ -106,15 +83,9 @@ export const routes: Routes = [
             './components/admin-course-components/login/login.component'
           ).then((m) => m.LoginComponent),
       },
-
-      // {
-      //   path: '',
-      //   component: VistaCursosComponent,
-      // },
-      // { path: 'dashboard', component: AdminDashboardComponent },
     ],
   },
-  {
+{
     path: '',
     component: HomelayoutComponent,
     children: [
@@ -124,6 +95,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         component: DashboardComponent,
       },
+      
       //Home Student Component
       {
         path: 'home-student',
@@ -131,8 +103,8 @@ export const routes: Routes = [
         title: 'Home - Student',
         component: HomeStudentComponent,
       },
-      // More courses
 
+      // More courses
       {
         path: 'more-courses',
         data: { renderMode: 'client' },
@@ -144,6 +116,7 @@ export const routes: Routes = [
       },
     ],
   },
+
   //More course details
   {
     path: 'courses-details/:id',
