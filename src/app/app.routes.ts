@@ -204,6 +204,7 @@ export const routes: Routes = [
     ],
   },
 
+
   {
     path: 'grades',
     data: { renderMode: 'client' },
