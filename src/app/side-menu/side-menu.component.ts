@@ -11,6 +11,8 @@ import { ModalComponent } from '../modal/modal.component';
 import { ModalService } from '../services/servicesDesign/modal.service';
 import { hideMenuService } from '../services/servicesDesign/hidemenu.service';
 import { SidecontentService } from '../services/servicesDesign/sidecontent.service';
+import { InfoUserService } from '../services/servicesDesign/info-user.service';
+import { PruebaService } from '../services/servicesDesign/prueba.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -30,6 +32,8 @@ export class SideMenuComponent implements OnInit {
     private ModalService: ModalService,
     private hideMenuService: hideMenuService,
     private sidecontentService: SidecontentService,
+    private infoUserService: InfoUserService,
+    private PruebaService: PruebaService,
   ) {}
 
   @ViewChild('menuSide', { static: true }) menuSide!: ElementRef<HTMLElement>;
@@ -96,7 +100,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   checkScreenWidth(): void {
-    console.log('screenWidth', this.screenWidth, "| hideMenu", this.hideMenu);
+    //console.log('screenWidth', this.screenWidth, "| hideMenu", this.hideMenu);
     if (this.screenWidth <= 767 && this.hideMenu === false) {
       this.hideMenuService.toggleHideMenu();
     } else if (this.screenWidth > 767 && this.hideMenu === true) {
@@ -123,5 +127,15 @@ export class SideMenuComponent implements OnInit {
   // logica del sidecontent
   toggleactivateSideContent() {
     this.sidecontentService.toggleactivateSideContent();
+  }
+
+  // logica del infoUser
+  toggleOpenInfoUser() {
+    this.infoUserService.toggleOpenInfoUser();
+  }
+
+  // logica del prueba
+  toggleOpenPrueba() {
+    this.PruebaService.togglePrueba();
   }
 }

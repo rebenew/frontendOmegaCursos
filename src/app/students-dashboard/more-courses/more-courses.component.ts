@@ -35,7 +35,7 @@ export class MoreCoursesComponent implements OnInit {
     setTimeout(() => {
 
       const cardCourses = this.contentCards.nativeElement.querySelectorAll('.card-courses');
-      console.log(cardCourses);
+      //console.log(cardCourses);
 
       this.SidecontentService.activateSideContent.subscribe((value) => {
         this.activateSideContent = value;
