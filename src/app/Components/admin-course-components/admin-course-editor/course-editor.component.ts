@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditResourceDialogComponent } from '../modals/edit-resource-dialog/edit-resource-dialog.component';
 import { DeleteConfirmationComponent } from '../modals/delete-confirmation/delete-confirmation.component';
 import { Subscription } from 'rxjs';
+import { CourseService } from '../../../services/admin-course-services/course-service/admin.course.services';
 
 @Component({
   selector: 'app-course-editor',
@@ -21,41 +22,61 @@ import { Subscription } from 'rxjs';
 })
 export class CourseEditorComponent implements OnInit {
   @ViewChild('unitsContainer', { static: false }) unitsContainer!: CdkDropList;
+
   course: Course | null = null;
-  expandedUnits: { [key: number]: boolean } = {};
+  expandedUnits = new Set<number>(); 
   openMenuIndex: number | null = null;
-  newUnitName = '';
   deletedUnits: Unit[] = [];
   private courseSubscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
-    private courseService: CourseEditorService,
+    private courseService: CourseService,
+    private courseEditorService: CourseEditorService,
     private dialog: MatDialog
   ) {}
 
-  ngOnInit() {
-    this.courseSubscription = this.courseService.getCourse().subscribe(course => {
-      this.course = course ? { ...course, content: course.content || [] } : null;
-      console.log("🔹 Curso cargado:", this.course);
-    });
-  }
+ ngOnInit() {
+  this.route.paramMap.subscribe(params => {
+    const courseId = params.get('id'); // Obtener ID del curso desde la URL
+    if (courseId) {
+      console.log(`📥 Cargando curso con ID: ${courseId}`);
+
+      // Buscar el nombre real del curso en CourseService
+      this.courseService.getCourseNameById(courseId).subscribe(courseName => {
+        if (courseName) {
+          console.log(`🔍 Nombre del curso encontrado: ${courseName}`);
+          
+          // Ahora cargar el curso correcto en CourseEditorService
+          this.courseEditorService.loadCourseFromLocal(courseName);
+        } else {
+          console.warn(`⚠️ No se encontró un curso con ID ${courseId}`);
+        }
+      });
+    }
+  });
+
+  // Suscribirse para obtener el curso actual
+  this.courseEditorService.getCourse().subscribe(course => {
+    this.course = course ? { ...course, content: course.content || [] } : null;
+    console.log("🔹 Curso cargado en el editor:", this.course);
+  });
+}
 
   ngOnDestroy() {
-    if (this.courseSubscription) {
-      this.courseSubscription.unsubscribe();
-    }
+    this.courseSubscription?.unsubscribe();
   }
 
-   toggleUnit(index: number) {
-    this.expandedUnits[index] = !this.expandedUnits[index];
+  toggleUnit(index: number) {
+    this.expandedUnits.has(index) ? this.expandedUnits.delete(index) : this.expandedUnits.add(index);
   }
 
-  toggleMenu(index: number) {
+   toggleMenu(index: number) {
     this.openMenuIndex = this.openMenuIndex === index ? null : index;
   }
 
-   openEditModal(unit: Unit, resource?: Resource): void {
+
+  openEditModal(unit: Unit, resource?: Resource): void {
     const newResource: Resource = resource ? { ...resource } : { ResourceName: '', Link: '', Embed: '' };
 
     this.dialog.open(EditResourceDialogComponent, {
@@ -63,21 +84,16 @@ export class CourseEditorComponent implements OnInit {
       data: { resource: newResource }
     }).afterClosed().subscribe(result => {
       if (result) {
-        if (!resource) {
-          unit.contenido.push(result);
-        } else {
-          Object.assign(resource, result);
-        }
-        this.courseService.saveCourseToLocal();
+        resource ? Object.assign(resource, result) : unit.contenido.push(result);
+        this.courseEditorService.saveCourseToLocal();
       }
     });
   }
 
   dropResource(event: CdkDragDrop<Resource[]>, unitIndex: number) {
-    if (this.course) {
-      moveItemInArray(this.course.content[unitIndex].contenido, event.previousIndex, event.currentIndex);
-      this.courseService.saveCourseToLocal();
-    }
+    if (!this.course) return;
+    moveItemInArray(this.course.content[unitIndex].contenido, event.previousIndex, event.currentIndex);
+    this.courseEditorService.saveCourseToLocal();
   }
 
   openDeleteDialog(unitIndex: number) {
@@ -91,7 +107,7 @@ export class CourseEditorComponent implements OnInit {
       if (result && this.course) {
         this.course.content.splice(unitIndex, 1);
         this.deletedUnits.push(unit);
-        this.courseService.saveCourseToLocal();
+        this.courseEditorService.saveCourseToLocal();
       }
     });
   }
@@ -99,11 +115,12 @@ export class CourseEditorComponent implements OnInit {
   deleteResource(unit: Unit, resourceIndex: number): void {
     if (!this.course) return;
     unit.contenido.splice(resourceIndex, 1);
-    this.courseService.saveCourseToLocal();
+    this.courseEditorService.saveCourseToLocal();
   }
 
   dropUnit(event: CdkDragDrop<Unit[]>): void {
-    if (!this.course) return;
+    if (!this.course || event.previousIndex === event.currentIndex) return;
+
     if (event.container.id === 'delete-area') {
       console.warn("⚠️ No puedes soltar aquí.");
       return;
@@ -111,43 +128,36 @@ export class CourseEditorComponent implements OnInit {
 
     console.log("🔄 Moviendo unidad de", event.previousIndex, "a", event.currentIndex);
     moveItemInArray(this.course.content, event.previousIndex, event.currentIndex);
-    this.courseService.updateCourse({ ...this.course, content: [...this.course.content] });
+    this.courseEditorService.updateCourse({ ...this.course, content: [...this.course.content] });
   }
   
   deleteUnitOnDrop(event: CdkDragDrop<Unit[]>) {
-    if (!this.course || event.previousIndex < 0) return;
-    if (event.container.id !== 'deleteContainer') return;
+    if (!this.course || event.previousIndex < 0 || event.container.id !== 'deleteContainer') return;
 
     const unitToDelete = this.course.content.splice(event.previousIndex, 1)[0];
     this.deletedUnits.push(unitToDelete);
-    this.courseService.saveCourseToLocal();
+    this.courseEditorService.saveCourseToLocal();
     console.log("🚮 Unidad eliminada:", unitToDelete);
   }
   
   openAddUnit(): void {
-    if (this.course) {
-      const newUnit: Unit = {
-        unidad: this.course.content.length + 1,
-        contenido: []
-      };
-      this.courseService.addUnit(newUnit);
-    } else {
+    if (!this.course) {
       console.warn("⚠️ No hay un curso cargado.");
+      return;
     }
-  }
 
-
-  closeDialog() {
-    this.dialog.closeAll();
+    const newUnit: Unit = {
+      unidad: this.course.content.length + 1,
+      contenido: []
+    };
+    this.courseEditorService.addUnit(newUnit);
   }
 
   restoreCourseFromJSON() {
-    this.courseSubscription = this.courseService.getCourse().subscribe(course => {
-      this.course = course ? { ...course } : null;
-    });
+    this.courseEditorService.loadCourseFromLocal(this.course?.course || '');
   }
 
-  trackByIndex(index: number, item: any) {
-    return item.id;
+  trackByIndex(index: number): number {
+    return index;
   }
 }

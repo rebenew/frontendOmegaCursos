@@ -3,13 +3,14 @@ import { isPlatformBrowser } from '@angular/common';
 import { Course, Unit } from '../../../models/admin-course-models/course-editor-model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { editableCourse } from '../course-service/admin.course.services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseEditorService {
+  editingUnitIndex: number | null = null;  
   private courseInfo = 'assets/resources_IA_para_todos.json';
   private courseSubject = new BehaviorSubject<Course>({ course: '', content: [] });
 
@@ -98,33 +99,54 @@ removeUnit(unitIndex: number): void {
   saveCourseToLocal(): void {
     if (isPlatformBrowser(this.platformId)) {
       const currentCourse = this.courseSubject.value;
-      localStorage.setItem('editableCourse', JSON.stringify(currentCourse));
-      console.log("💾 Curso guardado en LocalStorage");
+      if (currentCourse.course) {  // Solo guardar si hay un curso seleccionado
+        localStorage.setItem(`editableCourse_${currentCourse.course}`, JSON.stringify(currentCourse));
+        console.log(`💾 Curso "${currentCourse.course}" guardado en LocalStorage`);
+      }
     }
   }
+
   // Cargar curso desde LocalStorage
-  loadCourseFromLocal(): void {
+  loadCourseFromLocal(courseId: string): void {
     if (isPlatformBrowser(this.platformId)) {
-      const storedCourse = localStorage.getItem('editableCourse');
+      const storedCourse = localStorage.getItem(`editableCourse_${courseId}`);
       if (storedCourse) {
         const course = JSON.parse(storedCourse);
         this.courseSubject.next(course);
-        console.log("✅ Curso cargado desde LocalStorage");
+        console.log(`✅ Curso "${courseId}" cargado desde LocalStorage`);
+      } else {
+        console.log(`⚠️ No hay datos guardados para "${courseId}", cargando desde JSON.`);
+        this.loadEditableCourse(courseId);
       }
     }
   }
    // Cargar curso editable desde JSON
    loadEditableCourse(title: string): void {
-    this.http.get<editableCourse[]>('assets/courseDetails.json').pipe(
-      map(editableCourses => editableCourses.find(course => course.course === title) || { course: 'Nuevo Curso', content: [] })
-    ).subscribe(course => {
-      this.courseSubject.next(course);
-      console.log("📄 Curso editable cargado:", course);
+    this.http.get<editableCourse>('assets/resources_IA_para_todos.json').subscribe({
+      next: (editableData) => {
+        console.log("🔍 JSON cargado:", editableData);
+  
+        if (!editableData || editableData.course !== title) {
+          console.warn(`⚠️ No se encontró información para el curso "${title}", creando curso vacío.`);
+          this.courseSubject.next({ course: title, content: [] });
+        } else {
+          this.courseSubject.next(editableData);
+        }
+  
+        console.log("✅ Estado final de courseSubject:", this.courseSubject.value);
+      },
+      error: (err) => {
+        console.error("❌ Error al cargar el JSON:", err);
+      }
     });
   }
+  
+  
+  
    // Actualizar curso
    updateCourse(updatedCourse: Course): void {
     this.courseSubject.next(updatedCourse);
     console.log("✅ Curso actualizado en CourseEditorService");
   }
+
 }

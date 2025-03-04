@@ -39,7 +39,7 @@ export class AdminDashboardComponent {
 
   search(event: Event) {
     const term = (event.target as HTMLInputElement).value;
-    this.searchService.setSearchTerm(term); // 🔹 Delegamos la búsqueda a SearchService
+    this.searchService.setSearchTerm(term); 
   }
 
 

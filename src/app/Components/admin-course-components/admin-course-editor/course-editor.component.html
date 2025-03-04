@@ -1,7 +1,7 @@
 <div class="course-container">
   <!-- Sección de edición -->
   <div class="editor-section">
-    <h2 class="course-title">{{ course?.course }}</h2>
+    <h2 *ngIf="course" class="course-title">{{ course.course }}</h2>
     <button class="add-unit-btn" (click)="openAddUnit()">+ Agregar Unidad</button>
 
     <div 
@@ -16,12 +16,13 @@
         <h3 class="unit-title">{{ unit.unidad }}</h3>
         <p class="unit-info">Contiene {{ unit.contenido.length }} recursos</p>
         <div class="unit-header-actions">
-          <span>{{ expandedUnits[i] ? '▲' : '▼' }}</span>
+          <span>{{ expandedUnits.has(i) ? '▲' : '▼' }}</span>
+
         </div>
       </div>
     
       <!-- Contenido de la Unidad (Acordeón) -->
-      <div *ngIf="expandedUnits[i]" class="unit-content">
+      <div *ngIf="expandedUnits.has(i)" class="unit-content">
         <div cdkDropList [cdkDropListData]="unit.contenido" (cdkDropListDropped)="dropResource($event, i)" [cdkDropListLockAxis]="'y'" class="resource-list">
           <div *ngFor="let resource of unit.contenido; let j = index" class="draggable-resource" cdkDrag>
             <div class="resource-content">
