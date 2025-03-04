@@ -5,7 +5,8 @@ import { CourseContent } from '../../interfaces/students-dashboard-interfaces/co
 
 @Injectable({ providedIn: 'root' })
 export class CourseContentService {
-  private dataUrl: string = 'data/students-dashboard-data/course-content.json';
+  private dataUrl: string =
+    'assets/students-dashboard-data/course-content.json';
 
   constructor(private http: HttpClient) {}
 

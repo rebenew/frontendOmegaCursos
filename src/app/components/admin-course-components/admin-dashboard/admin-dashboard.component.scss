@@ -1,66 +1,300 @@
+// Variables de colores temporales
+$primary-color: #0d6efd;
+$secondary-color: #6c757d;
+$success-color: #57b360; 
+$warning-color: #e0a800; 
+$info-color: #42a5f5; 
+$danger-color: #e57373;
+$light-gray: #f0f0f0;
+$background-color: #f9fafb;
+$text-color: #333;
+$border-radius: 8px;
+$transition-speed: 0.3s;
+
+// Contenedor Principal
 .dashboard-container {
-    padding: 20px;
-    margin-left: 85px;
-    display: flex;
-  }
-  
-  h2 {
-    color: #007bff;
-  }
-  
-  .error-message {
-    color: red;
-    font-weight: bold;
-  }
-  
-  .course-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .course-table th, .course-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .course-table th {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  button {
-    background-color: #28a745;
-    color: white;
+  background-color: $background-color;
+  max-width: 1300px; 
+  margin: 40px auto; 
+  padding: 20px;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+// Barra de búsqueda y botones
+.search-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  background: $light-gray;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+
+  .button {
+    padding: 10px 16px;
+    font-size: 16px;
     border: none;
-    padding: 5px 10px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: all $transition-speed;
+    color: white;
+
+    &.btn-create {
+      background: $success-color;
+
+      &:hover {
+        background: darken($success-color, 10%);
+      }
+    }
+
+    &.toggle-view-btn {
+      background: $primary-color;
+
+      &:hover {
+        background: darken($primary-color, 10%);
+      }
+    }
   }
-  
-  button:hover {
-    background-color: #218838;
+}
+
+// Tabla de cursos
+.course-table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+  border-radius: $border-radius;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
   }
 
-  .sidebar {
-    width: 250px; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background-color: #f8f9fa; 
+  th {
+    background-color: $primary-color;
     color: white;
-    padding: 20px;
-    border-radius: 30px;
   }
-  
-  .main-content {
-    margin-left: 250px; 
-    padding: 20px;
-    width: calc(100% - 250px); 
+
+  tbody tr:hover {
+    background: lighten($light-gray, 5%);
   }
-  
-  .main-content.full-width {
-    margin-left: 0;
-    width: 100%;
+
+  td.actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
   }
+}
+
+// Botones de acciones dentro de la tabla
+button {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  margin: 4px;
+  cursor: pointer;
+  transition: all $transition-speed;
+
+  &.btn-edit {
+    background: $warning-color;
+    color: $text-color;
+
+    &:hover {
+      background: darken($warning-color, 10%);
+    }
+  }
+
+  &.btn-content {
+    background: $info-color;
+
+    &:hover {
+      background: darken($info-color, 10%);
+    }
+  }
+
+  &.btn-delete {
+    background: $danger-color;
+
+    &:hover {
+      background: darken($danger-color, 10%);
+    }
+  }
+}
+
+// Mensaje de error y sin resultados
+.error-message {
+  color: $danger-color;
+  font-size: 1rem;
+  padding: 10px;
+  background: #f8d7da;
+  border-left: 5px solid $danger-color;
+  border-radius: 5px;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.no-results {
+  font-size: 1rem;
+  color: $secondary-color;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+// Información del curso desplegable
+.course-info {
+  padding: 10px;
+  background: $background-color;
+  border-left: 3px solid $primary-color;
+  border-radius: 5px;
+  font-size: 14px;
+  color: $text-color;
+  animation: fadeIn $transition-speed ease-in-out;
+}
+
+// Animación de aparición
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Estilo del nombre del curso
+.course-name {
+  cursor: pointer;
+  color: $primary-color;
+  font-weight: bold;
+  transition: color $transition-speed;
+
+  &:hover {
+    color: darken($primary-color, 10%);
+    text-decoration: underline;
+  }
+}
+
+// Vista en tarjetas
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-content: center;
+  align-items: stretch;
+  padding: 20px;
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+// Tarjetas de curso con hover 
+.course-card {
+  background: white;
+  padding: 15px;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  h3 {
+    color: $primary-color;
+  }
+}
+
+// Detalles del curso emergente
+.course-details-card {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 350px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+
+  .card-content {
+    position: relative;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+}
+
+// Estilo de los títulos
+h2 {
+  color: $primary-color;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+// Responsividad 
+@media (max-width: 1024px) {
+  .search-bar-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .course-table {
+    th, td {
+      padding: 8px;
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .course-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .course-table {
+    font-size: 13px;
+
+    td.actions {
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .course-table {
+    font-size: 12px;
+
+    th, td {
+      padding: 5px;
+    }
+  }
+
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+}
