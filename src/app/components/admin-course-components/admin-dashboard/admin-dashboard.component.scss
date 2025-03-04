@@ -1,43 +1,44 @@
-// Variables de colores
-$primary-color: #007bff;
+// Variables de colores temporales
+$primary-color: #0d6efd;
 $secondary-color: #6c757d;
-$success-color: #28a745;
-$warning-color: #ffc107;
-$info-color: #17a2b8;
-$danger-color: #dc3545;
-$light-gray: #edeeee;
-$background-color: #f8f9fa;
+$success-color: #57b360; 
+$warning-color: #e0a800; 
+$info-color: #42a5f5; 
+$danger-color: #e57373;
+$light-gray: #f0f0f0;
+$background-color: #f9fafb;
 $text-color: #333;
 $border-radius: 8px;
 $transition-speed: 0.3s;
 
-//  Contenedor Principal
+// Contenedor Principal
 .dashboard-container {
+  background-color: $background-color;
+  max-width: 1300px; 
+  margin: 40px auto; 
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-//  Barra de búsqueda y botones
+// Barra de búsqueda y botones
 .search-bar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1350px;
-  margin-bottom: 20px;
   padding: 10px;
   background: $light-gray;
   border-radius: $border-radius;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 
   .button {
     padding: 10px 16px;
     font-size: 16px;
-    cursor: pointer;
     border: none;
     border-radius: 6px;
+    cursor: pointer;
     transition: all $transition-speed;
     color: white;
 
@@ -59,25 +60,15 @@ $transition-speed: 0.3s;
   }
 }
 
-//  Tabla de cursos
+// Tabla de cursos
 .course-table {
   width: 100%;
-  max-width: 900px;
   background: white;
   border-collapse: collapse;
   border-radius: $border-radius;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  td { 
-    &.actions { 
-    display: flex;
-    gap: 10px; // Espacio entre botones
-    justify-content: center; // Centrar botones en la celda
-    align-items: center;
-    flex-wrap: wrap;
-    }
-  }
   th, td {
     padding: 12px;
     text-align: left;
@@ -93,9 +84,17 @@ $transition-speed: 0.3s;
   tbody tr:hover {
     background: lighten($light-gray, 5%);
   }
+
+  td.actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 }
 
-//  Botones de acciones dentro de la tabla
+// Botones de acciones dentro de la tabla
 button {
   color: white;
   border: none;
@@ -131,7 +130,7 @@ button {
   }
 }
 
-//  Mensaje de error y sin resultados
+// Mensaje de error y sin resultados
 .error-message {
   color: $danger-color;
   font-size: 1rem;
@@ -149,23 +148,33 @@ button {
   color: $secondary-color;
   font-weight: bold;
   margin-top: 10px;
+  text-align: center;
 }
 
 // Información del curso desplegable
 .course-info {
   padding: 10px;
-  background: #f8f9fa;
-  border-left: 3px solid #007bff;
+  background: $background-color;
+  border-left: 3px solid $primary-color;
   border-radius: 5px;
   font-size: 14px;
-  color: #333;
-  animation: fadeIn 0.3s ease-in-out;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+  color: $text-color;
+  animation: fadeIn $transition-speed ease-in-out;
 }
 
+// Animación de aparición
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Estilo del nombre del curso
 .course-name {
   cursor: pointer;
   color: $primary-color;
@@ -178,17 +187,36 @@ button {
   }
 }
 
-// Vista de tarjetas
+// Vista en tarjetas
 .course-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-content: center;
+  align-items: stretch;
+  padding: 20px;
   gap: 20px;
   width: 100%;
-  max-width: 900px;
   margin-top: 20px;
 }
 
-// Detalles del curso en una tarjeta emergente
+// Tarjetas de curso con hover 
+.course-card {
+  background: white;
+  padding: 15px;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  h3 {
+    color: $primary-color;
+  }
+}
+
+// Detalles del curso emergente
 .course-details-card {
   position: fixed;
   top: 100px;
@@ -215,9 +243,58 @@ button {
   }
 }
 
-//  Estilo de los títulos
+// Estilo de los títulos
 h2 {
   color: $primary-color;
   text-align: center;
   margin-bottom: 15px;
+}
+
+// Responsividad 
+@media (max-width: 1024px) {
+  .search-bar-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .course-table {
+    th, td {
+      padding: 8px;
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .course-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .course-table {
+    font-size: 13px;
+
+    td.actions {
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .course-table {
+    font-size: 12px;
+
+    th, td {
+      padding: 5px;
+    }
+  }
+
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,20 +1,48 @@
-  <section class="course-container">
+<section class="admin-courses">
+  
+  <!-- Sección de Tarjetas -->
+  <div class="course-list">
     <ng-container *ngIf="filteredCourses.length > 0; else noCourses">
-      <div class="course-card" *ngFor="let course of filteredCourses">
-        <h3>{{ course.title }}</h3>
-        <p><strong>Modalidad:</strong> {{ course.modality }}</p>
-        <p>
-          <strong>Precio:</strong> 
-          {{ course.price | currency:'USD':'symbol':'1.0-2' }}
-        </p>
-        <div class="course-actions">
-          <button class="button btn-edit" (click)="editCourseView(course.id)">Editar vista</button>
-          <button class="button btn-content" (click)="editCourseContent(course.id)">Editar contenido</button>
-          <button class="button btn-delete" (click)="deleteCourse(course.id)">Eliminar</button>
+      <article 
+        class="course-card" 
+        *ngFor="let course of filteredCourses" 
+        (click)="showDetails(course)"
+        [class.selected]="selectedCourse?.id === course.id"
+      >
+        <div class="course-image" [ngStyle]="{'background-image': 'url(' + course.imageUrl + ')'}"></div>
+        <div class="course-content">
+          <h3>{{ course.title }}</h3>
         </div>
-      </div>
+      </article>
     </ng-container>
     <ng-template #noCourses>
       <p>No se encontraron cursos.</p>
     </ng-template>
-  </section>
+  </div>
+
+  <!-- Sección de Información del Curso -->
+  <div class="course-details">
+    <h2>Información del curso</h2>
+    <ng-container *ngIf="selectedCourse; else noDetails">
+      <p><strong>Modalidad:</strong> {{ selectedCourse.modality }}</p>
+      <p><strong>Certificación:</strong> {{ selectedCourse.certification ? 'Sí' : 'No' }}</p>
+      <p><strong>Duración:</strong> {{ selectedCourse.duration }}</p>
+      <p><strong>Descripción:</strong> {{ selectedCourse.description }}</p>
+      <p>
+        <strong>Precio:</strong> 
+        {{ selectedCourse.price | currency:'USD':'symbol':'1.0-2' }}
+      </p>
+
+      <!-- Botones -->
+      <div class="course-buttons">
+        <button class="button btn-edit" (click)="editCourseView(selectedCourse.id)">Editar vista</button>
+        <button class="button btn-content" (click)="editCourseContent(selectedCourse.id)">Editar contenido</button>
+        <button class="button btn-delete" (click)="deleteCourse(selectedCourse.id)">Eliminar</button>
+      </div>
+    </ng-container>
+    
+    <ng-template #noDetails>
+      <p>Selecciona un curso para ver los detalles.</p>
+    </ng-template>
+  </div> 
+</section>
