@@ -3,7 +3,9 @@
 
 <div class="more-courses-header">
   <h2 class="courses-available-title">courses available</h2>
-  <button [routerLink]="['/home-student']" routerLinkActive="router-link-active" class="go-back-btn">Go back</button>
+  <button [routerLink]="['/home/home-student']" routerLinkActive="router-link-active" class="go-back-btn">
+    Go back
+  </button>
 </div>
 
 
@@ -22,7 +24,7 @@
       <h4 class="course-details">{{ course.type_of_course }}</h4>
       <h4 class="course-details">{{ course.price }}</h4>
       <div class="buttons-container">
-        <button [routerLink]="['/courses-details', course.id]" class="details-button">
+        <button [routerLink]="['/home/courses-details', course.id]" class="details-button">
           Details
         </button>
         <button class="buy-button">Buy Course</button>

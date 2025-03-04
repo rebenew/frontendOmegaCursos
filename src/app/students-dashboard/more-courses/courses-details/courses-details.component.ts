@@ -26,7 +26,7 @@ export class CoursesDetailsComponent {
     this.activatedRoute.params
       .pipe(switchMap(({ id }) => this.moreCoursesService.getCourseById(id)))
       .subscribe((course) => {
-        if (!course) return this.router.navigate(['more-courses']);
+        if (!course) return this.router.navigate(['/home/more-courses']);
 
         this.moreCourses = course;
         return;

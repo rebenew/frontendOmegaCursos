@@ -5,10 +5,18 @@
 
 <!--MENÚ DE OPCIONES-->
 <nav class="menu-section">
-  <button [routerLink]="['/home-student']" routerLinkActivate="active" class="bubble">Mis cursos</button>
-  <button [routerLink]="['/more-courses']" routerLinkActivate="active" class="bubble">Otros cursos</button>
-  <button [routerLink]="['/grades']" routerLinkActivate="active" class="bubble">Calificaciones</button>
-  <button [routerLink]="['/community']" routerLinkActivate="active" class="bubble">Comunidad</button>
+  <button [routerLink]="['/home/home-student']" routerLinkActivate="active" class="bubble">
+    Mis cursos
+  </button>
+  <button [routerLink]="['/home/more-courses']" routerLinkActivate="active" class="bubble">
+    Otros cursos
+  </button>
+  <button [routerLink]="['/home/grades']" routerLinkActivate="active" class="bubble">
+    Calificaciones
+  </button>
+  <button [routerLink]="['/home/community']" routerLinkActivate="active" class="bubble">
+    Comunidad
+  </button>
 </nav>
 
 <main class="content">
@@ -24,7 +32,9 @@
             <div class="course-class-title">
               <h3>FUNDAMENTALS</h3>
               <p>Modalidad: Virual</p>
-              <button [routerLink]="['/course-content/fundamentals']" class="bubble">Continuar curso</button>
+              <button [routerLink]="['/home/course-content']" class="bubble">
+                Continuar curso
+              </button>
             </div>
           </div>
         </div>

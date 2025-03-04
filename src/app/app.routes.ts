@@ -17,18 +17,83 @@ export const routes: Routes = [
     path: 'home',
     component: HomeLayoutComponent,
     children: [
+      { path: '', redirectTo: 'home-student', pathMatch: 'full' },
       {
         path: 'home-student',
+        title: 'Home Student',
         component: HomeStudentComponent,
-        children: [
-          {
-            path: 'more-courses',
-            loadComponent: () =>
-              import(
-                './students-dashboard/more-courses/more-courses.component'
-              ).then((i) => i.MoreCoursesComponent),
-          },
-        ],
+      },
+      // Course content route
+      {
+        path: 'course-content',
+        title: 'Content',
+        component: CourseContentComponent,
+        // children: [
+        //   {
+        //     path: 'content',
+        //     loadComponent: () =>
+        //       import(
+        //         './students-dashboard/course-content/content/content.component'
+        //       ).then((m) => m.ContentComponent),
+        //   },
+        //   {
+        //     path: 'learning-tools',
+        //     loadComponent: () =>
+        //       import(
+        //         './students-dashboard/course-content/learning-tools/learning-tools.component'
+        //       ).then((m) => m.LearningToolsComponent),
+        //   },
+        //   {
+        //     path: 'reviews',
+        //     loadComponent: () =>
+        //       import(
+        //         './students-dashboard/course-content/reviews/reviews.component'
+        //       ).then((m) => m.ReviewsComponent),
+        //   },
+        //   {
+        //     path: 'q&a',
+        //     loadComponent: () =>
+        //       import(
+        //         './students-dashboard/course-content/questions-answers/questions-answers.component'
+        //       ).then((m) => m.QuestionsAnswersComponent),
+        //   },
+        // ],
+      },
+      // More courses route
+      {
+        path: 'more-courses',
+        title: 'More Courses',
+        loadComponent: () =>
+          import(
+            './students-dashboard/more-courses/more-courses.component'
+          ).then((i) => i.MoreCoursesComponent),
+      },
+      // Course details
+      {
+        path: 'courses-details/:id',
+        title: 'Courses details',
+        loadComponent: () =>
+          import(
+            './students-dashboard/more-courses/courses-details/courses-details.component'
+          ).then((m) => m.CoursesDetailsComponent),
+      },
+      // grades route
+      {
+        path: 'grades',
+        title: 'Grades',
+        loadComponent: () =>
+          import('./students-dashboard/grades/grades.component').then(
+            (m) => m.GradesComponent
+          ),
+      },
+      // Community route
+      {
+        path: 'community',
+        title: 'Community',
+        loadComponent: () =>
+          import('./students-dashboard/community/community.component').then(
+            (m) => m.CommunityComponent
+          ),
       },
     ],
   },
@@ -105,84 +170,9 @@ export const routes: Routes = [
   //Dashboard mentor
   { path: 'dashboard_mentor', component: DashboardComponent },
   //Home Student Component
-  {
-    path: 'home-student',
-    title: 'Home - Student',
-    component: HomeStudentComponent,
-  },
-  // More courses
-  {
-    path: 'more-courses',
-    title: 'More Courses',
-    loadComponent: () =>
-      import('./students-dashboard/more-courses/more-courses.component').then(
-        (m) => m.MoreCoursesComponent
-      ),
-  },
 
   //More course details
-  {
-    path: 'courses-details/:id',
-    title: 'Courses details',
-    loadComponent: () =>
-      import(
-        './students-dashboard/more-courses/courses-details/courses-details.component'
-      ).then((m) => m.CoursesDetailsComponent),
-  },
-  //Course content
-  {
-    path: 'course-content/:id',
-    title: 'Content',
-    component: CourseContentComponent,
-    // children: [
-    //   {
-    //     path: 'content',
-    //     loadComponent: () =>
-    //       import(
-    //         './students-dashboard/course-content/content/content.component'
-    //       ).then((m) => m.ContentComponent),
-    //   },
-    //   {
-    //     path: 'learning-tools',
-    //     loadComponent: () =>
-    //       import(
-    //         './students-dashboard/course-content/learning-tools/learning-tools.component'
-    //       ).then((m) => m.LearningToolsComponent),
-    //   },
-    //   {
-    //     path: 'reviews',
-    //     loadComponent: () =>
-    //       import(
-    //         './students-dashboard/course-content/reviews/reviews.component'
-    //       ).then((m) => m.ReviewsComponent),
-    //   },
-    //   {
-    //     path: 'q&a',
-    //     loadComponent: () =>
-    //       import(
-    //         './students-dashboard/course-content/questions-answers/questions-answers.component'
-    //       ).then((m) => m.QuestionsAnswersComponent),
-    //   },
-    // ],
-  },
 
-  {
-    path: 'grades',
-    title: 'Grades',
-    loadComponent: () =>
-      import('./students-dashboard/grades/grades.component').then(
-        (m) => m.GradesComponent
-      ),
-  },
-
-  {
-    path: 'community',
-    title: 'Community',
-    loadComponent: () =>
-      import('./students-dashboard/community/community.component').then(
-        (m) => m.CommunityComponent
-      ),
-  },
   //Default path
   { path: '', redirectTo: 'landing', pathMatch: 'full' }, // Redirige la raíz a la landing page
   { path: 'landing', component: LandingPageComponent },
