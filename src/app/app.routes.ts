@@ -76,12 +76,12 @@ export const routes: Routes = [
     component: DashboardComponent,
   },
   //Home Student Component
-  {
-    path: 'home-student',
-    data: { renderMode: 'client' },
-    title: 'Home - Student',
-    component: HomeStudentComponent,
-  },
+  // {
+  //   path: 'home-student',
+  //   data: { renderMode: 'client' },
+  //   title: 'Home - Student',
+  //   component: HomeStudentComponent,
+  // },
   {
     path: 'dashboard_mentor',
     data: { renderMode: 'client' },
@@ -172,7 +172,6 @@ export const routes: Routes = [
         component: HomeStudentComponent,
       },
       // More courses
-
       {
         path: 'more-courses',
         data: { renderMode: 'client' },
@@ -184,19 +183,10 @@ export const routes: Routes = [
       },
     ],
   },
-  //More course details
-  {
-    path: 'courses-details/:id',
-    data: { renderMode: 'client' },
-    title: 'Courses details',
-    loadComponent: () =>
-      import(
-        './students-dashboard/more-courses/courses-details/courses-details.component'
-      ).then((m) => m.CoursesDetailsComponent),
-  },
+
   //Course content
   {
-    path: 'course-content/:id',
+    path: 'course-content',
     data: { renderMode: 'client' },
     title: 'Content',
     component: CourseContentComponent,
@@ -235,7 +225,7 @@ export const routes: Routes = [
       },
     ],
   },
-
+  // Grades route
   {
     path: 'grades',
     data: { renderMode: 'client' },
@@ -245,7 +235,7 @@ export const routes: Routes = [
         (m) => m.GradesComponent
       ),
   },
-
+  // Community route
   {
     path: 'community',
     data: { renderMode: 'client' },

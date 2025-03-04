@@ -22,8 +22,7 @@
     font-weight: 600;
     margin-right: 100px;
     margin-top: 20px;
-    padding: 10px;
-    height: 2%;
+    padding: 5px;
     width: 6%;
   }
   @media screen and (max-width: 768px) {
@@ -102,7 +101,7 @@
   flex-direction: column;
   justify-content: start;
   border: 1px solid;
-  height: 100vh;
+  height: auto;
   background-color: #d7dadb;
   padding: 5px;
 }
@@ -120,22 +119,37 @@
   font-weight: bolder;
 }
 
-.content-list {
+.content-options {
+  width: 100%;
+  border: 1px solid gray;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  justify-content: flex-start;
+  font-size: large;
+  border-radius: 5px;
+}
+
+.content-options:hover {
+  background-color: #818ac4;
+  color: #fff;
+}
+
+.active-button {
+  background-color: #818ac4;
+  color: #fff;
 }
 
 .unit-introduction {
-  font-size: 2em;
+  font-size: 1.5em;
+  font-weight: 600;
 }
 
 .sidebar-buttons {
-  background-color: #d7dadb;
+  background-color: #f3ece0;
   display: flex;
   justify-content: space-around;
   cursor: pointer;
   border: 1px solid;
+  border-radius: 5px;
 }
 
 .sidebar-buttons:hover {
