@@ -69,6 +69,8 @@ export const routes: Routes = [
   }, //   ],
   // },
 
+
+
   //Dashboard mentor
   {
     path: 'dashboard_mentor',
@@ -88,7 +90,6 @@ export const routes: Routes = [
     component: DashboardComponent,
   },
   //admin-dashboard
-
   {
     path: 'admin-dashboard',
     data: { renderMode: 'client' },
@@ -97,26 +98,17 @@ export const routes: Routes = [
       {
         path: '',
         data: { renderMode: 'client' },
-        redirectTo: 'dashboard',
+        redirectTo: 'courses',
         pathMatch: 'full',
-      },
-      {
-        path: 'dashboard',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
-          ).then((m) => m.AdminDashboardComponent),
-        // canActivate: [AuthGuard]
       },
       {
         path: 'courses',
         data: { renderMode: 'client' },
         loadComponent: () =>
           import(
-            './components/admin-course-components/admin-course-list/admin-course-list.component'
-          ).then((m) => m.AdminCourseListComponent),
-        //canActivate: [AuthGuard]
+            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
+          ).then((m) => m.AdminDashboardComponent),
+
       },
       {
         path: 'courses/new',
@@ -125,7 +117,6 @@ export const routes: Routes = [
           import(
             './components/admin-course-components/admin-course-form/admin-course-form.component'
           ).then((m) => m.AdminCourseFormComponent),
-        //canActivate: [AuthGuard]
       },
       {
         path: 'courses/edit-view/:id',
@@ -134,7 +125,7 @@ export const routes: Routes = [
           import(
             './components/admin-course-components/admin-course-form/admin-course-form.component'
           ).then((m) => m.AdminCourseFormComponent),
-        //canActivate: [AuthGuard]
+
       },
       {
         path: 'courses/edit-content/:id',
@@ -144,17 +135,9 @@ export const routes: Routes = [
             './components/admin-course-components/admin-course-editor/course-editor.component'
           ).then((m) => m.CourseEditorComponent),
       },
-      {
-        path: 'login',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './components/admin-course-components/login/login.component'
-          ).then((m) => m.LoginComponent),
-      },
     ],
   },
-  {
+{
     path: '',
     component: HomelayoutComponent,
     children: [
@@ -164,6 +147,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         component: DashboardComponent,
       },
+
       //Home Student Component
       {
         path: 'home-student',
@@ -171,6 +155,7 @@ export const routes: Routes = [
         title: 'Home - Student',
         component: HomeStudentComponent,
       },
+
       // More courses
       {
         path: 'more-courses',

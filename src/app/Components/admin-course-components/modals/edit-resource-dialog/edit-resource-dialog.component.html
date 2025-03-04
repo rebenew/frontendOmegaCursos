@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>{{ data.resource.ResourceName ? 'Editar recurso' : 'Agregar Recurso' }}</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre del Recurso</mat-label>
+    <input matInput [(ngModel)]="data.resource.ResourceName">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Link</mat-label>
+    <input matInput [(ngModel)]="data.resource.Link">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Embed</mat-label>
+    <input matInput [(ngModel)]="data.resource.Embed">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Cancelar</button>
+  <button mat-button (click)="save()">Guardar</button>
+</mat-dialog-actions>
