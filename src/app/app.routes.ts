@@ -106,7 +106,6 @@ export const routes: Routes = [
           import(
             './components/admin-course-components/admin-course-form/admin-course-form.component'
           ).then((m) => m.AdminCourseFormComponent),
-        //canActivate: [AuthGuard]
       },
       {
         path: 'courses/edit-view/:id',
@@ -115,7 +114,7 @@ export const routes: Routes = [
           import(
             './components/admin-course-components/admin-course-form/admin-course-form.component'
           ).then((m) => m.AdminCourseFormComponent),
-        //canActivate: [AuthGuard]
+        
       },
       {
         path: 'courses/edit-content/:id',
@@ -124,14 +123,6 @@ export const routes: Routes = [
           import(
             './components/admin-course-components/admin-course-editor/course-editor.component'
           ).then((m) => m.CourseEditorComponent),
-      },
-      {
-        path: 'login',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './components/admin-course-components/login/login.component'
-          ).then((m) => m.LoginComponent),
       },
     ],
   },

@@ -4,26 +4,51 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from '../../../services/admin-course-services/course-service/admin.course.services';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-admin-course-form',
   templateUrl: './admin-course-form.component.html',
   styleUrls: ['./admin-course-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, SidebarComponent]
+  imports: [ReactiveFormsModule, CommonModule]
 }) 
 export class AdminCourseFormComponent implements OnInit {
-  courseForm: FormGroup;
+  courseForm!: FormGroup;
+  isEditMode = false;
   courseId: number | null = null;
-  isEditMode: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private courseService: CourseService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit() {
+    this.initializeForm();
+
+    this.route.paramMap
+      .pipe(
+        switchMap(params => {
+          const id = params.get('id');
+          if (id) {
+            this.isEditMode = true;
+            this.courseId = +id;
+            return this.courseService.getCourseById(this.courseId);
+          }
+          return of(null);
+        })
+      )
+      .subscribe(course => {
+        if (course) {
+          this.courseForm.patchValue(course);
+        }
+      });
+  }
+
+  private initializeForm() {
     this.courseForm = this.fb.group({
       id: [0],
       title: ['', Validators.required], 
@@ -34,67 +59,42 @@ export class AdminCourseFormComponent implements OnInit {
       price: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]]
     });
   }
-
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      if (id) {
-        this.courseId = +id;
-        this.isEditMode = true;
-        this.loadCourse(this.courseId);
-      }
-    });
+  
+  saveCourse() {
+    if (this.courseForm.valid) {
+      const formData = this.courseForm.value;
+      formData.certification = formData.certification ? 'Certificación virtual' : 'No certificable';
+  
+      const courseOperation = this.isEditMode
+        ? this.courseService.updateCourse(formData) 
+        : this.courseService.addCourse({ ...formData, id: Date.now() }); // Asignamos un ID único temporal
+  
+      courseOperation.subscribe({
+        next: () => {
+          console.log(`Curso ${this.isEditMode ? 'actualizado' : 'agregado'} exitosamente`);
+          this.router.navigate(['/courses']);
+        },
+        error: (err: any) => console.error(`Error al ${this.isEditMode ? 'actualizar' : 'agregar'} el curso:`, err)
+      });
+    }
   }
 
   loadCourse(id: number) {
     this.courseService.getCourseById(id).subscribe(
       course => {
-        this.courseForm.patchValue(course);
+        if (course) {
+          this.courseForm.patchValue(course);
+        }
       },
       error => {
         console.error('Error al cargar el curso:', error);
       }
     );
   }
-
-  saveCourse() {
-    if (this.courseForm.valid) {
-      const formData = this.courseForm.value;
-      formData.certification = formData.certification ? 'Certificación virtual' : 'No certificable';
-
-      if (this.isEditMode) {
-        this.courseService.updateCourse(formData).subscribe(
-          response => {
-            console.log('Curso actualizado exitosamente:', response);
-            this.router.navigate(['/courses']);
-          },
-          error => {
-            console.error('Error al actualizar el curso:', error);
-          }
-        );
-      } else {
-        this.courseService.addCourse(formData).subscribe(
-          response => {
-            console.log('Curso agregado exitosamente:', response);
-            this.courseForm.reset({
-              id: 0,
-              title: '',
-              modality: 'Presencial',
-              certification: false,
-              duration: '',
-              description: '',
-              price: ''
-            });
-            this.router.navigate(['/courses']);
-          },
-          error => {
-            console.error('Error al agregar el curso:', error);
-          }
-        );
-      }
-    }
-  }
 }
+
+
+  
 
 /* To-do: 
 

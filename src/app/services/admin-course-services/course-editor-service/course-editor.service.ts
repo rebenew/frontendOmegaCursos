@@ -1,104 +1,130 @@
-import { Injectable } from '@angular/core';
-import { Course, Unit, Resource } from '../../../models/admin-course-models/course-editor-model';
-import { map, Observable } from 'rxjs';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Course, Unit } from '../../../models/admin-course-models/course-editor-model';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { editableCourse } from '../course-service/admin.course.services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseEditorService {
   private courseInfo = 'assets/resources_IA_para_todos.json';
-  private course: Course | null = null;
+  private courseSubject = new BehaviorSubject<Course>({ course: '', content: [] });
 
-  constructor(private http: HttpClient) {
-    this.loadCourse(); 
-  }
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: object) {}
 
-  // Obtener curso desde el JSON
+  // Obtener curso observable
   getCourse(): Observable<Course> {
-    return this.http.get<Course>(this.courseInfo).pipe(
-      map(data => ({
-        course: data.course,
-        content: data.content.map((unit: any) => ({
-          unidad: unit.unidad,
-          contenido: unit.contenido.map((res: any) => ({
-            ResourceName: res.ResourceName,
-            Link: res.Link,
-            Embed: res.Embed
-          }))
-        }))
-      }))
-    );
+    return this.courseSubject.asObservable();
   }
+  
 
-  // Obtener todas las unidades de un curso específico
-  getCourseContent(courseTitle: string): Observable<Unit[]> {
-    return this.http.get<{ course: string, content: Unit[] }>(this.courseInfo).pipe(
-      map(data => (data.course === courseTitle ? data.content : []))
-    );
-  }
+ // Agregar unidad y actualizar lista
+ addUnit(newUnit: Unit): void {
+  console.log("🟢 Agregando unidad:", newUnit);
 
-  // Agregar una nueva unidad al curso
-  addUnit(title: string) {
-    if (this.course) {
-      const newUnit: Unit = {
-        unidad: this.course.content.length + 1,
-        contenido: []
-      };
-      this.course.content.push(newUnit);
-      this.saveCourse();
-    }
-  }
+  const currentCourse = this.courseSubject.value;
+  if (!currentCourse) return;
 
-  // Agregar un nuevo recurso a una unidad específica
+  const updatedContent = [...currentCourse.content, newUnit];
+
+  // Recalcular números de unidad
+  updatedContent.forEach((unit, index) => unit.unidad = index + 1);
+
+  this.courseSubject.next({ ...currentCourse, content: updatedContent });
+  console.log("✅ Unidad agregada correctamente");
+}
+
+ // Mover unidad de posición
+ moveUnit(previousIndex: number, newIndex: number): void {
+  const currentCourse = this.courseSubject.value;
+  if (!currentCourse || previousIndex === newIndex) return;
+
+  console.log(`🔄 Moviendo unidad de ${previousIndex} a ${newIndex}`);
+
+  const updatedContent = [...currentCourse.content];
+  const [movedUnit] = updatedContent.splice(previousIndex, 1);
+  updatedContent.splice(newIndex, 0, movedUnit);
+
+  // Recalcular números de unidad
+  updatedContent.forEach((unit, index) => unit.unidad = index + 1);
+
+  this.courseSubject.next({ ...currentCourse, content: updatedContent });
+  console.log("✅ Unidades reordenadas correctamente");
+}
+
+// Eliminar unidad
+removeUnit(unitIndex: number): void {
+  console.log("🗑️ Eliminando unidad en índice:", unitIndex);
+
+  const currentCourse = this.courseSubject.value;
+  if (!currentCourse || unitIndex < 0 || unitIndex >= currentCourse.content.length) return;
+
+  const updatedContent = currentCourse.content.filter((_, index) => index !== unitIndex);
+
+  // Recalcular números de unidad
+  updatedContent.forEach((unit, index) => unit.unidad = index + 1);
+
+  this.courseSubject.next({ ...currentCourse, content: updatedContent });
+  console.log("✅ Unidad eliminada y lista reordenada");
+}
+
+  // Agregar recurso a una unidad
   addResource(unitIndex: number, resourceName: string, link: string, embed: string) {
-    if (this.course && this.course.content[unitIndex]) {
-      const newResource: Resource = {
-        ResourceName: resourceName,
-        Link: link,
-        Embed: embed
-      };
-      this.course.content[unitIndex].contenido.push(newResource);
-      this.saveCourse();
-    }
+    const currentCourse = this.courseSubject.value;
+    if (!currentCourse || !currentCourse.content[unitIndex]) return;
+
+    const updatedContent = [...currentCourse.content];
+    updatedContent[unitIndex].contenido.push({ ResourceName: resourceName, Link: link, Embed: embed });
+
+    this.courseSubject.next({ ...currentCourse, content: updatedContent });
+    console.log("✅ Recurso agregado correctamente");
+  }
+   // Eliminar recurso de una unidad
+   removeResource(unitIndex: number, resourceIndex: number) {
+    const currentCourse = this.courseSubject.value;
+    if (!currentCourse || !currentCourse.content[unitIndex]) return;
+
+    const updatedContent = [...currentCourse.content];
+    updatedContent[unitIndex].contenido = updatedContent[unitIndex].contenido.filter((_, i) => i !== resourceIndex);
+
+    this.courseSubject.next({ ...currentCourse, content: updatedContent });
+    console.log("✅ Recurso eliminado correctamente");
   }
 
-  // Eliminar una unidad
-  removeUnit(unitIndex: number) {
-    if (this.course && this.course.content[unitIndex]) {
-      this.course.content.splice(unitIndex, 1);
-      this.reorderUnits();
-      this.saveCourse();
+  // Guardar curso en LocalStorage
+  saveCourseToLocal(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const currentCourse = this.courseSubject.value;
+      localStorage.setItem('editableCourse', JSON.stringify(currentCourse));
+      console.log("💾 Curso guardado en LocalStorage");
     }
   }
-
-  // Eliminar un recurso de una unidad
-  removeResource(unitIndex: number, resourceIndex: number) {
-    if (this.course && this.course.content[unitIndex]) {
-      this.course.content[unitIndex].contenido.splice(resourceIndex, 1);
-      this.saveCourse();
+  // Cargar curso desde LocalStorage
+  loadCourseFromLocal(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const storedCourse = localStorage.getItem('editableCourse');
+      if (storedCourse) {
+        const course = JSON.parse(storedCourse);
+        this.courseSubject.next(course);
+        console.log("✅ Curso cargado desde LocalStorage");
+      }
     }
   }
-
-  // Reordena los números de las unidades después de eliminar una
-  private reorderUnits() {
-    if (this.course) {
-      this.course.content.forEach((unit, index) => {
-        unit.unidad = index + 1;
-      });
-    }
+   // Cargar curso editable desde JSON
+   loadEditableCourse(title: string): void {
+    this.http.get<editableCourse[]>('assets/courseDetails.json').pipe(
+      map(editableCourses => editableCourses.find(course => course.course === title) || { course: 'Nuevo Curso', content: [] })
+    ).subscribe(course => {
+      this.courseSubject.next(course);
+      console.log("📄 Curso editable cargado:", course);
+    });
   }
-
-  // Cargar datos desde `localStorage`
-  private loadCourse() {
-    const data = localStorage.getItem('course');
-    this.course = data ? JSON.parse(data) : null;
-  }
-
-  // Guardar cambios en `localStorage`
-   saveCourse() {
-    if (this.course) {
-      localStorage.setItem('course', JSON.stringify(this.course));
-    }
+   // Actualizar curso
+   updateCourse(updatedCourse: Course): void {
+    this.courseSubject.next(updatedCourse);
+    console.log("✅ Curso actualizado en CourseEditorService");
   }
 }
