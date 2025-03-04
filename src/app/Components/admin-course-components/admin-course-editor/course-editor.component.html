@@ -3,21 +3,23 @@
   <div class="editor-section">
     <h2 *ngIf="course" class="course-title">{{ course.course }}</h2>
     <button class="add-unit-btn" (click)="openAddUnit()">+ Agregar Unidad</button>
+    <button (click)="undoLastChange()" mat-button color="primary" [disabled]="undoStack.length === 0">
+      ↩️ Deshacer Último Cambio
+    </button>
 
-    <div 
-      *ngFor="let unit of course?.content; let i = index"
-      class="unit"
-      cdkDrag
-      [attr.cdkDragDisabled]="true">
+    <div *ngFor="let unit of course?.content; let i = index"
+    #unitElement
+    [class.highlight]="highlightedUnitIndex === i"
+    class="unit">
       
       <!-- Encabezado de la Unidad -->
+     
       <div (click)="toggleUnit(i)" class="unit-header">
         <button mat-raised-button color="accent" class="add-resource-btn" (click)="openEditModal(unit)">+ Agregar recurso</button>
         <h3 class="unit-title">{{ unit.unidad }}</h3>
         <p class="unit-info">Contiene {{ unit.contenido.length }} recursos</p>
         <div class="unit-header-actions">
           <span>{{ expandedUnits.has(i) ? '▲' : '▼' }}</span>
-
         </div>
       </div>
     
@@ -50,18 +52,22 @@
 
     <!-- Lista de unidades con drag and drop -->
     <div cdkDropListGroup>
-     <!-- Contenedor de unidades -->
-     <div cdkDropList 
-     #unitsContainer="cdkDropList"
-     id="unitsContainer"
-     class="units-container"
-     [cdkDropListData]="course?.content || []" 
-     (cdkDropListDropped)="dropUnit($event)">
-
-  <div *ngFor="let unit of course?.content || []; let i = index" cdkDrag>
-    <div class="unit">
-      {{ unit.unidad }}
-    </div>
+      <div 
+        cdkDropList
+        #unitsContainer="cdkDropList"
+        id="unitsContainer"
+        class="units-container"
+        [cdkDropListData]="course?.content || []"
+        [cdkDropListConnectedTo]="['deleteContainer']"
+        (cdkDropListDropped)="dropUnit($event)">
+    
+        <div 
+        *ngFor="let unit of course?.content || []; let i = index"
+        class="unit"
+        cdkDrag
+        [cdkDragData]="unit">
+        {{ unit.unidad }}
+      </div>
   </div>
 </div>
           
@@ -74,5 +80,7 @@
         (cdkDropListDropped)="deleteUnitOnDrop($event)">
      🗑️ Arrastra aquí para eliminar
      <p *ngIf="deletedUnits && deletedUnits.length > 0">Última unidad eliminada: {{ deletedUnits[deletedUnits.length - 1]?.unidad }}</p>
-   </div>  </div>  </div>
+   </div> 
+
 </div>
+  </div>

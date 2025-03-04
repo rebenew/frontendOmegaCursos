@@ -2,66 +2,105 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseEditorService } from '../../../services/admin-course-services/course-editor-service/course-editor.service';
 import { Course, Unit, Resource } from '../../../models/admin-course-models/course-editor-model';
-import { CdkDragDrop, moveItemInArray, CdkDropList } from '@angular/cdk/drag-drop';
+import { DragDropModule ,CdkDragDrop, moveItemInArray, CdkDropList } from '@angular/cdk/drag-drop';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { EditResourceDialogComponent } from '../modals/edit-resource-dialog/edit-resource-dialog.component';
 import { DeleteConfirmationComponent } from '../modals/delete-confirmation/delete-confirmation.component';
 import { Subscription } from 'rxjs';
 import { CourseService } from '../../../services/admin-course-services/course-service/admin.course.services';
+import { ElementRef, Renderer2, ViewChildren, QueryList } from '@angular/core';
 
 @Component({
   selector: 'app-course-editor',
   standalone: true,
   imports: [
     CdkDropList,
-    CommonModule
+    CommonModule,
+    DragDropModule
   ],
   templateUrl: './course-editor.component.html',
   styleUrl: './course-editor.component.scss'
 })
 export class CourseEditorComponent implements OnInit {
   @ViewChild('unitsContainer', { static: false }) unitsContainer!: CdkDropList;
+  @ViewChildren('unitElement') unitElements!: QueryList<ElementRef>;
 
   course: Course | null = null;
   expandedUnits = new Set<number>(); 
   openMenuIndex: number | null = null;
   deletedUnits: Unit[] = [];
   private courseSubscription!: Subscription;
+  undoStack: Course[] = [];
+  highlightedUnitIndex: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private courseService: CourseService,
     private courseEditorService: CourseEditorService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private renderer: Renderer2
   ) {}
 
  ngOnInit() {
-  this.route.paramMap.subscribe(params => {
-    const courseId = params.get('id'); // Obtener ID del curso desde la URL
-    if (courseId) {
-      console.log(`📥 Cargando curso con ID: ${courseId}`);
+    this.route.paramMap.subscribe(params => {
+      const courseId = params.get('id');
+      if (courseId) {
+        this.courseService.getCourseNameById(courseId).subscribe(courseName => {
+          if (courseName) {
+            this.courseEditorService.loadCourseFromLocal(courseName);
+          } else {
+            console.warn(`⚠️ No se encontró un curso con ID ${courseId}`);
+          }
+        });
+      }
+    });
 
-      // Buscar el nombre real del curso en CourseService
-      this.courseService.getCourseNameById(courseId).subscribe(courseName => {
-        if (courseName) {
-          console.log(`🔍 Nombre del curso encontrado: ${courseName}`);
-          
-          // Ahora cargar el curso correcto en CourseEditorService
-          this.courseEditorService.loadCourseFromLocal(courseName);
-        } else {
-          console.warn(`⚠️ No se encontró un curso con ID ${courseId}`);
-        }
-      });
+    this.courseEditorService.getCourse().subscribe(course => {
+      if (course) {
+        this.course = { ...course, content: [...(course.content || [])] };
+        this.undoStack = []; // Limpiar la pila cuando se carga un nuevo curso
+      }
+    });
+  }
+
+   private saveState() {
+    if (this.course) {
+      this.undoStack.push(JSON.parse(JSON.stringify(this.course))); // Guardar copia profunda
     }
-  });
+  }
 
-  // Suscribirse para obtener el curso actual
-  this.courseEditorService.getCourse().subscribe(course => {
-    this.course = course ? { ...course, content: course.content || [] } : null;
-    console.log("🔹 Curso cargado en el editor:", this.course);
-  });
-}
+   /** Deshacer el último cambio */
+   undoLastChange() {
+    if (this.undoStack.length === 0) return;
+
+    const previousState = this.undoStack.pop();
+    if (!previousState) return;
+
+    // Identificar qué unidad se restauró (comparamos contenidos)
+    const restoredUnitIndex = this.getRestoredUnitIndex(previousState);
+
+    this.course = previousState;
+    this.courseEditorService.updateCourse(this.course);
+
+    if (restoredUnitIndex !== null) {
+      this.highlightUnit(restoredUnitIndex);
+    }
+
+    console.log("↩️ Último cambio deshecho.");
+  }
+
+  private getRestoredUnitIndex(previousState: Course): number | null {
+    if (!this.course) return null;
+
+    for (let i = 0; i < this.course.content.length; i++) {
+      if (JSON.stringify(this.course.content[i]) !== JSON.stringify(previousState.content[i])) {
+        return i; // Devolvemos el primer índice que difiere
+      }
+    }
+
+    return null;
+  }
 
   ngOnDestroy() {
     this.courseSubscription?.unsubscribe();
@@ -112,40 +151,48 @@ export class CourseEditorComponent implements OnInit {
     });
   }
 
-  deleteResource(unit: Unit, resourceIndex: number): void {
+ deleteResource(unit: Unit, resourceIndex: number): void {
     if (!this.course) return;
+
+    this.saveState(); // Guardamos el estado antes de modificar
+
     unit.contenido.splice(resourceIndex, 1);
     this.courseEditorService.saveCourseToLocal();
   }
 
   dropUnit(event: CdkDragDrop<Unit[]>): void {
     if (!this.course || event.previousIndex === event.currentIndex) return;
-
-    if (event.container.id === 'delete-area') {
-      console.warn("⚠️ No puedes soltar aquí.");
-      return;
-    }
-
+  
     console.log("🔄 Moviendo unidad de", event.previousIndex, "a", event.currentIndex);
-    moveItemInArray(this.course.content, event.previousIndex, event.currentIndex);
-    this.courseEditorService.updateCourse({ ...this.course, content: [...this.course.content] });
+    const updatedContent = [...this.course.content];
+    moveItemInArray(updatedContent, event.previousIndex, event.currentIndex);
+  
+    this.course = { ...this.course, content: updatedContent };
+    this.courseEditorService.updateCourse(this.course);
   }
   
-  deleteUnitOnDrop(event: CdkDragDrop<Unit[]>) {
+  deleteUnitOnDrop(event: CdkDragDrop<Unit[]>): void {
     if (!this.course || event.previousIndex < 0 || event.container.id !== 'deleteContainer') return;
-
+  
+    this.saveState();
+  
     const unitToDelete = this.course.content.splice(event.previousIndex, 1)[0];
-    this.deletedUnits.push(unitToDelete);
-    this.courseEditorService.saveCourseToLocal();
+    this.deletedUnits = [...this.deletedUnits, unitToDelete]; // Clonar para detectar cambios
+  
+    this.course = { ...this.course, content: [...this.course.content] };
+    this.courseEditorService.updateCourse(this.course);
     console.log("🚮 Unidad eliminada:", unitToDelete);
   }
   
+   /** Modificaciones con guardado en la pila */
   openAddUnit(): void {
     if (!this.course) {
       console.warn("⚠️ No hay un curso cargado.");
       return;
     }
-
+    
+    this.saveState(); // Guardamos el estado antes de modificar
+    
     const newUnit: Unit = {
       unidad: this.course.content.length + 1,
       contenido: []
@@ -159,5 +206,16 @@ export class CourseEditorComponent implements OnInit {
 
   trackByIndex(index: number): number {
     return index;
+  }
+  private highlightUnit(index: number) {
+    this.highlightedUnitIndex = index;
+    setTimeout(() => {
+      const unitElement = this.unitElements.get(index)?.nativeElement;
+      if (unitElement) {
+        unitElement.scrollIntoView({ behavior: 'smooth', block: 'center' }); // Hacer scroll
+        this.renderer.addClass(unitElement, 'highlight'); // Agregar clase CSS
+        setTimeout(() => this.renderer.removeClass(unitElement, 'highlight'), 2000); // Quitar resaltado después de 2s
+      }
+    }, 100);
   }
 }
