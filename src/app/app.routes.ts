@@ -78,26 +78,17 @@ export const routes: Routes = [
       {
         path: '',
         data: { renderMode: 'client' },
-        redirectTo: 'dashboard',
+        redirectTo: 'courses',
         pathMatch: 'full',
-      },
-      {
-        path: 'dashboard',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
-          ).then((m) => m.AdminDashboardComponent),
-        // canActivate: [AuthGuard]
       },
       {
         path: 'courses',
         data: { renderMode: 'client' },
         loadComponent: () =>
           import(
-            './components/admin-course-components/admin-course-list/admin-course-list.component'
-          ).then((m) => m.AdminCourseListComponent),
-        //canActivate: [AuthGuard]
+            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
+          ).then((m) => m.AdminDashboardComponent),
+        
       },
       {
         path: 'courses/new',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'; 
 import { CommonModule } from '@angular/common'; 
-import { Course, CourseService } from '../../../services/admin-course-services/course-service/admin.course.services';
+import { Course } from '../../../services/admin-course-services/course-service/admin.course.services';
 import { Router, RouterModule } from '@angular/router';
 import { SearchBarComponent } from '../admin-search-bar/search-bar.component';
 import { SearchService } from '../../../services/admin-course-services/search-service/search.service';

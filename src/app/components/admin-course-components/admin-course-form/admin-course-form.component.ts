@@ -6,18 +6,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { ConfirmationComponent } from '../modals/confirmation/confirmation.component';
+import { EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-admin-course-form',
   templateUrl: './admin-course-form.component.html',
   styleUrls: ['./admin-course-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule]
+  imports: [ReactiveFormsModule, CommonModule, ConfirmationComponent],
 }) 
 export class AdminCourseFormComponent implements OnInit {
+  @Output() courseUpdated = new EventEmitter<void>();
   courseForm!: FormGroup;
   isEditMode = false;
   courseId: number | null = null;
+
+  showConfirmation = false;
+  confirmationMessage = '';
 
   constructor(
     private fb: FormBuilder,
@@ -59,53 +65,47 @@ export class AdminCourseFormComponent implements OnInit {
       price: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]]
     });
   }
-  
+
   saveCourse() {
     if (this.courseForm.valid) {
       const formData = this.courseForm.value;
       formData.certification = formData.certification ? 'Certificación virtual' : 'No certificable';
-  
+
       const courseOperation = this.isEditMode
-        ? this.courseService.updateCourse(formData) 
-        : this.courseService.addCourse({ ...formData, id: Date.now() }); // Asignamos un ID único temporal
-  
+        ? this.courseService.updateCourse(formData)
+        : this.courseService.addCourse({ ...formData, id: Date.now() });
+
       courseOperation.subscribe({
         next: () => {
-          console.log(`Curso ${this.isEditMode ? 'actualizado' : 'agregado'} exitosamente`);
-          this.router.navigate(['/courses']);
+          this.confirmationMessage = this.isEditMode ? 'Curso actualizado correctamente' : 'Curso creado correctamente';
+          this.showConfirmation = true; 
+
+          setTimeout(() => {
+            this.showConfirmation = false;
+            this.courseUpdated.emit(); 
+            this.router.navigate(['/admin-dashboard']);
+          }, 2000);
         },
         error: (err: any) => console.error(`Error al ${this.isEditMode ? 'actualizar' : 'agregar'} el curso:`, err)
       });
     }
   }
 
-  loadCourse(id: number) {
-    this.courseService.getCourseById(id).subscribe(
-      course => {
-        if (course) {
-          this.courseForm.patchValue(course);
-        }
-      },
-      error => {
-        console.error('Error al cargar el curso:', error);
-      }
-    );
+  showModal(message: string) {
+    this.confirmationMessage = message;
+    this.showConfirmation = true;
+
+    setTimeout(() => {
+      this.closeModal();
+    }, 2000);
+  }
+
+  closeModal() {
+    this.showConfirmation = false;
+    this.router.navigate(['admin-dashboard/courses']);
+  }
+
+  cancel() {
+    this.router.navigate(['admin-dashboard/courses']);
   }
 }
-
-
-  
-
-/* To-do: 
-
--agregar menu desplegable para filtrar los cursos por modalidad, si son certificables o no, y por precio.
-- agregar un botón para cancelar la edición y redirigir al listado de cursos.
-- agregar validaciones personalizadas para el campo de duración. (?) 
-- agregar un mensaje de confirmación antes de guardar un curso.
-- agregar un mensaje de error en el formulario.
-- agregar un mensaje de éxito en el formulario.
-- agregar tags para diferenciar los cursos.
-- Quitar el checkbox y agregar una lista desplegable para la certificación.
-- Idear la forma de separar los cursos de los bootcamps en la interfaz.
-- Al hacer click en las tarjetas ver a detalle toda la información, incluir un punto de carga de archivos y editor de texto para editar la información interna de los cursos 
-*/
