@@ -18,7 +18,6 @@ import { Component } from '@angular/core';
 import { SidecontentComponent } from './sidecontent/sidecontent.component';
 import { MainLayoutComponent } from './Pages/main-layout/main-layout.component';
 
-
 export const routes: Routes = [
   // {
   //   path: 'home',
@@ -46,30 +45,47 @@ export const routes: Routes = [
     data: { renderMode: 'client' },
     component: MainLayoutComponent,
     children: [
-      { path: '', data: { renderMode: 'client' }, component: LandingPageComponent },
-      { path: 'login2', data: { renderMode: 'client' }, component: LoginPageComponent },
-      { path: 'cursos', data: { renderMode: 'client' }, component: CoursesPageComponent },
-      { path: 'signup', data: { renderMode: 'client' }, component: SignupPageComponent },]
-  },  //   ],
+      {
+        path: '',
+        data: { renderMode: 'client' },
+        component: LandingPageComponent,
+      },
+      {
+        path: 'login2',
+        data: { renderMode: 'client' },
+        component: LoginPageComponent,
+      },
+      {
+        path: 'cursos',
+        data: { renderMode: 'client' },
+        component: CoursesPageComponent,
+      },
+      {
+        path: 'signup',
+        data: { renderMode: 'client' },
+        component: SignupPageComponent,
+      },
+    ],
+  }, //   ],
   // },
 
   //Dashboard mentor
   {
     path: 'dashboard_mentor',
     data: { renderMode: 'client' },
-    component: DashboardComponent
+    component: DashboardComponent,
   },
   //Home Student Component
-  {
-    path: 'home-student',
-    data: { renderMode: 'client' },
-    title: 'Home - Student',
-    component: HomeStudentComponent,
-  },
+  // {
+  //   path: 'home-student',
+  //   data: { renderMode: 'client' },
+  //   title: 'Home - Student',
+  //   component: HomeStudentComponent,
+  // },
   {
     path: 'dashboard_mentor',
     data: { renderMode: 'client' },
-    component: DashboardComponent
+    component: DashboardComponent,
   },
   //admin-dashboard
 
@@ -156,7 +172,6 @@ export const routes: Routes = [
         component: HomeStudentComponent,
       },
       // More courses
-
       {
         path: 'more-courses',
         data: { renderMode: 'client' },
@@ -168,54 +183,49 @@ export const routes: Routes = [
       },
     ],
   },
-  //More course details
-  {
-    path: 'courses-details/:id',
-    data: { renderMode: 'client' },
-    title: 'Courses details',
-    loadComponent: () =>
-    import(
-      './students-dashboard/more-courses/courses-details/courses-details.component'
-    ).then((m) => m.CoursesDetailsComponent),
-  },
+
   //Course content
   {
-    path: 'course-content/:id',
+    path: 'course-content',
     data: { renderMode: 'client' },
     title: 'Content',
     component: CourseContentComponent,
-    // children: [
-    //   {
-    //     path: 'content',
-    //     loadComponent: () =>
-    //       import(
-    //         './students-dashboard/course-content/content/content.component'
-    //       ).then((m) => m.ContentComponent),
-    //   },
-    //   {
-    //     path: 'learning-tools',
-    //     loadComponent: () =>
-    //       import(
-    //         './students-dashboard/course-content/learning-tools/learning-tools.component'
-    //       ).then((m) => m.LearningToolsComponent),
-    //   },
-    //   {
-    //     path: 'reviews',
-    //     loadComponent: () =>
-    //       import(
-    //         './students-dashboard/course-content/reviews/reviews.component'
-    //       ).then((m) => m.ReviewsComponent),
-    //   },
-    //   {
-    //     path: 'q&a',
-    //     loadComponent: () =>
-    //       import(
-    //         './students-dashboard/course-content/questions-answers/questions-answers.component'
-    //       ).then((m) => m.QuestionsAnswersComponent),
-    //   },
-    // ],
+    children: [
+      {
+        path: 'content',
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './students-dashboard/course-content/content/content.component'
+          ).then((m) => m.ContentComponent),
+      },
+      {
+        path: 'learning-tools',
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './students-dashboard/course-content/learning-tools/learning-tools.component'
+          ).then((m) => m.LearningToolsComponent),
+      },
+      {
+        path: 'reviews',
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './students-dashboard/course-content/reviews/reviews.component'
+          ).then((m) => m.ReviewsComponent),
+      },
+      {
+        path: 'q&a',
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './students-dashboard/course-content/questions-answers/questions-answers.component'
+          ).then((m) => m.QuestionsAnswersComponent),
+      },
+    ],
   },
-
+  // Grades route
   {
     path: 'grades',
     data: { renderMode: 'client' },
@@ -225,7 +235,7 @@ export const routes: Routes = [
         (m) => m.GradesComponent
       ),
   },
-
+  // Community route
   {
     path: 'community',
     data: { renderMode: 'client' },
