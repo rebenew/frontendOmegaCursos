@@ -53,6 +53,7 @@ export const routes: Routes = [
   },  //   ],
   // },
 
+  
   //Dashboard mentor
   {
     path: 'dashboard_mentor',
@@ -72,7 +73,6 @@ export const routes: Routes = [
     component: DashboardComponent
   },
   //admin-dashboard
-
   {
     path: 'admin-dashboard',
     data: { renderMode: 'client' },
@@ -138,7 +138,7 @@ export const routes: Routes = [
       },
     ],
   },
-  {
+{
     path: '',
     component: HomelayoutComponent,
     children: [
@@ -148,6 +148,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         component: DashboardComponent,
       },
+      
       //Home Student Component
       {
         path: 'home-student',
@@ -155,8 +156,8 @@ export const routes: Routes = [
         title: 'Home - Student',
         component: HomeStudentComponent,
       },
-      // More courses
 
+      // More courses
       {
         path: 'more-courses',
         data: { renderMode: 'client' },
@@ -168,6 +169,7 @@ export const routes: Routes = [
       },
     ],
   },
+
   //More course details
   {
     path: 'courses-details/:id',
