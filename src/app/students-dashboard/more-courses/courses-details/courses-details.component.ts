@@ -8,13 +8,14 @@ import { MoreCoursesService } from '../../../services/students-dashboard-service
 import { Courses } from '../../../interfaces/students-dashboard-interfaces/more-courses.interface';
 
 @Component({
-  selector: 'courses-details',
+  selector: 'app-courses-details',
   imports: [CommonModule, RouterLink],
   templateUrl: './courses-details.component.html',
   styleUrl: './courses-details.component.scss',
 })
 export class CoursesDetailsComponent {
   public moreCourses?: Courses;
+  receivedCourseId: string = '';
 
   constructor(
     private moreCoursesService: MoreCoursesService,
