@@ -4,7 +4,13 @@
     <h2 *ngIf="course" class="course-title">{{ course.course }}</h2>
     <button class="add-unit-btn" (click)="openAddUnit()">+ Agregar Unidad</button>
     <button (click)="undoLastChange()" mat-button color="primary" [disabled]="undoStack.length === 0">
-      ↩️ Deshacer Último Cambio
+      ↩️ Deshacer acción
+    </button>
+    <button (click)="confirmRestoreCourse()" mat-button color="warn">
+      🔄 Restaurar 
+    </button>
+    <button mat-button color="primary" (click)="saveCourseAndExit()">
+      Guardar y salir
     </button>
 
     <div *ngFor="let unit of course?.content; let i = index"
@@ -79,7 +85,6 @@
         [cdkDropListConnectedTo]="['unitsContainer']"
         (cdkDropListDropped)="deleteUnitOnDrop($event)">
      🗑️ Arrastra aquí para eliminar
-     <p *ngIf="deletedUnits && deletedUnits.length > 0">Última unidad eliminada: {{ deletedUnits[deletedUnits.length - 1]?.unidad }}</p>
    </div> 
 
 </div>

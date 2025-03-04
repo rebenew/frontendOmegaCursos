@@ -10,6 +10,8 @@ import { DeleteConfirmationComponent } from '../modals/delete-confirmation/delet
 import { Subscription } from 'rxjs';
 import { CourseService } from '../../../services/admin-course-services/course-service/admin.course.services';
 import { ElementRef, Renderer2, ViewChildren, QueryList } from '@angular/core';
+import { ConfirmationComponent } from '../modals/confirmation/confirmation.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-editor',
@@ -39,7 +41,8 @@ export class CourseEditorComponent implements OnInit {
     private courseService: CourseService,
     private courseEditorService: CourseEditorService,
     private dialog: MatDialog,
-    private renderer: Renderer2
+    private renderer: Renderer2, 
+    private router: Router
   ) {}
 
  ngOnInit() {
@@ -201,7 +204,16 @@ export class CourseEditorComponent implements OnInit {
   }
 
   restoreCourseFromJSON() {
-    this.courseEditorService.loadCourseFromLocal(this.course?.course || '');
+    const courseName = this.course?.course || 'IA PARA TODOS'; // Asegurar el nombre correcto
+    this.courseEditorService.loadEditableCourse(courseName); // Cargar desde JSON en lugar de LocalStorage
+  }
+
+  confirmRestoreCourse() {
+    const confirmed = window.confirm("⚠️ ¿Estás seguro de que deseas restaurar el curso a su estado original? Esta acción no se puede deshacer.");
+    if (confirmed) {
+      this.restoreCourseFromJSON();
+      console.log("🔄 Curso restaurado desde el JSON original.");
+    }
   }
 
   trackByIndex(index: number): number {
@@ -217,5 +229,22 @@ export class CourseEditorComponent implements OnInit {
         setTimeout(() => this.renderer.removeClass(unitElement, 'highlight'), 2000); // Quitar resaltado después de 2s
       }
     }, 100);
+  }
+
+  saveCourseAndExit() {
+    if (!this.course) {
+      console.warn("⚠️ No hay curso cargado para guardar.");
+      return;
+    }
+  
+    this.courseEditorService.saveCourseToLocal(); // Guardar curso
+  
+    this.dialog.open(ConfirmationComponent, {
+      width: '400px',
+      data: { message: "✅ El curso ha sido guardado correctamente." }
+    }).afterClosed().subscribe(() => {
+      console.log("✅ Curso guardado, redirigiendo...");
+      this.router.navigate(['/admin-dashboard/courses']); // Redirigir a la página principal
+    });
   }
 }
