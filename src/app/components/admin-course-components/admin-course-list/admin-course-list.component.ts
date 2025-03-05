@@ -20,12 +20,12 @@ throw new Error('Method not implemented.');
 
 editCourseView(id: number) {
   console.log(`Editar información del curso con ID: ${id}`);
-  this.router.navigate(['admin-dashboard/courses/edit', id]);
+  this.router.navigate(['admin-dashboard/courses/edit-view', id]);
 }
 
 editCourseContent(id: number) {
   console.log(`Editar contenido del curso con ID: ${id}`);
-  // this.router.navigate(['/admin/cursos/editar-contenido', id]);
+  this.router.navigate(['admin-dashboard/courses/edit-content', id])
 }
 
 deleteCourse(id: number) {

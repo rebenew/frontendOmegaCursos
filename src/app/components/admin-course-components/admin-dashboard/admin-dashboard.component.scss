@@ -1,4 +1,17 @@
-/* Contenedor principal */
+// Variables de colores
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$success-color: #28a745;
+$warning-color: #ffc107;
+$info-color: #17a2b8;
+$danger-color: #dc3545;
+$light-gray: #edeeee;
+$background-color: #f8f9fa;
+$text-color: #333;
+$border-radius: 8px;
+$transition-speed: 0.3s;
+
+//  Contenedor Principal
 .dashboard-container {
   padding: 20px;
   display: flex;
@@ -6,7 +19,7 @@
   align-items: center;
 }
 
-/*Barra de busqueda */
+//  Barra de búsqueda y botones
 .search-bar-container {
   display: flex;
   justify-content: space-between;
@@ -15,103 +28,157 @@
   max-width: 1350px;
   margin-bottom: 20px;
   padding: 10px;
-  background: #edeeee;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1)
-}
-.search-bar-container .button { 
-  padding: 10px 16px;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-}
+  background: $light-gray;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-.btn-create {
-  background: #28a745;
-  color: white;
+  .button {
+    padding: 10px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    transition: all $transition-speed;
+    color: white;
 
-  &:hover {
-    background: #218838;
+    &.btn-create {
+      background: $success-color;
+
+      &:hover {
+        background: darken($success-color, 10%);
+      }
+    }
+
+    &.toggle-view-btn {
+      background: $primary-color;
+
+      &:hover {
+        background: darken($primary-color, 10%);
+      }
+    }
   }
 }
 
-.toggle-view-btn {
-  background: #007bff;
-  color: white;
-
-  &:hover {
-    background: #0056b3;
-  }
-}
-
-/* Tabla */
-
+//  Tabla de cursos
 .course-table {
   width: 100%;
   max-width: 900px;
-  background: #fff;
+  background: white;
   border-collapse: collapse;
-  border-radius: 8px;
+  border-radius: $border-radius;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  td { 
+    &.actions { 
+    display: flex;
+    gap: 10px; // Espacio entre botones
+    justify-content: center; // Centrar botones en la celda
+    align-items: center;
+    flex-wrap: wrap;
+    }
+  }
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: $primary-color;
+    color: white;
+  }
+
+  tbody tr:hover {
+    background: lighten($light-gray, 5%);
+  }
 }
 
-.course-table th, .course-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.course-table th {
-  background-color: #007bff;
-  color: #fff;
-}
-.course-table tr:hover {
-  background: #f1f1f1;
-}
-
-/* Estilos de botones de la tabla*/
+//  Botones de acciones dentro de la tabla
 button {
   color: white;
   border: none;
   border-radius: 5px;
   padding: 8px 12px;
-  margin: 4px; 
+  margin: 4px;
   cursor: pointer;
-  transition: all 0.3s ease; 
+  transition: all $transition-speed;
+
+  &.btn-edit {
+    background: $warning-color;
+    color: $text-color;
+
+    &:hover {
+      background: darken($warning-color, 10%);
+    }
+  }
+
+  &.btn-content {
+    background: $info-color;
+
+    &:hover {
+      background: darken($info-color, 10%);
+    }
+  }
+
+  &.btn-delete {
+    background: $danger-color;
+
+    &:hover {
+      background: darken($danger-color, 10%);
+    }
+  }
 }
 
-.btn-edit { 
-  background: #ffc107;
+//  Mensaje de error y sin resultados
+.error-message {
+  color: $danger-color;
+  font-size: 1rem;
+  padding: 10px;
+  background: #f8d7da;
+  border-left: 5px solid $danger-color;
+  border-radius: 5px;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.no-results {
+  font-size: 1rem;
+  color: $secondary-color;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+// Información del curso desplegable
+.course-info {
+  padding: 10px;
+  background: #f8f9fa;
+  border-left: 3px solid #007bff;
+  border-radius: 5px;
+  font-size: 14px;
   color: #333;
+  animation: fadeIn 0.3s ease-in-out;
 }
-.btn-edit:hover {
-  background: #e0a800;
-}
-.btn-content {
-  background: #17a2b8;
-  color: #fff;
-}
-.btn-content:hover {
-  background: #138496;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.btn-delete {
-  background: #dc3545;
-  color: #fff;
+.course-name {
+  cursor: pointer;
+  color: $primary-color;
+  font-weight: bold;
+  transition: color $transition-speed;
+
+  &:hover {
+    color: darken($primary-color, 10%);
+    text-decoration: underline;
+  }
 }
 
-.btn-delete:hover {
-  background: #c82333;
-}
-
-button:hover {
-  background-color: #218838;
-}
-
-/* Estilos para la vista de tarjetas */
+// Vista de tarjetas
 .course-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -121,28 +188,36 @@ button:hover {
   margin-top: 20px;
 }
 
-  h2 {
-    color: #007bff;
+// Detalles del curso en una tarjeta emergente
+.course-details-card {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 350px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+
+  .card-content {
+    position: relative;
   }
-  
-  .error-message {
-    color: #d9534f;
-    font-size: 1rem;
-    padding: 10px;
-    background: #f8d7da;
-    border-left: 5px solid #d9534f;
-    border-radius: 5px;
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
+
+  .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
   }
-  .no-results {
-    font-size: 1rem;
-    color: #666;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  
-  
- 
+}
+
+//  Estilo de los títulos
+h2 {
+  color: $primary-color;
+  text-align: center;
+  margin-bottom: 15px;
+}

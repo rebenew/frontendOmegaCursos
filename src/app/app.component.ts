@@ -7,12 +7,9 @@ import {
   RouterOutlet,
 } from '@angular/router';
 
-import { NavbarComponent } from './Components/navbar/navbar.component';
-import { FooterComponent } from './Components/footer/footer.component';
-
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule, NavbarComponent, FooterComponent],
+  imports: [RouterOutlet, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -20,10 +17,10 @@ import { FooterComponent } from './Components/footer/footer.component';
 export class AppComponent {
   title = 'omega';
 
-  menuAbierto = false;
-  constructor(private readonly router: Router) {}
-  toggleMenu() {
-    this.menuAbierto = !this.menuAbierto;
-  }
+  // menuAbierto = false;
+  // constructor(private readonly router: Router) {}
+  // toggleMenu() {
+  //   this.menuAbierto = !this.menuAbierto;
+  // }
 }
 
