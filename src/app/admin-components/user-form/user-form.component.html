@@ -16,7 +16,11 @@
     </div>
 
     <label for="user_type">Tipo de Usuario:</label>
-    <input id="user_type" formControlName="user_type" />
+    <select id="user_type" formControlName="user_type">
+      <option value="Estudiante">Estudiante</option>
+      <option value="Mentor">Mentor</option>
+      <option value="Administrador">Administrador</option>
+    </select>
     <div *ngIf="userForm.get('user_type')?.invalid && userForm.get('user_type')?.touched">
       <small *ngIf="userForm.get('user_type')?.hasError('required')">El tipo de usuario es obligatorio.</small>
     </div>
@@ -35,6 +39,6 @@
       <small *ngIf="userForm.get('password')?.hasError('minlength')">La contraseña debe tener al menos 6 caracteres.</small>
     </div>
 
-    <button type="submit" [disabled]="userForm.invalid">Crear</button>
+    <button type="submit">Crear</button>
   </form>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -18,16 +18,17 @@ export class UserFormComponent implements OnInit {
   userForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder, 
+    @Inject(UserService)
     private userService: UserService,
+    private fb: FormBuilder, 
     private route: ActivatedRoute, 
     private router: Router) 
     {
     
     this.userForm = this.fb.group({
-      'first_name': ['', [Validators.required, Validators.minLength(2)]],
-      'last_name': ['', [Validators.required, Validators.minLength(2)]],
-      'user_type': ['', Validators.required],
+      first_name: ['', [Validators.required, Validators.minLength(2)]],
+      last_name: ['', [Validators.required, Validators.minLength(2)]],
+      user_type: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });

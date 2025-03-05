@@ -33,24 +33,15 @@ export class UserService {
     );
   }
 
-  // createUser(user: any): Observable<any> {
-  //   return this.http.get<any[]>(this.usersUrl).pipe(
-  //     map(users => {
-  //       user.id = users.length + 1; 
-  //       users.push(user);
-  //       return user;
-  //     })
-  //   );
-  // }
-
-  updateUser(id: number, updatedUser: any): Observable<any> {
-    return this.http.get<any[]>(this.usersUrl).pipe(
+  
+  updateUser(updatedUser: any): Observable<any> {
+    return this.getUsers().pipe(
       map(users => {
-        const index = users.findIndex(user => user.id === id);
+        const index = users.findIndex(user => user.id === updatedUser.id);
         if (index !== -1) {
-          users[index] = { ...updatedUser, id };
+          users[index] = updatedUser;
         }
-        return users[index];
+        return updatedUser;
       })
     );
   }
