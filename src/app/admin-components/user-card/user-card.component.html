@@ -1,0 +1,9 @@
+
+<div class="container" *ngFor="let user of users">
+    <img src="https://img.icons8.com/?size=100&id=AjTPlMclWxjF&format=png&color=000000" alt="Default User">
+    <p>{{ user['first_name'] }} {{ user['last_name'] }}</p>
+    <p>{{ user.email }}</p>
+    <p>Grupo</p>
+    <button [routerLink]="['/admin/user-detail', user.id]">Ver Perfil</button>
+    <button [routerLink]="['/admin/user-edit', user.id]">Editar Perfil</button>
+</div>
