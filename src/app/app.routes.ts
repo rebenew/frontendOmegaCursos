@@ -49,29 +49,32 @@ export const routes: Routes = [
       { path: '', data: { renderMode: 'client' }, component: LandingPageComponent },
       { path: 'login2', data: { renderMode: 'client' }, component: LoginPageComponent },
       { path: 'cursos', data: { renderMode: 'client' }, component: CoursesPageComponent },
-      { path: 'signup', data: { renderMode: 'client' }, component: SignupPageComponent },]
+      { path: 'signup', data: { renderMode: 'client' }, component: SignupPageComponent },
+    ]
   },  //   ],
   // },
 
-  
-  //Dashboard mentor
-  {
-    path: 'dashboard_mentor',
-    data: { renderMode: 'client' },
-    component: DashboardComponent
-  },
-  //Home Student Component
-  {
-    path: 'home-student',
-    data: { renderMode: 'client' },
-    title: 'Home - Student',
-    component: HomeStudentComponent,
-  },
-  {
-    path: 'dashboard_mentor',
-    data: { renderMode: 'client' },
-    component: DashboardComponent
-  },
+
+  // //Dashboard mentor
+  // {
+  //   path: 'dashboard_mentor',
+  //   data: { renderMode: 'client' },
+  //   component: DashboardComponent
+  // },
+  // //Home Student Component
+  // {
+  //   path: 'home-student',
+  //   data: { renderMode: 'client' },
+  //   title: 'Home - Student',
+  //   component: HomeStudentComponent,
+  // },
+  // {
+  //   path: 'dashboard_mentor',
+  //   data: { renderMode: 'client' },
+  //   component: DashboardComponent
+  // },
+
+
   //admin-dashboard
   {
     path: 'admin-dashboard',
@@ -148,7 +151,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         component: DashboardComponent,
       },
-      
+
       //Home Student Component
       {
         path: 'home-student',
@@ -242,30 +245,30 @@ export const routes: Routes = [
       ),
   },
   //Default path
-  {
-    path: '',
-    data: { renderMode: 'client' },
-    redirectTo: 'landing',
-    pathMatch: 'full',
-  }, // Redirige la raíz a la landing page
-  {
-    path: 'landing',
-    data: { renderMode: 'client' },
-    component: LandingPageComponent,
-  },
-  {
-    path: 'login2',
-    data: { renderMode: 'client' },
-    component: LoginPageComponent,
-  },
-  {
-    path: 'cursos',
-    data: { renderMode: 'client' },
-    component: CoursesPageComponent,
-  },
-  {
-    path: 'signup',
-    data: { renderMode: 'client' },
-    component: SignupPageComponent,
-  },
+  // {
+  //   path: '',
+  //   data: { renderMode: 'client' },
+  //   redirectTo: 'landing',
+  //   pathMatch: 'full',
+  // }, // Redirige la raíz a la landing page
+  // {
+  //   path: 'landing',
+  //   data: { renderMode: 'client' },
+  //   component: LandingPageComponent,
+  // },
+  // {
+  //   path: 'login2',
+  //   data: { renderMode: 'client' },
+  //   component: LoginPageComponent,
+  // },
+  // {
+  //   path: 'cursos',
+  //   data: { renderMode: 'client' },
+  //   component: CoursesPageComponent,
+  // },
+  // {
+  //   path: 'signup',
+  //   data: { renderMode: 'client' },
+  //   component: SignupPageComponent,
+  // },
 ];

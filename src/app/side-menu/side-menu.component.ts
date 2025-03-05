@@ -43,6 +43,7 @@ export class SideMenuComponent implements OnInit {
   ngOnInit() {
     if (typeof document !== 'undefined') {
 
+      console.log(this.isDarkMode)
       // logica de los themas
       const dark = this.menuSide.nativeElement.querySelectorAll('.dark');
       const light = this.menuSide.nativeElement.querySelectorAll('.light');
