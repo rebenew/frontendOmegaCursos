@@ -1,0 +1,45 @@
+<div class="edit-user">
+    <h2>Editar Usuario</h2>
+    <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+      <label for="first_name">Nombre:</label>
+      <input id="first_name" formControlName="first_name" />
+      <div *ngIf="userForm.get('first_name')?.invalid && userForm.get('first_name')?.touched">
+        <small *ngIf="userForm.get('first_name')?.hasError('required')">El nombre es obligatorio.</small>
+        <small *ngIf="userForm.get('first_name')?.hasError('minlength')">El nombre debe tener al menos 2 caracteres.</small>
+      </div>
+  
+      <label for="last_name">Apellido:</label>
+      <input id="last_name" formControlName="last_name" />
+      <div *ngIf="userForm.get('last_name')?.invalid && userForm.get('last_name')?.touched">
+        <small *ngIf="userForm.get('last_name')?.hasError('required')">El apellido es obligatorio.</small>
+        <small *ngIf="userForm.get('last_name')?.hasError('minlength')">El apellido debe tener al menos 2 caracteres.</small>
+      </div>
+  
+      <label for="user_type">Tipo de Usuario:</label>
+      <select id="user_type" formControlName="user_type">
+        <option value="Estudiante">Estudiante</option>
+        <option value="Mentor">Mentor</option>
+        <option value="Administrador">Administrador</option>
+      </select>
+      <div *ngIf="userForm.get('user_type')?.invalid && userForm.get('user_type')?.touched">
+        <small *ngIf="userForm.get('user_type')?.hasError('required')">El tipo de usuario es obligatorio.</small>
+      </div>
+  
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" />
+      <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+        <small *ngIf="userForm.get('email')?.hasError('required')">El email es obligatorio.</small>
+        <small *ngIf="userForm.get('email')?.hasError('email')">El email no es válido.</small>
+      </div>
+  
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" formControlName="password" />
+      <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched">
+        <small *ngIf="userForm.get('password')?.hasError('required')">La contraseña es obligatoria.</small>
+        <small *ngIf="userForm.get('password')?.hasError('minlength')">La contraseña debe tener al menos 6 caracteres.</small>
+      </div>
+  
+      <button type="submit" [disabled]="userForm.invalid">Actualizar</button>
+    </form>
+  </div>
+  

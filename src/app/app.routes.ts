@@ -18,6 +18,11 @@ import { Component } from '@angular/core';
 import { SidecontentComponent } from './sidecontent/sidecontent.component';
 import { MainLayoutComponent } from './Pages/main-layout/main-layout.component';
 
+import {AdminComponent} from "./admin-dashboard/admin-dashboard.component";
+import {SearchUserDashboardComponent} from './search-user-dashboard/search-user-dashboard.component';
+import { UserFormComponent } from "./admin-components/user-form/user-form.component";
+import { UserDetailComponent } from "./admin-components/user-detail/user-detail.component";
+import { EditUserComponent } from "./admin-components/edit-user/edit-user.component";
 
 export const routes: Routes = [
   // {
@@ -84,26 +89,17 @@ export const routes: Routes = [
       {
         path: '',
         data: { renderMode: 'client' },
-        redirectTo: 'dashboard',
+        redirectTo: 'courses',
         pathMatch: 'full',
-      },
-      {
-        path: 'dashboard',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
-          ).then((m) => m.AdminDashboardComponent),
-        // canActivate: [AuthGuard]
       },
       {
         path: 'courses',
         data: { renderMode: 'client' },
         loadComponent: () =>
           import(
-            './components/admin-course-components/admin-course-list/admin-course-list.component'
-          ).then((m) => m.AdminCourseListComponent),
-        //canActivate: [AuthGuard]
+            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
+          ).then((m) => m.AdminDashboardComponent),
+
       },
       {
         path: 'courses/new',
@@ -112,7 +108,6 @@ export const routes: Routes = [
           import(
             './components/admin-course-components/admin-course-form/admin-course-form.component'
           ).then((m) => m.AdminCourseFormComponent),
-        //canActivate: [AuthGuard]
       },
       {
         path: 'courses/edit-view/:id',
@@ -121,7 +116,7 @@ export const routes: Routes = [
           import(
             './components/admin-course-components/admin-course-form/admin-course-form.component'
           ).then((m) => m.AdminCourseFormComponent),
-        //canActivate: [AuthGuard]
+
       },
       {
         path: 'courses/edit-content/:id',
@@ -130,14 +125,6 @@ export const routes: Routes = [
           import(
             './components/admin-course-components/admin-course-editor/course-editor.component'
           ).then((m) => m.CourseEditorComponent),
-      },
-      {
-        path: 'login',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './components/admin-course-components/login/login.component'
-          ).then((m) => m.LoginComponent),
       },
     ],
   },
@@ -225,6 +212,7 @@ export const routes: Routes = [
     ],
   },
 
+
   {
     path: 'grades',
     data: { renderMode: 'client' },
@@ -245,30 +233,57 @@ export const routes: Routes = [
       ),
   },
   //Default path
-  // {
-  //   path: '',
-  //   data: { renderMode: 'client' },
-  //   redirectTo: 'landing',
-  //   pathMatch: 'full',
-  // }, // Redirige la raíz a la landing page
-  // {
-  //   path: 'landing',
-  //   data: { renderMode: 'client' },
-  //   component: LandingPageComponent,
-  // },
-  // {
-  //   path: 'login2',
-  //   data: { renderMode: 'client' },
-  //   component: LoginPageComponent,
-  // },
-  // {
-  //   path: 'cursos',
-  //   data: { renderMode: 'client' },
-  //   component: CoursesPageComponent,
-  // },
-  // {
-  //   path: 'signup',
-  //   data: { renderMode: 'client' },
-  //   component: SignupPageComponent,
-  // },
+  {
+    path: '',
+    data: { renderMode: 'client' },
+    redirectTo: 'landing',
+    pathMatch: 'full',
+  }, // Redirige la raíz a la landing page
+  {
+    path: 'landing',
+    data: { renderMode: 'client' },
+    component: LandingPageComponent,
+  },
+  {
+    path: 'login2',
+    data: { renderMode: 'client' },
+    component: LoginPageComponent,
+  },
+  {
+    path: 'cursos',
+    data: { renderMode: 'client' },
+    component: CoursesPageComponent,
+  },
+  {
+    path: 'signup',
+    data: { renderMode: 'client' },
+    component: SignupPageComponent,
+  },
+
+
+  //Admin User
+  {path: 'admin',
+        component: AdminComponent,
+    },
+
+  {
+    path: 'admin/user',
+    component: SearchUserDashboardComponent,
+  },
+
+  {
+    path: 'admin/adduser',
+    component: UserFormComponent,
+  },
+
+  {
+    path: 'admin/user-detail/:id',
+    component: UserDetailComponent,
+  },
+
+  {
+    path: 'admin/user-edit/:id',
+    component: EditUserComponent,
+  }
+
 ];
