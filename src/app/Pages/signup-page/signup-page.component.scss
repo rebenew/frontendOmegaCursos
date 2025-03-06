@@ -27,6 +27,7 @@ body {
     border-radius: $border-radius;
 }
 
+
 .signup-box {
     background: $background-color;
     padding: 40px;
@@ -58,7 +59,7 @@ body {
 
         .input-group input {
             width: 100%; 
-            max-width: 300px; 
+            max-width: 400px; 
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -86,6 +87,16 @@ body {
         color: #666;
     }
 
-
+    .login-link {
+        a {
+            color: #280e99; // Color inicial del enlace
+            font-weight: bold;
+    
+            &:hover {
+                color: #5314e6; // Cambia de color al pasar el mouse
+                text-decoration: underline; // Agrega subrayado en hover
+            }
+        }
+    }
 
 }
