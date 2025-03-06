@@ -48,12 +48,20 @@ body {
         display: flex;
         flex-direction: column;
 
-        input {
-            padding: 12px;
-            margin-bottom: 15px;
+        // input {
+        //     padding: 12px;
+        //     margin-bottom: 15px;
+        //     border: 1px solid #ccc;
+        //     border-radius: $border-radius;
+        //     background: $input-bg;
+        // }
+
+        .input-group input {
+            width: 100%; 
+            max-width: 300px; 
+            padding: 8px;
             border: 1px solid #ccc;
-            border-radius: $border-radius;
-            background: $input-bg;
+            border-radius: 5px;
         }
 
 
