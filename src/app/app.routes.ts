@@ -16,6 +16,7 @@ import { SearchUserDashboardComponent } from './search-user-dashboard/search-use
 import { UserFormComponent } from "./admin-components/user-form/user-form.component";
 import { UserDetailComponent } from "./admin-components/user-detail/user-detail.component";
 import { EditUserComponent } from "./admin-components/edit-user/edit-user.component";
+import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
 
 export const routes: Routes = [
   //RUTAS LANDING OK
@@ -154,6 +155,21 @@ export const routes: Routes = [
           import('./students-dashboard/community/community.component').then(
             (m) => m.CommunityComponent
           ),
+      },
+      {
+        path: 'course-content',
+        data: { renderMode: 'client' },
+        title: 'Content',
+        component: CourseContentComponent,
+        children: [
+          {
+            path: 'content',
+            data: { renderMode: 'client' },
+            loadComponent: () =>
+              import('./students-dashboard/course-content/questions-answers/questions-answers.component'
+              ).then((m) => m.QuestionsAnswersComponent),
+          },
+        ],
       },
       //Admin User
       {
