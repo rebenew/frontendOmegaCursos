@@ -36,6 +36,9 @@ section {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
+
+
 .form-group input, .form-group textarea {
     width: 100%;
     padding: 10px;
@@ -44,11 +47,10 @@ section {
     border-radius: 5px;
 }
 
-.contact-box{
-    background: #EAEDEB;
-    padding: 40px;
-    border-radius:10px;
-    text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
+.form-container {
+    background-color: white;
+    padding:30px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}// 
 
