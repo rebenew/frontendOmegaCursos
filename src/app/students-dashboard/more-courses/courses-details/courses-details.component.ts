@@ -1,7 +1,6 @@
 import { SidecontentService } from './../../../services/servicesDesign/sidecontent.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 import { Courses } from '../../../interfaces/students-dashboard-interfaces/more-courses.interface';
 

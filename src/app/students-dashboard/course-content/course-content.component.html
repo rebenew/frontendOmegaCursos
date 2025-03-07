@@ -1,6 +1,6 @@
 <div class="course-content-header">
-  <h1 *ngIf="course" class="course-title">
-    {{course.course}}
+  <h1 class="course-title">
+    NODO Eafit
     <h6 *ngIf="selectedContent">
       {{selectedContent.ResourceName}}
     </h6>
@@ -11,7 +11,6 @@
 </div>
 <hr>
 
-
 <section class="course-content-container">
   <div class="left-column">
     <section *ngIf="selectedContent">
@@ -20,21 +19,33 @@
       </ng-container>
     </section>
 
-    <!-- <section class="content-options">
-      <button class="content-options-buttons" [routerLink]="['content']">Content</button>
-      <button class="content-options-buttons" [routerLink]="['learning-tools']">Learning tools</button>
-      <button class="content-options-buttons" [routerLink]="['reviews']">reviews</button>
-      <button class="content-options-buttons" [routerLink]="['q&a']">Q&A</button>
+    <section class=" content-course-options">
+      <button (click)="markContentSelection(0)" [ngClass]="{'active-button' : activeButton === 0}"
+        class="content-options-buttons" [routerLink]="['content']">
+        Content
+      </button>
+      <button (click)="markContentSelection(1)" [ngClass]="{'active-button' : activeButton === 1}"
+        class="content-options-buttons" [routerLink]="['learning-tools']">
+        Learning tools
+      </button>
+      <button (click)="markContentSelection(2)" [ngClass]="{'active-button' : activeButton === 2}"
+        class="content-options-buttons" [routerLink]="['reviews']">
+        reviews
+      </button>
+      <button (click)="markContentSelection(3)" [ngClass]="{'active-button' : activeButton === 3}"
+        class="content-options-buttons" [routerLink]="['q&a']">
+        Q&A
+      </button>
     </section>
 
     <div class="content-options-display">
       <router-outlet />
-    </div> -->
+    </div>
   </div>
 
   <section class="course-content-section-sidebar">
     <h2 class="course-content-title">
-      NODO Eafit
+      {{course?.course }}
     </h2>
 
     <div>

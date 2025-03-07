@@ -19,26 +19,6 @@ import { SidecontentComponent } from './sidecontent/sidecontent.component';
 import { MainLayoutComponent } from './Pages/main-layout/main-layout.component';
 
 export const routes: Routes = [
-  // {
-  //   path: 'home',
-  //   data: { renderMode: 'client' },
-  //   component: HomeLayoutComponent,
-  //   children: [
-  //     {
-  //       path: 'home-student',
-  //       data: { renderMode: 'client' },
-  //       component: HomeStudentComponent,
-  //       children:  [
-  //         {
-  //           path: 'more-courses',
-  //           data: { renderMode: 'client' },
-  //           loadComponent: () =>
-  //             import(
-  //               './students-dashboard/more-courses/more-courses.component'
-  //             ).then((i) => i.MoreCoursesComponent),
-  //         },
-  //       ],
-  //     },
   //RUTAS LANDING OK
   {
     path: '',
@@ -75,18 +55,7 @@ export const routes: Routes = [
     data: { renderMode: 'client' },
     component: DashboardComponent,
   },
-  //Home Student Component
-  // {
-  //   path: 'home-student',
-  //   data: { renderMode: 'client' },
-  //   title: 'Home - Student',
-  //   component: HomeStudentComponent,
-  // },
-  {
-    path: 'dashboard_mentor',
-    data: { renderMode: 'client' },
-    component: DashboardComponent,
-  },
+
   //admin-dashboard
   {
     path: 'admin-dashboard',
@@ -162,70 +131,70 @@ export const routes: Routes = [
             './students-dashboard/more-courses/more-courses.component'
           ).then((m) => m.MoreCoursesComponent),
       },
+      //Course content
+      {
+        path: 'course-content',
+        data: { renderMode: 'client' },
+        title: 'Content',
+        component: CourseContentComponent,
+        children: [
+          {
+            path: 'content',
+            data: { renderMode: 'client' },
+            loadComponent: () =>
+              import(
+                './students-dashboard/course-content/content/content.component'
+              ).then((m) => m.ContentComponent),
+          },
+          {
+            path: 'learning-tools',
+            data: { renderMode: 'client' },
+            loadComponent: () =>
+              import(
+                './students-dashboard/course-content/learning-tools/learning-tools.component'
+              ).then((m) => m.LearningToolsComponent),
+          },
+          {
+            path: 'reviews',
+            data: { renderMode: 'client' },
+            loadComponent: () =>
+              import(
+                './students-dashboard/course-content/reviews/reviews.component'
+              ).then((m) => m.ReviewsComponent),
+          },
+          {
+            path: 'q&a',
+            data: { renderMode: 'client' },
+            loadComponent: () =>
+              import(
+                './students-dashboard/course-content/questions-answers/questions-answers.component'
+              ).then((m) => m.QuestionsAnswersComponent),
+          },
+        ],
+      },
+      // Grades route
+      {
+        path: 'grades',
+        data: { renderMode: 'client' },
+        title: 'Grades',
+        loadComponent: () =>
+          import('./students-dashboard/grades/grades.component').then(
+            (m) => m.GradesComponent
+          ),
+      },
+      // Community route
+      {
+        path: 'community',
+        data: { renderMode: 'client' },
+        title: 'Community',
+        loadComponent: () =>
+          import('./students-dashboard/community/community.component').then(
+            (m) => m.CommunityComponent
+          ),
+      },
     ],
   },
 
-  //Course content
-  {
-    path: 'course-content',
-    data: { renderMode: 'client' },
-    title: 'Content',
-    component: CourseContentComponent,
-    children: [
-      {
-        path: 'content',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './students-dashboard/course-content/content/content.component'
-          ).then((m) => m.ContentComponent),
-      },
-      {
-        path: 'learning-tools',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './students-dashboard/course-content/learning-tools/learning-tools.component'
-          ).then((m) => m.LearningToolsComponent),
-      },
-      {
-        path: 'reviews',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './students-dashboard/course-content/reviews/reviews.component'
-          ).then((m) => m.ReviewsComponent),
-      },
-      {
-        path: 'q&a',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './students-dashboard/course-content/questions-answers/questions-answers.component'
-          ).then((m) => m.QuestionsAnswersComponent),
-      },
-    ],
-  },
-  // Grades route
-  {
-    path: 'grades',
-    data: { renderMode: 'client' },
-    title: 'Grades',
-    loadComponent: () =>
-      import('./students-dashboard/grades/grades.component').then(
-        (m) => m.GradesComponent
-      ),
-  },
-  // Community route
-  {
-    path: 'community',
-    data: { renderMode: 'client' },
-    title: 'Community',
-    loadComponent: () =>
-      import('./students-dashboard/community/community.component').then(
-        (m) => m.CommunityComponent
-      ),
-  },
   //Default path
   {
     path: '',
