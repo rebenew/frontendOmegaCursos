@@ -120,9 +120,13 @@ export class CourseEditorComponent implements OnInit {
 
   openEditModal(unit: Unit, resource?: Resource): void {
     const newResource: Resource = resource ? { ...resource } : { ResourceName: '', Link: '', Embed: '' };
-
+  
     this.dialog.open(EditResourceDialogComponent, {
-      width: '400px',
+      width: '80vw',    // 🔹 80% del ancho de la ventana
+      maxWidth: '1200px', // 🔹 Máximo 1200px para evitar que se vuelva demasiado ancha
+      height: '90vh',   // 🔹 80% del alto de la ventana
+      maxHeight: '800px', // 🔹 Máximo 800px de alto
+      panelClass: 'custom-dialog-container', // 🔹 Agrega una clase CSS personalizada
       data: { resource: newResource }
     }).afterClosed().subscribe(result => {
       if (result) {
@@ -131,6 +135,7 @@ export class CourseEditorComponent implements OnInit {
       }
     });
   }
+  
 
   dropResource(event: CdkDragDrop<Resource[]>, unitIndex: number) {
     if (!this.course) return;
@@ -177,16 +182,30 @@ export class CourseEditorComponent implements OnInit {
   deleteUnitOnDrop(event: CdkDragDrop<Unit[]>): void {
     if (!this.course || event.previousIndex < 0 || event.container.id !== 'deleteContainer') return;
   
-    this.saveState();
+    const unitToDelete = this.course.content[event.previousIndex];
   
-    const unitToDelete = this.course.content.splice(event.previousIndex, 1)[0];
-    this.deletedUnits = [...this.deletedUnits, unitToDelete]; // Clonar para detectar cambios
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      width: '400px',
+      data: { itemName: `Unidad: ${unitToDelete.unidad}`, itemType: 'unidad' }
+    });
   
-    this.course = { ...this.course, content: [...this.course.content] };
-    this.courseEditorService.updateCourse(this.course);
-    console.log("🚮 Unidad eliminada:", unitToDelete);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && this.course) { // Si el usuario confirma
+        this.saveState(); // Guardar el estado antes de eliminar
+  
+        this.course.content.splice(event.previousIndex, 1);
+        this.deletedUnits = [...this.deletedUnits, unitToDelete]; // Clonar para detectar cambios
+  
+        this.course = { ...this.course, content: [...this.course.content] };
+        this.courseEditorService.updateCourse(this.course);
+        console.log("🚮 Unidad eliminada:", unitToDelete);
+      } else {
+        console.log("❌ Eliminación cancelada.");
+      }
+    });
   }
   
+
    /** Modificaciones con guardado en la pila */
   openAddUnit(): void {
     if (!this.course) {
