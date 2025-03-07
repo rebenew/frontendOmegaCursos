@@ -1,0 +1,34 @@
+[
+    {
+      "id": 1,
+      "first_name": "Karen",
+      "last_name": "Idarraga",
+      "user_type": "admin",
+      "email": "karenie@hotmail.com",
+      "password": "password123"
+    },
+    {
+      "id": 2,
+      "first_name": "Carlos",
+      "last_name": "Garcia",
+      "user_type": "Estudiante",
+      "email": "carlosga1@gmail.com",
+      "password": "password456"
+    },
+    {
+      "id": 3,
+      "first_name": "Maria",
+      "last_name": "Lopez",
+      "user_type": "Mentor",
+      "email": "MariaLopez2@gmail.com",
+      "password": "password923"
+    },
+    {
+      "id": 4,
+      "first_name": "Maria",
+      "last_name": "Lopez",
+      "user_type": "Mentor",
+      "email": "MariaLopez2@gmail.com",
+      "password": "password923"
+    }
+  ]
