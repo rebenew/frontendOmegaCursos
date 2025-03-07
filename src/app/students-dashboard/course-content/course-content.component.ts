@@ -1,25 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 import { CourseContentService } from '../../services/students-dashboard-services/course-content.service';
 import {
   Contenido,
   CourseContent,
 } from '../../interfaces/resources_IA_para_todos.interface';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'course-content',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, RouterOutlet],
   templateUrl: './course-content.component.html',
   styleUrl: './course-content.component.scss',
 })
 export class CourseContentComponent implements OnInit {
   public course?: CourseContent;
-  public data: Contenido[] = [];
   public visibleUnit: boolean[] = [];
   public selectedContent: Contenido | null = null;
+  public activeButton: any;
 
   constructor(
     private courseContentService: CourseContentService,
@@ -52,5 +52,13 @@ export class CourseContentComponent implements OnInit {
 
   toggleUnit(index: number): void {
     this.visibleUnit[index] = !this.visibleUnit[index];
+  }
+
+  markContentSelection(buttonIndex: number): void {
+    if (this.activeButton === buttonIndex) {
+      this.activeButton = null;
+    } else {
+      this.activeButton = buttonIndex;
+    }
   }
 }

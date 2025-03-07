@@ -1,7 +1,7 @@
 <div class="course-details-header">
   <h1>Course Details</h1>
   <button (click)="closeDetails()" class="go-back-btn">
-    Go back
+    Hide details
   </button>
 </div>
 <hr>
@@ -9,11 +9,19 @@
 <section *ngIf="moreCourses" class="courses-details-container">
 
   <aside>
+    <h1 class="course-details-name">{{ moreCourses.name | uppercase }}</h1>
     <img [src]="moreCourses.img" alt="{{moreCourses.name}}" class="course-details-img">
+    <section class="course-content-list">
+      <h1>Course Content</h1>
+      <ul>
+        <li class="list-content" *ngFor="let items of moreCourses?.what_does_it_include">
+          {{ items }}
+        </li>
+      </ul>
+    </section>
   </aside>
 
   <aside class="course-details-info">
-    <h1 class="course-details-name">{{ moreCourses.name | uppercase }}</h1>
     <label class="description-label">Brief Description <br>
     </label>
     <h2 class="course-description">
@@ -32,15 +40,6 @@
     </label>
     <h2 class="course-description">{{ moreCourses.level_required }}</h2>
   </aside>
-
-  <section class="course-content-list">
-    <h1>Course Content</h1>
-    <ul>
-      <li class="list-content" *ngFor="let items of moreCourses?.what_does_it_include">
-        {{ items }}
-      </li>
-    </ul>
-  </section>
 
   <section class="course-details-buttons">
     <button class="buy-buttons">Add to Cart</button>

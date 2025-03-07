@@ -22,7 +22,7 @@
         <img class="dark" src="/iconsMenu/dark/rocket.svg" alt="" />
         <img class="light" src="/iconsMenu/light/rocket.svg" alt="" />
       </div>
-      <div class="elemetMenu" texto="Blog">
+      <div (click)="toggleactivateSideContent(); toggleOpenPrueba()" class="elemetMenu" texto="Blog">
         <img class="dark" src="/iconsMenu/dark/book.svg" alt="" />
         <img class="light" src="/iconsMenu/light/book.svg" alt="" />
       </div>
@@ -40,7 +40,7 @@
         <img class="dark" src="/iconsMenu/dark/light.svg" alt="" />
         <img class="light" src="/iconsMenu/light/dark.svg" alt="" />
       </div>
-      <div (click)="toggleActivateMondal()" class="elemetMenu" texto="Usuario">
+      <div (click)="toggleOpenInfoUser(); toggleactivateSideContent()" class="elemetMenu" texto="Usuario">
         <img class="dark" src="/iconsMenu/dark/user.svg" alt="" />
         <img class="light" src="/iconsMenu/light/user.svg" alt="" />
       </div>

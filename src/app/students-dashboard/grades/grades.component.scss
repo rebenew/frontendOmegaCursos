@@ -2,10 +2,11 @@
 
 .grades-title {
   display: flex;
-  color: #000;
+  color: (--text-color);
   font-size: 2em;
   font-weight: 900;
   margin: 10px;
+  font-family: "Inter", sans-serif;
 }
 
 .grades-header {
@@ -19,7 +20,7 @@
     font-weight: 600;
     margin-right: 100px;
     padding: 5px;
-    width: 6%;
+    width: auto;
   }
   @media screen and (max-width: 768px) {
     .go-back-btn {
@@ -78,6 +79,7 @@
   padding: 20px;
   background-color: #f5f5f5;
   width: 80%;
+  margin-bottom: 6%;
 }
 
 h1 {
