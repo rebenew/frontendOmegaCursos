@@ -11,11 +11,13 @@ import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
 import { HomelayoutComponent } from './layout/homelayout/homelayout.component';
 import { MainLayoutComponent } from './Pages/main-layout/main-layout.component';
 
-import { AdminComponent } from "./admin-dashboard/admin-dashboard.component";
+import { AdminComponent } from './admin-dashboard/admin-dashboard.component';
 import { SearchUserDashboardComponent } from './search-user-dashboard/search-user-dashboard.component';
-import { UserFormComponent } from "./admin-components/user-form/user-form.component";
-import { UserDetailComponent } from "./admin-components/user-detail/user-detail.component";
-import { EditUserComponent } from "./admin-components/edit-user/edit-user.component";
+import { UserFormComponent } from './admin-components/user-form/user-form.component';
+import { UserDetailComponent } from './admin-components/user-detail/user-detail.component';
+import { EditUserComponent } from './admin-components/edit-user/edit-user.component';
+import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
+import path from 'path';
 
 export const routes: Routes = [
   //RUTAS LANDING OK
@@ -24,11 +26,27 @@ export const routes: Routes = [
     data: { renderMode: 'client' },
     component: MainLayoutComponent,
     children: [
-      { path: '', data: { renderMode: 'client' }, component: LandingPageComponent },
-      { path: 'login2', data: { renderMode: 'client' }, component: LoginPageComponent },
-      { path: 'cursos', data: { renderMode: 'client' }, component: CoursesPageComponent },
-      { path: 'signup', data: { renderMode: 'client' }, component: SignupPageComponent },
-    ]
+      {
+        path: '',
+        data: { renderMode: 'client' },
+        component: LandingPageComponent,
+      },
+      {
+        path: 'login2',
+        data: { renderMode: 'client' },
+        component: LoginPageComponent,
+      },
+      {
+        path: 'cursos',
+        data: { renderMode: 'client' },
+        component: CoursesPageComponent,
+      },
+      {
+        path: 'signup',
+        data: { renderMode: 'client' },
+        component: SignupPageComponent,
+      },
+    ],
   },
   //admin-dashboard
   {
@@ -49,7 +67,6 @@ export const routes: Routes = [
           import(
             './components/admin-course-components/admin-dashboard/admin-dashboard.component'
           ).then((m) => m.AdminDashboardComponent),
-
       },
       {
         path: 'courses/new',
@@ -66,7 +83,6 @@ export const routes: Routes = [
           import(
             './components/admin-course-components/admin-course-form/admin-course-form.component'
           ).then((m) => m.AdminCourseFormComponent),
-
       },
       {
         path: 'courses/edit-content/:id',
@@ -78,16 +94,25 @@ export const routes: Routes = [
       },
     ],
   },
+  //Dashboard mentor
+  {
+    path: 'dashboard_mentor',
+    /* data: { renderMode: 'client' },*/
+    component: DashboardComponent,
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./Dashboard_Mentor/Courses_List/course-list.component').then(
+            (m) => m.CourseListComponent
+          ),
+      },
+    ],
+  },
   {
     path: '',
     component: HomelayoutComponent,
     children: [
-      //Dashboard mentor
-      {
-        path: 'dashboard_mentor',
-        data: { renderMode: 'client' },
-        component: DashboardComponent,
-      },
       //Home Student Component
       {
         path: 'home-student',
@@ -155,6 +180,22 @@ export const routes: Routes = [
             (m) => m.CommunityComponent
           ),
       },
+      {
+        path: 'course-content',
+        data: { renderMode: 'client' },
+        title: 'Content',
+        component: CourseContentComponent,
+        children: [
+          {
+            path: 'content',
+            data: { renderMode: 'client' },
+            loadComponent: () =>
+              import(
+                './students-dashboard/course-content/questions-answers/questions-answers.component'
+              ).then((m) => m.QuestionsAnswersComponent),
+          },
+        ],
+      },
       //Admin User
       {
         path: 'admin',
@@ -183,12 +224,7 @@ export const routes: Routes = [
         path: 'admin/user-edit/:id',
         data: { renderMode: 'client' },
         component: EditUserComponent,
-      }
+      },
     ],
   },
-
-
-
-
-
 ];
