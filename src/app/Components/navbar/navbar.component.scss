@@ -23,15 +23,19 @@ nav {
   text-align: center;
 }
 
-.menuNav img{
-  width: 25px;
+.DivImg{
+  width: 6%;
 }
 
-.menuNav:hover {
+.menuNav img {
+  min-width: 80%;
+}
+
+.menuNav:hover{
   background-color: rgb(3, 69, 84); /* Azul oscuro */
   padding: 0.5% 2%;
   border-radius: 20px;
-  color: var(--text-color-reverse);
+  color: #fff;
 }
 
 .darkHome{
@@ -46,3 +50,14 @@ nav {
 .lightCloseHome{
   display: none;
 }
+
+@media (max-width: 768px) {
+  nav{
+    flex-direction: column;
+  }
+
+  .contentOpcion{
+    width: 100%;
+  }
+}
+

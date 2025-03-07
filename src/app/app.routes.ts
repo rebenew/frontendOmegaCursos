@@ -233,32 +233,32 @@ export const routes: Routes = [
       ),
   },
   //Default path
-  {
-    path: '',
-    data: { renderMode: 'client' },
-    redirectTo: 'landing',
-    pathMatch: 'full',
-  }, // Redirige la raíz a la landing page
-  {
-    path: 'landing',
-    data: { renderMode: 'client' },
-    component: LandingPageComponent,
-  },
-  {
-    path: 'login2',
-    data: { renderMode: 'client' },
-    component: LoginPageComponent,
-  },
-  {
-    path: 'cursos',
-    data: { renderMode: 'client' },
-    component: CoursesPageComponent,
-  },
-  {
-    path: 'signup',
-    data: { renderMode: 'client' },
-    component: SignupPageComponent,
-  },
+  // {
+  //   path: '',
+  //   data: { renderMode: 'client' },
+  //   redirectTo: 'landing',
+  //   pathMatch: 'full',
+  // }, // Redirige la raíz a la landing page
+  // {
+  //   path: 'landing',
+  //   data: { renderMode: 'client' },
+  //   component: LandingPageComponent,
+  // },
+  // {
+  //   path: 'login2',
+  //   data: { renderMode: 'client' },
+  //   component: LoginPageComponent,
+  // },
+  // {
+  //   path: 'cursos',
+  //   data: { renderMode: 'client' },
+  //   component: CoursesPageComponent,
+  // },
+  // {
+  //   path: 'signup',
+  //   data: { renderMode: 'client' },
+  //   component: SignupPageComponent,
+  // },
 
 
   //Admin User
