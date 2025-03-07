@@ -15,12 +15,7 @@ import { PruebaComponent } from '../prueba/prueba.component';
   selector: 'app-sidecontent',
   templateUrl: './sidecontent.component.html',
   styleUrl: './sidecontent.component.scss',
-  imports: [
-    InfouserComponent,
-    PruebaComponent,
-    CourseDetailComponent,
-    CoursesDetailsComponent,
-  ],
+  imports: [InfouserComponent, PruebaComponent, CoursesDetailsComponent],
 })
 export class SidecontentComponent implements OnInit {
   @ViewChild('sideContent', { static: true })
