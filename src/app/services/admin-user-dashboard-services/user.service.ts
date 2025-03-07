@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { User } from '../../model/user.model';
+import * as fs from 'fs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +29,13 @@ export class UserService {
       map((users: { id: any; first_name: string; last_name: string; user_type: string; email: string; password: string; }[]) => {
         const newUser = { ...user, id: users.length + 1 };
         users.push(newUser);
+        // abrir archivo json, borrar contenido. Pegar nuevo contenido de la variable users.
         return newUser;
       })
     );
   }
 
-  
+
   updateUser(updatedUser: any): Observable<any> {
     return this.getUsers().pipe(
       map(users => {

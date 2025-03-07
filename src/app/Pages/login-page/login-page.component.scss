@@ -60,6 +60,18 @@ button {
 
 }
 
+    .signup-link-group {
+        a {
+            color: #280e99; // Color inicial del enlace
+            font-weight: bold;
+    
+            &:hover {
+                color: #5314e6; // Cambia de color al pasar el mouse
+                text-decoration: underline; // Agrega subrayado en hover
+            }
+        }
+    }
+
 
 .signup {
   margin-top: 15px;
