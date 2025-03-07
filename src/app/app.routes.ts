@@ -113,6 +113,13 @@ export const routes: Routes = [
     path: '',
     component: HomelayoutComponent,
     children: [
+      //Dashboard mentor
+      {
+        path: 'dashboard_mentor',
+        data: { renderMode: 'client' },
+        component: DashboardComponent,
+      },
+
       //Home Student Component
       {
         path: 'home-student',

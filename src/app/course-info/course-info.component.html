@@ -1,0 +1,28 @@
+<section class="course-content-section-sidebar">
+  <h2 class="course-content-title">
+    NODO Eafit
+  </h2>
+
+  <div>
+    <div *ngFor="let unit of course?.content; let i = index">
+
+      <button (click)="toggleUnit(i)" class="sidebar-buttons">
+        <h1 class="unit-introduction">Unidad {{ unit.unidad }}</h1>
+        <img class="toggle-arrow"
+          [src]="visibleUnit[i] ? 'assets/students-dashboard-imgs/arrow-up-outline.svg': 'assets/students-dashboard-imgs/arrow-down-outline.svg'"
+          alt="toggle-arrow">
+      </button>
+
+      <div *ngIf="visibleUnit[i]">
+        <div *ngFor="let item of unit.contenido">
+          <button (click)="showContent(item)"
+            [ngClass]="{'active-button': selectedContent?.ResourceName === item.ResourceName}"
+            class="content-options">
+            {{ item.ResourceName }}
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

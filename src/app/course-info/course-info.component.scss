@@ -1,0 +1,60 @@
+.course-content-section-sidebar {
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  border: 1px solid;
+  height: auto;
+  background-color: #d7dadb;
+  padding: 5px;
+}
+
+.toggle-arrow {
+  width: 4%;
+}
+
+.course-content-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #040087;
+  color: #fff;
+  font-weight: bolder;
+}
+
+.content-options {
+  width: 100%;
+  border: 1px solid gray;
+  display: flex;
+  justify-content: flex-start;
+  font-size: large;
+  border-radius: 5px;
+}
+
+.content-options:hover {
+  background-color: #818ac4;
+  color: #fff;
+}
+
+.active-button {
+  background-color: #818ac4;
+  color: #fff;
+}
+
+.unit-introduction {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.sidebar-buttons {
+  background-color: #f3ece0;
+  display: flex;
+  justify-content: space-around;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+.sidebar-buttons:hover {
+  background-color: #e2e2e2;
+}
