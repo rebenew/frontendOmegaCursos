@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 
 import { HomeStudentComponent } from './students-dashboard/home-student/home-student.component';
-import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 
@@ -9,14 +8,16 @@ import { LandingPageComponent } from './Pages/landing-page/landing-page.componen
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
 import { CoursesPageComponent } from './Pages/courses-page/courses-page.component';
 import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
-import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 import { HomelayoutComponent } from './layout/homelayout/homelayout.component';
-import { MoreCoursesComponent } from './students-dashboard/more-courses/more-courses.component';
-import { CoursesDetailsComponent } from './students-dashboard/more-courses/courses-details/courses-details.component';
-import path from 'path';
-import { Component } from '@angular/core';
-import { SidecontentComponent } from './sidecontent/sidecontent.component';
 import { MainLayoutComponent } from './Pages/main-layout/main-layout.component';
+
+import { AdminComponent } from './admin-dashboard/admin-dashboard.component';
+import { SearchUserDashboardComponent } from './search-user-dashboard/search-user-dashboard.component';
+import { UserFormComponent } from './admin-components/user-form/user-form.component';
+import { UserDetailComponent } from './admin-components/user-detail/user-detail.component';
+import { EditUserComponent } from './admin-components/edit-user/edit-user.component';
+import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
+import path from 'path';
 
 export const routes: Routes = [
   //RUTAS LANDING OK
@@ -46,16 +47,7 @@ export const routes: Routes = [
         component: SignupPageComponent,
       },
     ],
-  }, //   ],
-  // },
-
-  //Dashboard mentor
-  {
-    path: 'dashboard_mentor',
-    data: { renderMode: 'client' },
-    component: DashboardComponent,
   },
-
   //admin-dashboard
   {
     path: 'admin-dashboard',
@@ -102,17 +94,25 @@ export const routes: Routes = [
       },
     ],
   },
+  //Dashboard mentor
+  {
+    path: 'dashboard_mentor',
+    /* data: { renderMode: 'client' },*/
+    component: DashboardComponent,
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./Dashboard_Mentor/Courses_List/course-list.component').then(
+            (m) => m.CourseListComponent
+          ),
+      },
+    ],
+  },
   {
     path: '',
     component: HomelayoutComponent,
     children: [
-      //Dashboard mentor
-      {
-        path: 'dashboard_mentor',
-        data: { renderMode: 'client' },
-        component: DashboardComponent,
-      },
-
       //Home Student Component
       {
         path: 'home-student',
@@ -120,7 +120,6 @@ export const routes: Routes = [
         title: 'Home - Student',
         component: HomeStudentComponent,
       },
-
       // More courses
       {
         path: 'more-courses',
