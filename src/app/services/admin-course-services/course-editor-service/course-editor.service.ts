@@ -36,64 +36,78 @@ export class CourseEditorService {
 }
 
 
- moveUnit(previousIndex: number, newIndex: number): void {
-  const currentCourse = this.courseSubject.value;
-  if (!currentCourse || previousIndex === newIndex) return;
+moveUnit(previousIndex: number, newIndex: number): void {
+  if (previousIndex === newIndex) return;
 
-  this.saveStateForUndo(); 
-  console.log(` Moviendo unidad de ${previousIndex} a ${newIndex}`);
+  this.saveStateForUndo();  
+
+  const currentCourse = this.courseSubject.value;
+  if (!currentCourse) return;
+
+  console.log(`🔄 Moviendo unidad de ${previousIndex} a ${newIndex}`);
 
   const updatedContent = [...currentCourse.content];
   const [movedUnit] = updatedContent.splice(previousIndex, 1);
   updatedContent.splice(newIndex, 0, movedUnit);
 
- 
   updatedContent.forEach((unit, index) => unit.unidad = index + 1);
 
   this.courseSubject.next({ ...currentCourse, content: updatedContent });
-  console.log(" Unidades reordenadas correctamente");
+  console.log("✅ Unidades reordenadas correctamente");
 }
 
+removeUnit(unitIndex: number, saveForUndo: boolean = true): void {
+  if (saveForUndo) {
+    this.saveStateForUndo(); 
+  }
 
-
-removeUnit(unitIndex: number): void {
   const currentCourse = this.courseSubject.value;
   if (!currentCourse || unitIndex < 0 || unitIndex >= currentCourse.content.length) return;
 
-  this.saveStateForUndo(); 
-
-  const deletedUnit = currentCourse.content[unitIndex];
   const updatedContent = currentCourse.content.filter((_, index) => index !== unitIndex);
-
   updatedContent.forEach((unit, index) => unit.unidad = index + 1);
 
   this.courseSubject.next({ ...currentCourse, content: updatedContent });
-
-  console.log(" Unidad eliminada:", deletedUnit);
 }
 
 
-  addResource(unitIndex: number, resourceName: string, link: string, embed: string) {
+
+addResource(unitIndex: number, resourceName: string, link: string, embed: string) {
+  const currentCourse = this.courseSubject.value;
+  if (!currentCourse || !currentCourse.content[unitIndex]) return;
+
+  this.saveStateForUndo(); 
+
+  const updatedContent = [...currentCourse.content];
+  updatedContent[unitIndex] = { 
+      ...updatedContent[unitIndex], 
+      contenido: [...updatedContent[unitIndex].contenido, { ResourceName: resourceName, Link: link, Embed: embed }] 
+  };
+
+  this.courseSubject.next({ ...currentCourse, content: updatedContent });
+
+  this.saveCourseToLocal(); 
+
+  console.log("✅ Recurso agregado y guardado correctamente.");
+}
+
+
+  removeResource(unitIndex: number, resourceIndex: number) {
     const currentCourse = this.courseSubject.value;
     if (!currentCourse || !currentCourse.content[unitIndex]) return;
 
-    const updatedContent = [...currentCourse.content];
-    updatedContent[unitIndex].contenido.push({ ResourceName: resourceName, Link: link, Embed: embed });
-
-    this.courseSubject.next({ ...currentCourse, content: updatedContent });
-    console.log(" Recurso agregado correctamente");
-  }
-
-   removeResource(unitIndex: number, resourceIndex: number) {
-    const currentCourse = this.courseSubject.value;
-    if (!currentCourse || !currentCourse.content[unitIndex]) return;
+    this.saveStateForUndo(); 
 
     const updatedContent = [...currentCourse.content];
     updatedContent[unitIndex].contenido = updatedContent[unitIndex].contenido.filter((_, i) => i !== resourceIndex);
 
     this.courseSubject.next({ ...currentCourse, content: updatedContent });
-    console.log(" Recurso eliminado correctamente");
-  }
+
+    this.saveCourseToLocal(); 
+
+    console.log("🗑️ Recurso eliminado correctamente y guardado.");
+}
+
 
 
   saveCourseToLocal(): void {
@@ -149,8 +163,11 @@ removeUnit(unitIndex: number): void {
   }
   
   undoLastChange(): void {
-    if (this.undoStack.length === 0) return;
-    
+    if (this.undoStack.length === 0) {
+      console.warn("No hay cambios para deshacer.");
+      return;
+    }
+  
     const previousState = this.undoStack.pop();
     if (previousState) {
       this.courseSubject.next(previousState);
