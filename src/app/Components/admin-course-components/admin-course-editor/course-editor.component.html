@@ -3,11 +3,11 @@
   <div class="editor-section">
     <h2 *ngIf="course" class="course-title">{{ course.course }}</h2>
     <button class="add-unit-btn" (click)="openAddUnit()">+ Agregar Unidad</button>
-    <button (click)="undoLastChange()" mat-button color="primary" [disabled]="undoStack.length === 0">
-      ↩️ Deshacer acción
+    <button (click)="undoLastChange()" mat-button color="primary" [disabled]="!(courseEditorService.hasUndo())">
+      Deshacer acción
     </button>
     <button (click)="confirmRestoreCourse()" mat-button color="warn">
-      🔄 Restaurar 
+      Restaurar 
     </button>
     <button mat-button color="primary" (click)="saveCourseAndExit()">
       Guardar y salir
@@ -29,7 +29,7 @@
         </div>
       </div>
     
-      <!-- Contenido de la Unidad (Acordeón) -->
+      <!-- Contenido de la Unidad -->
       <div *ngIf="expandedUnits.has(i)" class="unit-content">
         <div cdkDropList [cdkDropListData]="unit.contenido" (cdkDropListDropped)="dropResource($event, i)" [cdkDropListLockAxis]="'y'" class="resource-list">
           <div *ngFor="let resource of unit.contenido; let j = index" class="draggable-resource" cdkDrag>
@@ -56,7 +56,7 @@
   <div class="drop-section">
     <h3 class="drop-title">Organiza las Unidades</h3>
 
-    <!-- Lista de unidades con drag and drop -->
+    <!-- Lista de unidades-->
     <div cdkDropListGroup>
       <div 
         cdkDropList
@@ -77,15 +77,17 @@
   </div>
 </div>
           
-        <!-- Área de eliminación (separada de la lista) -->
-        <div cdkDropList 
-        id="deleteContainer"
-        class="delete-area"
-        [cdkDropListData]="deletedUnits || []"
-        [cdkDropListConnectedTo]="['unitsContainer']"
-        (cdkDropListDropped)="deleteUnitOnDrop($event)">
-     🗑️ Arrastra aquí para eliminar
-   </div> 
+ <!-- Área de eliminación -->
+    <div cdkDropList 
+    id="deleteContainer"
+    class="delete-area"
+    [cdkDropListData]="deleteContainerData"  
+    [cdkDropListConnectedTo]="['unitsContainer']"
+    (cdkDropListDropped)="deleteUnitOnDrop($event)">
+    🗑️ Arrastra aquí para eliminar
+    </div>
+
+
 
 </div>
   </div>
