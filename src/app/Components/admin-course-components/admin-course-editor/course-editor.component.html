@@ -2,7 +2,7 @@
   <!-- Sección de edición -->
   <div class="editor-section">
     <h2 *ngIf="course" class="course-title">{{ course.course }}</h2>
-    <button class="add-unit-btn" (click)="openAddUnit()">+ Agregar Unidad</button>
+    <button class="add-unit-btn" (click)="addUnit()">+ Agregar Unidad</button>
     <button (click)="undoLastChange()" mat-button color="primary" [disabled]="!(courseEditorService.hasUndo())">
       Deshacer acción
     </button>
@@ -32,7 +32,7 @@
       <!-- Contenido de la Unidad -->
       <div *ngIf="expandedUnits.has(i)" class="unit-content">
         <div cdkDropList [cdkDropListData]="unit.contenido" (cdkDropListDropped)="dropResource($event, i)" [cdkDropListLockAxis]="'y'" class="resource-list">
-          <div *ngFor="let resource of unit.contenido; let j = index" class="draggable-resource" cdkDrag>
+          <div *ngFor="let resource of unit.contenido; let j = index" #resourceElement class="draggable-resource" cdkDrag>
             <div class="resource-content">
               <h4 class="resource-title">{{ resource.ResourceName }}</h4>
               <a class="resource-link" [href]="resource.Link" target="_blank">Ver recurso</a>

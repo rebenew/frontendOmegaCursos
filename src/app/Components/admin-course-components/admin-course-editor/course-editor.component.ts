@@ -27,6 +27,8 @@ import { Router } from '@angular/router';
 export class CourseEditorComponent implements OnInit {
   @ViewChild('unitsContainer', { static: false }) unitsContainer!: CdkDropList;
   @ViewChildren('unitElement') unitElements!: QueryList<ElementRef>;
+  @ViewChildren('resourceElement') resourceElements!: QueryList<ElementRef>;
+
 
   course: Course | null = null;
   expandedUnits = new Set<number>(); 
@@ -53,7 +55,7 @@ export class CourseEditorComponent implements OnInit {
           if (courseName) {
             this.courseEditorService.loadCourseFromLocal(courseName);
           } else {
-            console.warn(`⚠️ No se encontró un curso con ID ${courseId}`);
+            console.warn(` No se encontró un curso con ID ${courseId}`);
           }
         });
       }
@@ -67,21 +69,6 @@ export class CourseEditorComponent implements OnInit {
   undoLastChange() {
     this.courseEditorService.undoLastChange();
   }
-  
-
-  private getRestoredUnitIndex(previousState: Course): number | null {
-    if (!this.course) return null;
-
-    for (let i = 0; i < this.course.content.length; i++) {
-      if (JSON.stringify(this.course.content[i]) !== JSON.stringify(previousState.content[i])) {
-        return i; 
-      }
-    }
-
-    return null;
-  }
-
-  
 
   toggleUnit(index: number) {
     if (this.expandedUnits.has(index)) {
@@ -98,22 +85,21 @@ export class CourseEditorComponent implements OnInit {
 
 
   openEditModal(unit: Unit, resource?: Resource): void {
-    const newResource: Resource = resource ? { ...resource } : { ResourceName: '', Link: '', Embed: '' };
-  
     this.dialog.open(EditResourceDialogComponent, {
       width: '80vw',    
       maxWidth: '1200px', 
       height: '90vh',   
       maxHeight: '800px', 
-      data: { resource: newResource }
+      data: { resource: { ResourceName: '', Link: '', Embed: '' } }
     }).afterClosed().subscribe(result => {
       if (result) {
-        resource ? Object.assign(resource, result) : unit.contenido.push(result);
-        this.courseEditorService.saveCourseToLocal();
+        const unitIndex = this.course?.content.indexOf(unit);
+        if (unitIndex !== undefined && unitIndex !== -1) {
+          this.addResource(unitIndex, result.ResourceName, result.Link, result.Embed);
+        }
       }
     });
   }
-  
 
   dropResource(event: CdkDragDrop<Resource[]>, unitIndex: number) {
     if (!this.course) return;
@@ -168,9 +154,7 @@ export class CourseEditorComponent implements OnInit {
     });
 }
 
-
-
-  openAddUnit(): void {
+  addUnit(): void {
     if (!this.course) {
       console.warn(" No hay un curso cargado.");
       return;
@@ -182,8 +166,27 @@ export class CourseEditorComponent implements OnInit {
     };
 
     this.courseEditorService.addUnit(newUnit);
+    this.scrollToUnit(this.course.content.length - 1);
   }
 
+  addResource(unitIndex: number, resourceName: string, link: string, embed: string) {
+  
+    if (!this.course) {
+      console.warn(" No hay curso cargado.");
+      return;
+    }
+  
+    const previouslyExpandedUnits = new Set(this.expandedUnits);
+    this.courseEditorService.addResource(unitIndex, resourceName, link, embed);
+  
+    setTimeout(() => {
+      this.expandedUnits = previouslyExpandedUnits;
+      this.expandedUnits.add(unitIndex);
+      this.scrollToResource(unitIndex);
+    }, 100);
+  }
+  
+  
   restoreCourseFromJSON() {
     const courseName = this.course?.course || 'IA PARA TODOS'; 
     this.courseEditorService.loadEditableCourse(courseName); 
@@ -193,7 +196,6 @@ export class CourseEditorComponent implements OnInit {
     const confirmed = window.confirm(" ¿Estás seguro de que deseas restaurar el curso a su estado original? Esta acción no se puede deshacer.");
     if (confirmed) {
       this.courseEditorService.loadEditableCourse(this.course?.course ?? 'IA PARA TODOS');
-      console.log(" Curso restaurado desde el JSON original.");
     }
   }
 
@@ -201,19 +203,29 @@ export class CourseEditorComponent implements OnInit {
     return index;
   }
 
-  private highlightUnit(index: number) {
-    this.highlightedUnitIndex = index;
+  private scrollToUnit(index: number) {
     setTimeout(() => {
       const unitElement = this.unitElements.get(index)?.nativeElement;
       if (unitElement) {
         unitElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        this.renderer.addClass(unitElement, 'highlight');
-        setTimeout(() => this.renderer.removeClass(unitElement, 'highlight'), 2000);
       }
-    }, 100);
+    }, 200);
   }
 
-
+  private scrollToResource(unitIndex: number) {
+    setTimeout(() => {
+  
+      const unitElement = this.unitElements.get(unitIndex)?.nativeElement;
+      const resourceElements = unitElement.querySelectorAll('.draggable-resource');
+      const resourceElement = resourceElements[resourceElements.length - 1];
+      if (resourceElement) {
+        resourceElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        console.warn(" No se pudo encontrar el último recurso en la unidad:", unitIndex);
+      }
+    }, 300);
+  }
+  
   saveCourseAndExit() {
     if (!this.course) {
       console.warn(" No hay curso cargado para guardar.");
@@ -226,7 +238,6 @@ export class CourseEditorComponent implements OnInit {
       width: '400px',
       data: { message: " El curso ha sido guardado correctamente." }
     }).afterClosed().subscribe(() => {
-      console.log(" Curso guardado, redirigiendo...");
       this.router.navigate(['/admin-dashboard/courses']);
     });
   }

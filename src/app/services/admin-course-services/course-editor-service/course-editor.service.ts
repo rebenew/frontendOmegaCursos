@@ -44,8 +44,6 @@ moveUnit(previousIndex: number, newIndex: number): void {
   const currentCourse = this.courseSubject.value;
   if (!currentCourse) return;
 
-  console.log(`🔄 Moviendo unidad de ${previousIndex} a ${newIndex}`);
-
   const updatedContent = [...currentCourse.content];
   const [movedUnit] = updatedContent.splice(previousIndex, 1);
   updatedContent.splice(newIndex, 0, movedUnit);
@@ -53,7 +51,6 @@ moveUnit(previousIndex: number, newIndex: number): void {
   updatedContent.forEach((unit, index) => unit.unidad = index + 1);
 
   this.courseSubject.next({ ...currentCourse, content: updatedContent });
-  console.log("✅ Unidades reordenadas correctamente");
 }
 
 removeUnit(unitIndex: number, saveForUndo: boolean = true): void {
@@ -73,23 +70,15 @@ removeUnit(unitIndex: number, saveForUndo: boolean = true): void {
 
 
 addResource(unitIndex: number, resourceName: string, link: string, embed: string) {
+  
   const currentCourse = this.courseSubject.value;
-  if (!currentCourse || !currentCourse.content[unitIndex]) return;
-
-  this.saveStateForUndo(); 
 
   const updatedContent = [...currentCourse.content];
-  updatedContent[unitIndex] = { 
-      ...updatedContent[unitIndex], 
-      contenido: [...updatedContent[unitIndex].contenido, { ResourceName: resourceName, Link: link, Embed: embed }] 
-  };
+  updatedContent[unitIndex].contenido.push({ ResourceName: resourceName, Link: link, Embed: embed });
 
   this.courseSubject.next({ ...currentCourse, content: updatedContent });
-
-  this.saveCourseToLocal(); 
-
-  console.log("✅ Recurso agregado y guardado correctamente.");
 }
+
 
 
   removeResource(unitIndex: number, resourceIndex: number) {
@@ -104,8 +93,6 @@ addResource(unitIndex: number, resourceName: string, link: string, embed: string
     this.courseSubject.next({ ...currentCourse, content: updatedContent });
 
     this.saveCourseToLocal(); 
-
-    console.log("🗑️ Recurso eliminado correctamente y guardado.");
 }
 
 
