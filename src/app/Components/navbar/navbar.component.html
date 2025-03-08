@@ -1,11 +1,14 @@
-<nav>
-  <h1>Bienvenido a EAFIT e-Learning</h1>
-
-  <div>
-    <a routerLink="/" routerLinkActive="active">Inicio</a>
-    <a routerLink="/cursos" routerLinkActive="active">Cursos</a>
-    <a href='#testimonials'>¿Por qué elegirnos?</a>
-    <a href='#contacto'>Contáctanos</a>
-    <a routerLink="/login2" routerLinkActive="active">Iniciar sesión</a>
+<nav #menuNav>
+  <h2>Bienvenido a EAFIT e-Learning</h2>
+  <div class="contentOpcion">
+    <a class="menuNav">Inicio</a>
+    <a class="menuNav">Cursos</a>
+    <a class="menuNav" href='#testimonials'>¿Por qué elegirnos?</a>
+    <a class="menuNav" href='#contacto'>Contáctanos</a>
+    <a class="menuNav" >Iniciar sesión</a>
+    <div class="menuNav DivImg" (click)="toggleDarkMode()">
+      <img class="darkHome" src="/iconsMenu/dark/dark.svg" alt="">
+      <img class="lightHome" src="/iconsMenu/light/dark.svg" alt="">
+    </div>
   </div>
 </nav>

@@ -1,8 +1,8 @@
-body {
-    display: flex;
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
+// body {
+//     display: flex;
+//     margin: 0;
+//     font-family: Arial, sans-serif;
+// }
 .sidebar {
     width: 70px;
     background-color: #333;
@@ -20,7 +20,7 @@ body {
     cursor: pointer;
 }
 .main-content {
-    margin-left: 220px;
+    margin:0;
     padding: 20px;
     flex-grow: 1;
 }
@@ -33,14 +33,14 @@ body {
 }
 .search-bar input {
     width: 100%;
-    padding: 8px; 
-    font-size: 14px; 
+    padding: 8px;
+    font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 .search-bar button {
     padding: 10px 15px;
-    min-width: 80px; 
+    min-width: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,7 +52,7 @@ body {
     font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;
-    
+
 }
 .search-bar button:hover {
     background-color: #007BFF;
