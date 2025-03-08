@@ -33,7 +33,7 @@ export class CourseListComponent implements OnInit {
       .then((res) => res.json())
       .then((data) => {
         const filterData = data.filter(
-          (res: { id: number }) => res.id == this.mentorId
+          (res: { mentorId: number }) => res.mentorId == this.mentorId
         );
         this.mentor = filterData[0].nombre;
         this.courses = filterData[0].cursos;
