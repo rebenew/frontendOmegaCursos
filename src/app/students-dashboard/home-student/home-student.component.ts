@@ -26,25 +26,24 @@ export class HomeStudentComponent implements OnInit {
     private renderer: Renderer2,
     private SidecontentService: SidecontentService
   ) {}
-  // ngOnInit(): void {
-  //   setTimeout(() => {
-  //     //console.log(this.contentCards.nativeElement);
-  //     const cardCourses =
-  //       this.contentCards.nativeElement.querySelectorAll('.card-courses');
-  //     //console.log(cardCourses);
-
-  //     this.SidecontentService.activateSideContent.subscribe((value) => {
-  //       this.activateSideContent = value;
-  //       if (this.activateSideContent) {
-  //         cardCourses?.forEach((element) => {
-  //           this.renderer.addClass(element, 'openSideContentCourses');
-  //         });
-  //       } else {
-  //         cardCourses?.forEach((element) => {
-  //           this.renderer.removeClass(element, 'openSideContentCourses');
-  //         });
-  //       }
-  //     });
-  //   }, 1000);
-  // }
+  ngOnInit(): void {
+    //   setTimeout(() => {
+    //     //console.log(this.contentCards.nativeElement);
+    //     const cardCourses =
+    //       this.contentCards.nativeElement.querySelectorAll('.card-courses');
+    //     //console.log(cardCourses);
+    //     this.SidecontentService.activateSideContent.subscribe((value) => {
+    //       this.activateSideContent = value;
+    //       if (this.activateSideContent) {
+    //         cardCourses?.forEach((element) => {
+    //           this.renderer.addClass(element, 'openSideContentCourses');
+    //         });
+    //       } else {
+    //         cardCourses?.forEach((element) => {
+    //           this.renderer.removeClass(element, 'openSideContentCourses');
+    //         });
+    //       }
+    //     });
+    //   }, 1000);
+  }
 }
