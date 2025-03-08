@@ -138,21 +138,22 @@ export class CourseEditorComponent implements OnInit {
     if (!this.course || event.previousIndex < 0 || event.container.id !== 'deleteContainer') return;
   
     const unitToDelete = this.course.content[event.previousIndex];
-
+  
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
       width: '400px',
       data: { itemName: `Unidad: ${unitToDelete.unidad}`, itemType: 'unidad' }
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
       if (result) {  
-        this.courseEditorService.removeUnit(event.previousIndex, false); 
+        this.courseEditorService.removeUnit(event.previousIndex);
         console.log(" Unidad eliminada permanentemente:", unitToDelete);
       } else {
         console.log(" Eliminación cancelada.");
       }
     });
-}
+  }
+  
 
   addUnit(): void {
     if (!this.course) {

@@ -53,20 +53,17 @@ moveUnit(previousIndex: number, newIndex: number): void {
   this.courseSubject.next({ ...currentCourse, content: updatedContent });
 }
 
-removeUnit(unitIndex: number, saveForUndo: boolean = true): void {
-  if (saveForUndo) {
-    this.saveStateForUndo(); 
-  }
-
+removeUnit(unitIndex: number) {
   const currentCourse = this.courseSubject.value;
   if (!currentCourse || unitIndex < 0 || unitIndex >= currentCourse.content.length) return;
 
-  const updatedContent = currentCourse.content.filter((_, index) => index !== unitIndex);
-  updatedContent.forEach((unit, index) => unit.unidad = index + 1);
+  const updatedContent = [...currentCourse.content];
+  updatedContent.splice(unitIndex, 1);
 
   this.courseSubject.next({ ...currentCourse, content: updatedContent });
-}
 
+  this.saveCourseToLocal();
+}
 
 
 addResource(unitIndex: number, resourceName: string, link: string, embed: string) {
