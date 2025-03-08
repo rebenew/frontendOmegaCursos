@@ -107,6 +107,13 @@ export const routes: Routes = [
             (m) => m.CourseListComponent
           ),
       },
+      {
+        path: ':mentorId/course/:id',
+        loadComponent: () =>
+          import(
+            './Dashboard_Mentor/Courses_Detail/course-detail.component'
+          ).then((m) => m.CourseDetailComponent),
+      },
     ],
   },
   {
