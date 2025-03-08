@@ -26,34 +26,28 @@ export const routes: Routes = [
     data: { renderMode: 'client' },
     component: MainLayoutComponent,
     children: [
-      { path: '', data: { renderMode: 'client' }, component: LandingPageComponent },
-      { path: 'login2', data: { renderMode: 'client' }, component: LoginPageComponent },
-      { path: 'cursos', data: { renderMode: 'client' }, component: CoursesPageComponent },
-      { path: 'signup', data: { renderMode: 'client' }, component: SignupPageComponent },
-    ]
-  },  //   ],
-  // },
-
-
-  // //Dashboard mentor
-  // {
-  //   path: 'dashboard_mentor',
-  //   data: { renderMode: 'client' },
-  //   component: DashboardComponent
-  // },
-  // //Home Student Component
-  // {
-  //   path: 'home-student',
-  //   data: { renderMode: 'client' },
-  //   title: 'Home - Student',
-  //   component: HomeStudentComponent,
-  // },
-  // {
-  //   path: 'dashboard_mentor',
-  //   data: { renderMode: 'client' },
-  //   component: DashboardComponent
-  // },
-
+      {
+        path: '',
+        data: { renderMode: 'client' },
+        component: LandingPageComponent,
+      },
+      {
+        path: 'login2',
+        data: { renderMode: 'client' },
+        component: LoginPageComponent,
+      },
+      {
+        path: 'cursos',
+        data: { renderMode: 'client' },
+        component: CoursesPageComponent,
+      },
+      {
+        path: 'signup',
+        data: { renderMode: 'client' },
+        component: SignupPageComponent,
+      },
+    ],
+  },
   //admin-dashboard
   {
     path: 'admin-dashboard',
@@ -113,6 +107,19 @@ export const routes: Routes = [
             (m) => m.CourseListComponent
           ),
       },
+    ],
+  },
+  {
+    path: '',
+    component: HomelayoutComponent,
+    children: [
+      //Dashboard mentor
+      {
+        path: 'dashboard_mentor',
+        data: { renderMode: 'client' },
+        component: DashboardComponent,
+      },
+
       //Home Student Component
       {
         path: 'home-student',
@@ -130,108 +137,95 @@ export const routes: Routes = [
             './students-dashboard/more-courses/more-courses.component'
           ).then((m) => m.MoreCoursesComponent),
       },
+      //Course content
       {
-        path: 'content',
+        path: 'course-content',
         data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './students-dashboard/course-content/content/content.component'
-          ).then((m) => m.ContentComponent),
+        title: 'Content',
+        component: CourseContentComponent,
+        children: [
+          {
+            path: 'content',
+            data: { renderMode: 'client' },
+            loadComponent: () =>
+              import(
+                './students-dashboard/course-content/content/content.component'
+              ).then((m) => m.ContentComponent),
+          },
+          {
+            path: 'learning-tools',
+            data: { renderMode: 'client' },
+            loadComponent: () =>
+              import(
+                './students-dashboard/course-content/learning-tools/learning-tools.component'
+              ).then((m) => m.LearningToolsComponent),
+          },
+          {
+            path: 'reviews',
+            data: { renderMode: 'client' },
+            loadComponent: () =>
+              import(
+                './students-dashboard/course-content/reviews/reviews.component'
+              ).then((m) => m.ReviewsComponent),
+          },
+          {
+            path: 'q&a',
+            data: { renderMode: 'client' },
+            loadComponent: () =>
+              import(
+                './students-dashboard/course-content/questions-answers/questions-answers.component'
+              ).then((m) => m.QuestionsAnswersComponent),
+          },
+        ],
       },
+      // Grades route
       {
-        path: 'learning-tools',
+        path: 'grades',
         data: { renderMode: 'client' },
+        title: 'Grades',
         loadComponent: () =>
-          import(
-            './students-dashboard/course-content/learning-tools/learning-tools.component'
-          ).then((m) => m.LearningToolsComponent),
+          import('./students-dashboard/grades/grades.component').then(
+            (m) => m.GradesComponent
+          ),
       },
+      // Community route
       {
-        path: 'reviews',
+        path: 'community',
         data: { renderMode: 'client' },
+        title: 'Community',
         loadComponent: () =>
-          import(
-            './students-dashboard/course-content/reviews/reviews.component'
-          ).then((m) => m.ReviewsComponent),
-      },
-      {
-        path: 'q&a',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './students-dashboard/course-content/questions-answers/questions-answers.component'
-          ).then((m) => m.QuestionsAnswersComponent),
+          import('./students-dashboard/community/community.component').then(
+            (m) => m.CommunityComponent
+          ),
       },
     ],
   },
 
-
-  {
-    path: 'grades',
-    data: { renderMode: 'client' },
-    title: 'Grades',
-    loadComponent: () =>
-      import('./students-dashboard/grades/grades.component').then(
-        (m) => m.GradesComponent
-      ),
-  },
-
-  {
-    path: 'community',
-    data: { renderMode: 'client' },
-    title: 'Community',
-    loadComponent: () =>
-      import('./students-dashboard/community/community.component').then(
-        (m) => m.CommunityComponent
-      ),
-  },
   //Default path
-  // {
-  //   path: '',
-  //   data: { renderMode: 'client' },
-  //   redirectTo: 'landing',
-  //   pathMatch: 'full',
-  // }, // Redirige la raíz a la landing page
-  // {
-  //   path: 'landing',
-  //   data: { renderMode: 'client' },
-  //   component: LandingPageComponent,
-  // },
-  // {
-  //   path: 'login2',
-  //   data: { renderMode: 'client' },
-  //   component: LoginPageComponent,
-  // },
-  // {
-  //   path: 'cursos',
-  //   data: { renderMode: 'client' },
-  //   component: CoursesPageComponent,
-  // },
-  // {
-  //   path: 'signup',
-  //   data: { renderMode: 'client' },
-  //   component: SignupPageComponent,
-  // },
-
-
-  //Admin User
-  {path: 'admin',
-        component: AdminComponent,
-    },
-
-      {
-        path: 'admin/user-detail/:id',
-        data: { renderMode: 'client' },
-        component: UserDetailComponent,
-      },
   {
-    path: 'admin/adduser',
-    component: UserFormComponent,
+    path: '',
+    data: { renderMode: 'client' },
+    redirectTo: 'landing',
+    pathMatch: 'full',
+  }, // Redirige la raíz a la landing page
+  {
+    path: 'landing',
+    data: { renderMode: 'client' },
+    component: LandingPageComponent,
   },
-
   {
-    path: 'admin/user-detail/:id',
-    component: UserDetailComponent,
-
+    path: 'login2',
+    data: { renderMode: 'client' },
+    component: LoginPageComponent,
+  },
+  {
+    path: 'cursos',
+    data: { renderMode: 'client' },
+    component: CoursesPageComponent,
+  },
+  {
+    path: 'signup',
+    data: { renderMode: 'client' },
+    component: SignupPageComponent,
   },
 ];

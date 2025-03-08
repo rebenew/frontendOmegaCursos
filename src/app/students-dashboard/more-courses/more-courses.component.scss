@@ -4,6 +4,31 @@
 //   margin: 10px;
 // }
 
+.more-courses-header {
+  display: flex;
+  justify-content: space-between;
+
+  .go-back-btn {
+    background-color: #0076fc;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    margin-right: 100px;
+    padding: 1px;
+    width: 8%;
+  }
+  @media screen and (max-width: 768px) {
+    .go-back-btn {
+      height: auto;
+      width: 20%;
+    }
+  }
+  .go-back-btn:hover {
+    background-color: #ff9b00;
+    color: #fff;
+  }
+}
+
 // @keyframes grow {
 //   from {
 //     transform: scale(1);

@@ -20,7 +20,7 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  background-color: #f3ece0;
+  background-color: #001f3f;
   padding: 3em;
   max-width: 100%;
   text-align: center;
@@ -29,20 +29,20 @@ header {
 h1 {
   font-size: 5em;
   font-weight: 700;
-  color: #040087;
+  color: #f3ece0;
 }
 
 h2 {
   font-size: 2.5em;
   font-weight: 400;
-  color: #000000;
+  color: #f3ece0;
 }
 
 .menu-section {
   display: flex;
   gap: 25px;
   padding: 10px;
-  background-color: #f2f3f2;
+  background-color: #001f3f;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   flex-direction: row;
@@ -73,7 +73,7 @@ h2 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.btn{
+.btn {
   border: none;
   background: #0076fc;
   padding: 10px 20px;
@@ -95,6 +95,80 @@ h2 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
+.continue-btn {
+  border: none;
+  background: #00aa43;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 0.8em;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  color: white;
+}
+
+.continue-btn:hover,
+.details-btn.active {
+  background: #ff9b00;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.details-btn {
+  border: none;
+  background: #0076fc;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 0.8em;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  color: white;
+}
+
+.details-btn:hover,
+.details-btn.active {
+  background: #ff9b00;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.start-btn {
+  border: none;
+  background: #0076fc;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 0.8em;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  color: white;
+}
+
+.start-btn:hover,
+.details-btn.active {
+  background: #ff9b00;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.container-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+}
+
 .main-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -102,44 +176,100 @@ h2 {
   align-items: flex-start;
 }
 
-
 .courses-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Se adaptan al ancho */
-  gap: 20px; /* Espaciado entre tarjetas */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  );
+  gap: 20px;
   padding: 20px;
-
 }
 
 .course-card {
-  background: white;
-  border-radius: 20px; /* Bordes redondeados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
-  overflow: hidden; /* Evita que la imagen sobresalga */
+  background: #001f3f;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   transition: transform 0.3s ease-in-out;
+  height: 13em;
+  perspective: 1000px;
+  transform: rotateY(180'angle');
 }
 
 .course-card:hover {
-  transform: translateY(-5px); /* Efecto al pasar el mouse */
-}
-
-.course-card-img img {
-  width: 100%;
-  height: 13em; /* Altura de la imagen */
-  object-fit: cover; /* Hace que la imagen llene el espacio sin distorsionarse */
-  border-radius: 20px 20px 0 0; /* Redondea solo arriba */
+  transform: translateY(-5px);
 }
 
 .course-card-content {
-  padding: 15px;
+  padding: 0%;
   display: flex;
   flex-direction: column;
   gap: 5px;
+  height: 100%;
+  margin-top: 0px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.course-class-title, .back{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+
+}
+
+.course-class-title {
+  background: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.back{
+  background-color: #001f3f;
+  color: white;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  margin-bottom: 10px;
+  padding: 10px;
+
+}
+
+.back h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5em;
+}
+
+.back ul {
+  font-size: 14px;
+  color: white;
+  list-style: none;
+  padding: 0;
+}
+
+.course-card:hover .course-card-content {
+  transform: rotateY(180deg);
 }
 
 .course-class-title h3 {
-  font-size: 18px;
+  font-size: 1.2em;
   font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5em;
 }
 
 .course-class-title p {
@@ -147,74 +277,22 @@ h2 {
   color: #666;
 }
 
-.student-profile {
-  flex: 1;
-  margin-left: em; /* Espacio entre las secciones */
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 100%;
-  height: 110vh;
-  opacity: 0;
-  &.visible {
-    opacity: 1;
-    transition: opacity 0.5s;
-  }
+.course-card:nth-child(1) .course-class-title {
+  background-color: #FFCDD2;
 }
 
-.profile{
-  display: flex;
-  align-items: left;
-  flex-direction: column;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  height: 100%;
-  overflow: auto;
+.course-card:nth-child(2) .course-class-title {
+  background-color: #C8E6C9;
 }
 
-.profile-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.course-card:nth-child(3) .course-class-title {
+  background-color: #BBDEFB;
 }
 
-.profile-header img {
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
+.course-card:nth-child(4) .course-class-title {
+  background-color: #FFECB3;
 }
 
-.skills {
-  margin-top: 20px;
-}
-
-.skills h3 {
-  font-size: 2em;
-  margin-bottom: 10px;
-  align-items: center;
-  justify-content: center;
-}
-
-.skills ul {
-  list-style: none;
-  padding: 0;
-}
-
-.skills li {
-  background: #fdd900;
-  color: black;
-  padding: 5px 10px;
-  border-radius: 5px;
-  margin-bottom: 5px;
-}
-
-.skills ul li:hover {
-  background: #ff9b00;
-  color: black;
-}
 
 @media (max-width: 768px) {
   .welcome-section {
