@@ -24,6 +24,7 @@ header {
   padding: 3em;
   max-width: 100%;
   text-align: center;
+  border-radius: 10px;
 }
 
 h1 {
@@ -42,7 +43,7 @@ h2 {
   display: flex;
   gap: 25px;
   padding: 10px;
-  background-color: #001f3f;
+  background-color: #edeeee;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   flex-direction: row;
@@ -53,7 +54,7 @@ h2 {
 
 .bubble {
   border: none;
-  background: #0076fc;
+  background: #d7dadb;
   padding: 10px 20px;
   border-radius: 30px;
   font-size: 16px;
@@ -63,7 +64,7 @@ h2 {
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
-  color: white;
+  color: #000000;
 }
 
 .bubble:hover,

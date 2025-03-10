@@ -23,88 +23,27 @@
   <div class="main-container">
     <!--LISTA DE CURSOS-->
     <section class="courses-section">
-      <div class="course-card">
+      <div *ngFor="let dashboard of dashboardData" class="course-card">
         <div class="course-card-content">
           <div class="course-class-title">
-            <h3>IA PARA TODOS</h3>
-            <p>Modalidad: Virual</p>
+            <h3>{{dashboard.title | uppercase}}</h3>
+            <p>Modalidad: {{dashboard.modality}}</p>
           </div>
           <div class="back">
-            <h3>SOBRE TU CURSO</h3>
+            <h3 *ngIf="dashboard.courseStarted">SOBRE TU CURSO</h3>
+            <h3 *ngIf="!dashboard.courseStarted">CURSO SIN INICIAR</h3>
             <ul>
-              <li>Progreso: 0%</li>
-              <li>Tiempo activo: 0H</li>
-              <li>Validaciones: 0/10</li>
+              <li>Progreso: {{dashboard.progress}} </li>
+              <li>Tiempo activo: {{dashboard.activeTime}} </li>
+              <li>Validaciones: {{dashboard.validaciones}} </li>
             </ul>
             <div class="container-btn">
-              <button [routerLink]="['/course-content']" class="continue-btn">
+              <button *ngIf="dashboard.courseStarted" [routerLink]="['/course-content']" class="continue-btn">
                 Continuar curso
               </button>
-              <button class="details-btn">Detalles</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="course-card">
-        <div class="course-card-content">
-          <div class="course-class-title">
-            <h3>FUNDAMENTALS WEB</h3>
-            <p>Modalidad: Virtual</p>
-          </div>
-          <div class="back">
-            <h3>CURSO SIN INICIAR</h3>
-            <ul>
-              <li>Progreso: 0%</li>
-              <li>Tiempo activo: 0 H</li>
-              <li>Validaciones: 0/10</li>
-            </ul>
-            <div class="container-btn">
-              <button class="start-btn">Iniciar</button>
-              <button class="details-btn">Detalles</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="course-card">
-        <div class="course-card-content">
-          <div class="course-class-title">
-            <h3>FRONTEND</h3>
-            <p>Modalidad: Bootcamp</p>
-          </div>
-          <div class="back">
-            <h3>CURSO SIN INICIAR</h3>
-            <ul>
-              <li>Progreso: 0%</li>
-              <li>Tiempo activo: 0 H</li>
-              <li>Validaciones: 0/33</li>
-            </ul>
-            <div class="container-btn">
-              <button class="start-btn">Iniciar</button>
-              <button class="details-btn">Detalles</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="course-card">
-        <div class="course-card-content">
-          <div class="course-class-title">
-            <h3>BACKEND</h3>
-            <p>Modalidad: Bootcamp</p>
-          </div>
-          <div class="back">
-            <h3>CURSO SIN INICIAR</h3>
-            <ul>
-              <li>Progreso: 0%</li>
-              <li>Tiempo activo: 0 H</li>
-              <li>Validaciones: 0/40</li>
-            </ul>
-            <div class="container-btn">
-              <button class="start-btn">Iniciar</button>
+              <button *ngIf="!dashboard.courseStarted" class="start-btn">
+                Iniciar
+              </button>
               <button class="details-btn">Detalles</button>
             </div>
           </div>
