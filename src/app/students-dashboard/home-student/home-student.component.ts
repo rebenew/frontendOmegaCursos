@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DashboardCourses } from '../../interfaces/students-dashboard-interfaces/dashboard-courses.interface';
 import { StudentsDashboard } from '../../services/students-dashboard-services/students-dashboard.service';
+import { DashboardHomeService } from '../../services/students-dashboard-services/dashboard-home.service';
+import { DashboardHomeCourses } from '../../interfaces/students-dashboard-interfaces/dashboard-home.interface';
 
 @Component({
   selector: 'home-student',
