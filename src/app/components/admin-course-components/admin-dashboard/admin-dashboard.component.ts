@@ -39,7 +39,7 @@ export class AdminDashboardComponent {
 
   search(event: Event) {
     const term = (event.target as HTMLInputElement).value;
-    this.searchService.setSearchTerm(term); // 🔹 Delegamos la búsqueda a SearchService
+    this.searchService.setSearchTerm(term); 
   }
 
 
@@ -49,17 +49,17 @@ export class AdminDashboardComponent {
 
   deleteCourse(id: number) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '400px',
-      data: { courseId: id }
+      width: '800px',
+      data: { itemName: `Curso ID: ${id}`, itemType: 'curso' }
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.searchService.deleteCourse(id); 
       }
     });
   }
-
+  
   toggleView() {
     this.isGridView = !this.isGridView;
   }

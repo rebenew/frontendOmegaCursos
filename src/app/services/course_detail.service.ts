@@ -16,7 +16,7 @@ export class CourseDetailService {
   // getCourseById(courseId: number, mentorId: number): Observable<any> {
   //   return this.http.get<any>(`${this.apiUrl}/${courseId}?mentorId=${mentorId}`);
   // }
-  
+
 
   // getCourseById(courseId: number): Observable<any> {
   //   return this.http.get<any>(`${this.apiUrl}/${courseId}`);

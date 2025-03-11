@@ -1,4 +1,4 @@
-<div class="container course-detail-container">
+<div class="container course-detail-container" *ngIf="courseDetail">
   <div class="row">
     <div class="col-md-12">
       <h1 class="course-title">{{ courseDetail.nombre }}</h1>
@@ -9,13 +9,14 @@
     <div class="col-md-6">
       <label>Progreso del curso: {{ courseDetail.completado }}%</label>
       <div class="progress">
-        <div class="progress-bar bg-success" 
-             role="progressbar" 
-             [style.width.%]="courseDetail.completado"
-             [attr.aria-valuenow]="courseDetail.completado"
-             aria-valuemin="0"
-             aria-valuemax="100">
-        </div>
+        <div
+          class="progress-bar bg-success"
+          role="progressbar"
+          [style.width.%]="courseDetail.completado"
+          [attr.aria-valuenow]="courseDetail.completado"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
       </div>
     </div>
   </div>
@@ -42,24 +43,29 @@
             <td>
               <div class="progress-bar-container">
                 <div class="progress">
-                  <div class="progress-bar bg-info" 
-                       role="progressbar" 
-                       [style.width.%]="estudiante.progreso">
-                  </div>
+                  <div
+                    class="progress-bar bg-info"
+                    role="progressbar"
+                    [style.width.%]="estudiante.progreso"
+                  ></div>
                 </div>
                 <span>{{ estudiante.progreso }}%</span>
               </div>
             </td>
             <td>
-              <ul class="list-unstyled">
-                <li *ngFor="let nota of estudiante.notas">
-                  <span class="badge bg-primary">{{ nota.calificacion }} ({{ nota.porcentaje }}%)</span>
-                </li>
-              </ul>
+              <button
+                (click)="openEditModalNotes(estudiante)"
+                class="btn btn-warning btn-sm"
+              >
+                👀 ver notas
+              </button>
             </td>
             <td>
-              <button (click)="openEditModal(estudiante)" class="btn btn-warning btn-sm">
-                ✏️ Editar
+              <button
+                (click)="openEditModal(estudiante)"
+                class="btn btn-warning btn-sm"
+              >
+                ✏ Editar
               </button>
             </td>
           </tr>
@@ -69,22 +75,71 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade show" *ngIf="modalOpen">
+  <!-- Mejor versión del modal -->
+  <div class="modal-backdrop fade show" *ngIf="modalOpen"></div>
+  <div class="modal fade show d-block" *ngIf="modalOpen" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Editar Notas de {{ selectedStudent?.nombre }}</h5>
-          <button type="button" class="btn-close" (click)="closeModal()"></button>
+          <h5 class="modal-title">
+            Editar Notas de {{ selectedStudent?.nombre }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeModal()"
+          ></button>
         </div>
         <div class="modal-body">
           <div *ngFor="let nota of selectedStudent?.notas; let i = index">
             <label>Calificación {{ i + 1 }}:</label>
-            <input type="number" class="form-control" [(ngModel)]="selectedStudent.notas[i].calificacion" />
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="selectedStudent.notas[i].calificacion"
+            />
           </div>
         </div>
         <div class="modal-footer">
-          <button (click)="saveChanges()" class="btn btn-success">Guardar</button>
-          <button (click)="closeModal()" class="btn btn-secondary">Cerrar</button>
+          <button (click)="saveChanges()" class="btn btn-success">
+            Guardar
+          </button>
+          <button (click)="closeModal()" class="btn btn-secondary">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para ver notas de un estudiante específico -->
+  <div class="modal-backdrop fade show" *ngIf="modalOpenNotas"></div>
+  <div class="modal fade show d-block" *ngIf="modalOpenNotas" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            Ver notas de {{ selectedStudent?.nombre }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeModalNotes()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-unstyled d-flex flex-column jutify-content-center align-items-center">
+            <li *ngFor="let nota of selectedStudent?.notas">
+              <span class="badge bg-primary">
+                {{ nota.calificacion }} ({{ nota.porcentaje }}%)
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button (click)="closeModalNotes()" class="btn btn-secondary">
+            Cerrar
+          </button>
         </div>
       </div>
     </div>
