@@ -108,7 +108,6 @@ export const routes: Routes = [
           }
         ]
       },
-
       //Home Student Component
       {
         path: 'home-student',
