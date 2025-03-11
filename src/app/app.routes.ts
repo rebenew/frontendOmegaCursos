@@ -11,15 +11,9 @@ import { SignupPageComponent } from './Pages/signup-page/signup-page.component';
 import { HomelayoutComponent } from './layout/homelayout/homelayout.component';
 import { MainLayoutComponent } from './Pages/main-layout/main-layout.component';
 
-import { AdminComponent } from './admin-dashboard/admin-dashboard.component';
-import { SearchUserDashboardComponent } from './search-user-dashboard/search-user-dashboard.component';
-import { UserFormComponent } from './admin-components/user-form/user-form.component';
-import { UserDetailComponent } from './admin-components/user-detail/user-detail.component';
-import { EditUserComponent } from './admin-components/edit-user/edit-user.component';
 import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
 import path from 'path';
 import { UserCardComponent } from './admin-components/user-card/user-card.component';
-
 export const routes: Routes = [
   //RUTAS LANDING OK
   {
@@ -95,21 +89,6 @@ export const routes: Routes = [
       },
     ],
   },
-  //Dashboard mentor
-  {
-    path: 'dashboard_mentor',
-    /* data: { renderMode: 'client' },*/
-    component: DashboardComponent,
-    children: [
-      {
-        path: '',
-        loadComponent: () =>
-          import('./Dashboard_Mentor/Courses_List/course-list.component').then(
-            (m) => m.CourseListComponent
-          ),
-      },
-    ],
-  },
   {
     path: '',
     component: HomelayoutComponent,
@@ -119,6 +98,16 @@ export const routes: Routes = [
         path: 'dashboard_mentor',
         data: { renderMode: 'client' },
         component: DashboardComponent,
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./Dashboard_Mentor/Courses_List/course-list.component').then(m => m.CourseListComponent)
+          },
+          {
+            path: ':mentorId/course/:id',
+            loadComponent: () => import('./Dashboard_Mentor/Courses_Detail/course-detail.component').then(m => m.CourseDetailComponent)
+          }
+        ]
       },
 
       //Home Student Component

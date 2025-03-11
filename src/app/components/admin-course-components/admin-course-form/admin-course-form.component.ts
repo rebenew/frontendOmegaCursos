@@ -8,13 +8,14 @@ import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ConfirmationComponent } from '../modals/confirmation/confirmation.component';
 import { EventEmitter, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin-course-form',
   templateUrl: './admin-course-form.component.html',
   styleUrls: ['./admin-course-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ConfirmationComponent],
+  imports: [ReactiveFormsModule, CommonModule],
 }) 
 export class AdminCourseFormComponent implements OnInit {
   @Output() courseUpdated = new EventEmitter<void>();
@@ -29,7 +30,8 @@ export class AdminCourseFormComponent implements OnInit {
     private fb: FormBuilder,
     private courseService: CourseService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -70,21 +72,22 @@ export class AdminCourseFormComponent implements OnInit {
     if (this.courseForm.valid) {
       const formData = this.courseForm.value;
       formData.certification = formData.certification ? 'Certificación virtual' : 'No certificable';
-
+  
       const courseOperation = this.isEditMode
         ? this.courseService.updateCourse(formData)
         : this.courseService.addCourse({ ...formData, id: Date.now() });
-
+  
       courseOperation.subscribe({
         next: () => {
-          this.confirmationMessage = this.isEditMode ? 'Curso actualizado correctamente' : 'Curso creado correctamente';
-          this.showConfirmation = true; 
-
-          setTimeout(() => {
-            this.showConfirmation = false;
+          const dialogRef = this.dialog.open(ConfirmationComponent, {
+            width: '400px',
+            data: { message: this.isEditMode ? 'Curso actualizado correctamente' : 'Curso creado correctamente' }
+          });
+  
+          dialogRef.afterClosed().subscribe(() => {
             this.courseUpdated.emit(); 
             this.router.navigate(['/admin-dashboard']);
-          }, 2000);
+          });
         },
         error: (err: any) => console.error(`Error al ${this.isEditMode ? 'actualizar' : 'agregar'} el curso:`, err)
       });
@@ -108,4 +111,5 @@ export class AdminCourseFormComponent implements OnInit {
   cancel() {
     this.router.navigate(['admin-dashboard/courses']);
   }
+  
 }

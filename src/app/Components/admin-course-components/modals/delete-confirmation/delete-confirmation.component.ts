@@ -8,19 +8,20 @@ import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/materia
   templateUrl: './delete-confirmation.component.html',
   styleUrls: ['./delete-confirmation.component.scss']
 })
+
 export class DeleteConfirmationComponent {
   constructor(
     public dialogRef: MatDialogRef<DeleteConfirmationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { courseId: number }
+    @Inject(MAT_DIALOG_DATA) public data: { itemName: string; itemType: string }
   ) {}
 
   confirmDelete() {
-    console.log(`✅ Confirmación de eliminación enviada para el curso ID: ${this.data.courseId}`);
-    this.dialogRef.close(true); // <-- Devuelve `true` al cerrar
+    console.log(`✅ Eliminando ${this.data.itemType}: ${this.data.itemName}`);
+    this.dialogRef.close(true);
   }
 
   cancel() {
-    console.log("❌ Cancelación de eliminación enviada.");
-    this.dialogRef.close(false); // <-- Devuelve `false`
+    console.log("❌ Eliminación cancelada.");
+    this.dialogRef.close(false);
   }
 }
