@@ -1,13 +1,10 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SidecontentService } from '../../services/servicesDesign/sidecontent.service';
+import { DashboardCourses } from '../../interfaces/students-dashboard-interfaces/dashboard-courses.interface';
+import { StudentsDashboard } from '../../services/students-dashboard-services/students-dashboard.service';
+import { DashboardHomeService } from '../../services/students-dashboard-services/dashboard-home.service';
+import { DashboardHomeCourses } from '../../interfaces/students-dashboard-interfaces/dashboard-home.interface';
 
 @Component({
   selector: 'home-student',
@@ -16,34 +13,16 @@ import { SidecontentService } from '../../services/servicesDesign/sidecontent.se
   styleUrl: './home-student.component.scss',
 })
 export class HomeStudentComponent implements OnInit {
+  public dashboardData: DashboardHomeCourses[] = [];
   protected visible: boolean = false;
   activateSideContent: boolean = false;
 
-  // @ViewChild('contentCards', { static: true })
-  // contentCards!: ElementRef<HTMLElement>;
 
   constructor(
-    private renderer: Renderer2,
-    private SidecontentService: SidecontentService
+    private dashboardHomeService: DashboardHomeService,
+
   ) {}
   ngOnInit(): void {
-    //   setTimeout(() => {
-    //     //console.log(this.contentCards.nativeElement);
-    //     const cardCourses =
-    //       this.contentCards.nativeElement.querySelectorAll('.card-courses');
-    //     //console.log(cardCourses);
-    //     this.SidecontentService.activateSideContent.subscribe((value) => {
-    //       this.activateSideContent = value;
-    //       if (this.activateSideContent) {
-    //         cardCourses?.forEach((element) => {
-    //           this.renderer.addClass(element, 'openSideContentCourses');
-    //         });
-    //       } else {
-    //         cardCourses?.forEach((element) => {
-    //           this.renderer.removeClass(element, 'openSideContentCourses');
-    //         });
-    //       }
-    //     });
-    //   }, 1000);
-  }
+    this.dashboardHomeService.getDashboardHome().subscribe((data)=>{this.dashboardData = data});
 }
+ }
