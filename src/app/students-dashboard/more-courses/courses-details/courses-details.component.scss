@@ -1,4 +1,4 @@
-@import "../../../../styles.scss";
+// @import "../../../../styles.scss";
 
 * {
   margin: 10px;
@@ -31,7 +31,7 @@
 }
 
 h1 {
-  font-family: $titleFont;
+  // font-family: $titleFont;
   font-size: 40px;
   font-weight: bolder;
 }
@@ -51,9 +51,9 @@ h1 {
   width: 70%;
 }
 
-.course-details-img:hover {
-  @include grow();
-}
+// .course-details-img:hover {
+//   @include grow();
+// }
 
 // course info
 .course-details-name {
@@ -67,7 +67,7 @@ h1 {
 .course-details-info {
   display: flex;
   flex-direction: column;
-  font-family: $titleFont;
+  // font-family: $titleFont;
   font-weight: bolder;
   font-size: large;
   justify-content: flex-start;
