@@ -1,13 +1,8 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SidecontentService } from '../../services/servicesDesign/sidecontent.service';
+import { DashboardCourses } from '../../interfaces/students-dashboard-interfaces/dashboard-courses.interface';
+import { StudentsDashboard } from '../../services/students-dashboard-services/students-dashboard.service';
 
 @Component({
   selector: 'home-student',
@@ -16,34 +11,12 @@ import { SidecontentService } from '../../services/servicesDesign/sidecontent.se
   styleUrl: './home-student.component.scss',
 })
 export class HomeStudentComponent implements OnInit {
-  protected visible: boolean = false;
-  activateSideContent: boolean = false;
+  public dashboardCourses: DashboardCourses[] = [];
 
-  // @ViewChild('contentCards', { static: true })
-  // contentCards!: ElementRef<HTMLElement>;
-
-  constructor(
-    private renderer: Renderer2,
-    private SidecontentService: SidecontentService
-  ) {}
+  constructor(private studentsDashboardService: StudentsDashboard) {}
   ngOnInit(): void {
-    //   setTimeout(() => {
-    //     //console.log(this.contentCards.nativeElement);
-    //     const cardCourses =
-    //       this.contentCards.nativeElement.querySelectorAll('.card-courses');
-    //     //console.log(cardCourses);
-    //     this.SidecontentService.activateSideContent.subscribe((value) => {
-    //       this.activateSideContent = value;
-    //       if (this.activateSideContent) {
-    //         cardCourses?.forEach((element) => {
-    //           this.renderer.addClass(element, 'openSideContentCourses');
-    //         });
-    //       } else {
-    //         cardCourses?.forEach((element) => {
-    //           this.renderer.removeClass(element, 'openSideContentCourses');
-    //         });
-    //       }
-    //     });
-    //   }, 1000);
+    this.studentsDashboardService.getDashboardCourses().subscribe((data) => {
+      this.dashboardCourses = data;
+    });
   }
 }
