@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DashboardCourses } from '../../interfaces/students-dashboard-interfaces/dashboard-courses.interface';
 import { StudentsDashboard } from '../../services/students-dashboard-services/students-dashboard.service';
