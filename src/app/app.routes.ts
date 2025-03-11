@@ -97,6 +97,16 @@ export const routes: Routes = [
         path: 'dashboard_mentor',
         data: { renderMode: 'client' },
         component: DashboardComponent,
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./Dashboard_Mentor/Courses_List/course-list.component').then(m => m.CourseListComponent)
+          },
+          {
+            path: ':mentorId/course/:id',
+            loadComponent: () => import('./Dashboard_Mentor/Courses_Detail/course-detail.component').then(m => m.CourseDetailComponent)
+          }
+        ]
       },
 
       //Home Student Component
