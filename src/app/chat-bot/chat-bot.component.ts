@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-chat-bot',
   imports: [],
   templateUrl: './chat-bot.component.html',
-  styleUrl: './chat-bot.component.scss'
+  styleUrl: './chat-bot.component.scss',
 })
 export class ChatBotComponent {
   isOpen = false;

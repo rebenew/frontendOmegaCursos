@@ -1,12 +1,8 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SidecontentService } from '../../services/servicesDesign/sidecontent.service';
-import { DashboardHomeCourses } from '../../interfaces/students-dashboard-interfaces/dashboard-home.interface';
-import { DashboardHomeService } from '../../services/students-dashboard-services/dashboard-home.service';
+import { DashboardCourses } from '../../interfaces/students-dashboard-interfaces/dashboard-courses.interface';
+import { StudentsDashboard } from '../../services/students-dashboard-services/students-dashboard.service';
 
 @Component({
   selector: 'home-student',

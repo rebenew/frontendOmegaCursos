@@ -32,12 +32,15 @@
           <div class="back">
             <h3 *ngIf="dashboard.courseStarted">SOBRE TU CURSO</h3>
             <h3 *ngIf="!dashboard.courseStarted">CURSO SIN INICIAR</h3>
+            <h3 *ngIf="dashboard.courseStarted">SOBRE TU CURSO</h3>
+            <h3 *ngIf="!dashboard.courseStarted">CURSO SIN INICIAR</h3>
             <ul>
               <li>Progreso: {{dashboard.progress}} </li>
               <li>Tiempo activo: {{dashboard.activeTime}} </li>
               <li>Validaciones: {{dashboard.validaciones}} </li>
             </ul>
             <div class="container-btn">
+              <button *ngIf="dashboard.courseStarted" [routerLink]="['/course-content']" class="continue-btn">
               <button *ngIf="dashboard.courseStarted" [routerLink]="['/course-content']" class="continue-btn">
                 Continuar curso
               </button>
