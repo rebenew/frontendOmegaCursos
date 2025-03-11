@@ -18,6 +18,7 @@ import { UserDetailComponent } from './admin-components/user-detail/user-detail.
 import { EditUserComponent } from './admin-components/edit-user/edit-user.component';
 import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
 import path from 'path';
+import { UserCardComponent } from './admin-components/user-card/user-card.component';
 
 export const routes: Routes = [
   //RUTAS LANDING OK
@@ -201,7 +202,7 @@ export const routes: Routes = [
     ],
   },
 
-  //Default path
+  // Default path
   {
     path: '',
     data: { renderMode: 'client' },
@@ -227,5 +228,41 @@ export const routes: Routes = [
     path: 'signup',
     data: { renderMode: 'client' },
     component: SignupPageComponent,
+  },
+
+  //Admin User
+  {
+    path: '',
+    component: HomelayoutComponent,
+    children: [
+        {
+          path: 'admin',
+          data: { renderMode: 'client' },
+          component: AdminComponent,
+        },
+        {
+          path: 'admin/user',
+          data: { renderMode: 'client' },
+          component: UserCardComponent,
+        },
+
+        {
+          path: 'admin/adduser',
+          data: { renderMode: 'client' },
+          component: UserFormComponent,
+        },
+
+        {
+          path: 'admin/user-detail/:id',
+          data: { renderMode: 'client' },
+          component: UserDetailComponent,
+        },
+
+        {
+          path: 'admin/user-edit/:id',
+          data: { renderMode: 'client' },
+          component: EditUserComponent,
+        },
+    ],
   },
 ];
