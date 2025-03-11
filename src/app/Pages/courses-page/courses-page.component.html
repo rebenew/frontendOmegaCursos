@@ -1,83 +1,21 @@
 <div class="main-content">
     <div class="search-bar">
-        <input type="text" placeholder="Buscar cursos...">
-        <a href="http://">
-        <button type="buscar">Buscar</button>
-    </a>
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar cursos...">
+        <button type="button" (click)="searchCourses(searchTerm)">Buscar</button>
     </div>
-    <section #contentCards class="content-cards">
-      <div class="card-courses">
+    <section class="content-cards">
+      <div class="card-courses" *ngFor="let course of courses">
         <div class="title">
           <div class="icon">
-            <img src="assets/students-dashboard-imgs/fundamentals-nodo.jpg" alt="">
+            <img [src]="course.imageUrl" [alt]="course.title">
           </div>
-          <h3>angular</h3>
+          <h3>{{ course.title }}</h3>
         </div>
-        <p>Modalidad: Virual</p>
-        <p>NODO Program</p>
-        <p>$100</p>
+        <p>Modalidad: {{ course.modality }}</p>
+        <p>{{ course.certification }}</p>
+        <p>{{ course.price | currency }}</p>
         <div class="buttons-container">
-          <button class="details-button" >Details</button>
-          <button class="buy-button">Buy Course</button>
-        </div>
-      </div>
-      <div class="card-courses">
-        <div class="title">
-          <div class="icon">
-            <img src="assets/students-dashboard-imgs/fundamentals-nodo.jpg" alt="">
-          </div>
-          <h3>React</h3>
-        </div>
-        <p>Modalidad: Virual</p>
-        <p>NODO Program</p>
-        <p>$100</p>
-        <div class="buttons-container">
-          <button class="details-button" >Details</button>
-          <button class="buy-button">Buy Course</button>
-        </div>
-      </div>
-      <div class="card-courses">
-        <div class="title">
-          <div class="icon">
-            <img src="assets/students-dashboard-imgs/fundamentals-nodo.jpg" alt="">
-          </div>
-          <h3>Data analysis</h3>
-        </div>
-        <p>Modalidad: Virual</p>
-        <p>NODO Program</p>
-        <p>$100</p>
-        <div class="buttons-container">
-          <button class="details-button" >Details</button>
-          <button class="buy-button">Buy Course</button>
-        </div>
-      </div>
-      <div class="card-courses">
-        <div class="title">
-          <div class="icon">
-            <img src="assets/students-dashboard-imgs/fundamentals-nodo.jpg" alt="">
-          </div>
-          <h3>web</h3>
-        </div>
-        <p>Modalidad: Virual</p>
-        <p>NODO Program</p>
-        <p>$100</p>
-        <div class="buttons-container">
-          <button class="details-button" >Details</button>
-          <button class="buy-button">Buy Course</button>
-        </div>
-      </div>
-      <div class="card-courses">
-        <div class="title">
-          <div class="icon">
-            <img src="assets/students-dashboard-imgs/fundamentals-nodo.jpg" alt="">
-          </div>
-          <h3>Fundamentals</h3>
-        </div>
-        <p>Modalidad: Virual</p>
-        <p>NODO Program</p>
-        <p>$100</p>
-        <div class="buttons-container">
-          <button class="details-button" >Details</button>
+          <button class="details-button">Details</button>
           <button class="buy-button">Buy Course</button>
         </div>
       </div>
