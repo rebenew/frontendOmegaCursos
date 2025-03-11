@@ -1,7 +1,7 @@
 <!-- Section 1: Introduction -->
-<section>
-  <h2>EAFIT e-LEARNING</h2>
-  <p>
+<section class="Introduction">
+  <h2 class="title">EAFIT e-LEARNING</h2>
+  <p class="text">
     Un espacio diseñado para estudiantes como tú, donde el aprendizaje se vuelve
     más fácil, accesible y emocionante. Aquí encontrarás recursos, apoyo y una
     comunidad dispuesta a acompañarte en cada paso de tu camino académico. ¡Es
@@ -12,7 +12,7 @@
 
 <!-- Section 2: Benefits -->
 <section>
-  <h2>¿Por qué elegirnos?</h2>
+  <h2 class="title">¿Por qué elegirnos?</h2>
   <div class="benefits">
     <div class="benefit">
       <h3>Acceso a materiales de estudio</h3>
@@ -42,7 +42,7 @@
 </section>
 
 <section id="testimonials">
-  <h2>Lo que dicen nuestros estudiantes</h2>
+  <h2 class="title">Lo que dicen nuestros estudiantes</h2>
   <div class="testimonials">
     <div class="testimonial">
       <p>
@@ -61,36 +61,34 @@
   </div>
 </section>
 
-<section>
-  <h2>¡Empieza ahora!</h2>
+<section class="Introduction">
+  <h2 class="title">¡Empieza ahora!</h2>
   <p>Regístrate hoy y accede a contenido exclusivo para estudiantes.</p>
   <br />
-  <a href="#" class="cta-button">Registrarse ahora</a>
+  <a class="signup-button" routerLink="/signup" routerLinkActive="active">¡Regístrate ahora!</a>
 </section>
 
-<section id="contacto">
-  <h2>¿Tienes preguntas?</h2>
+<section class="Introduction" id="contacto">
+  <h2 class="title">¿Tienes preguntas?</h2>
   <p>Si necesitas ayuda o más información, no dudes en contactarnos.</p>
   <form action="#" method="POST">
+
+   <div class="form-container">
     <div class="form-group">
       <input type="text" name="name" placeholder="Tu nombre" required />
     </div>
     <div class="form-group">
-      <input
-        type="email"
-        name="email"
-        placeholder="Tu correo electrónico"
-        required
-      />
+      <input type="email" name="email" placeholder="Tu correo electrónico" required />
     </div>
     <div class="form-group">
-      <textarea
-        name="message"
-        rows="4"
-        placeholder="Escribe tu mensaje"
-        required
-      ></textarea>
+      <textarea name="message" rows="4" placeholder="Escribe tu mensaje" required></textarea>
+    </div>
+    <div class="button">
+      <button type="submit" class="cta-button">Enviar mensaje</button>
     </div>
     <button type="submit" class="cta-button">Enviar mensaje</button>
+  </div>
   </form>
 </section>
+
+

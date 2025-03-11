@@ -3,6 +3,7 @@
     {
       "id": 1,
       "title": "PROCESAMIENTO DE DATOS",
+      "imageUrl":"assets/images/procesamiento-de-datos.jpg" ,
       "modality": "Virtual",
       "certification": "Certificación virtual",
       "duration": "3 Meses / 12 Semanas - 72 horas sincrónicas de mentorías con expertos en la industria / Contenido de apoyo en plataforma, diseñado con metodología Edublocks / Reto real, propuesto por empresa aliada",
@@ -12,6 +13,7 @@
     {
       "id": 2,
       "title": "BACKEND",
+      "imageUrl":"assets/images/backend.png" ,
       "modality": "Virtual",
       "certification": "Certificación virtual",
       "duration": "3 Meses / 12 Semanas - 72 horas sincrónicas de mentorías con expertos en la industria / Contenido de apoyo en plataforma, diseñado con metodología Edublocks / Reto real, propuesto por empresa aliada / 72 horas de inglés para tecnología",
@@ -21,6 +23,7 @@
     {
       "id": 3,
       "title": "IA PARA TODOS",
+      "imageUrl":"assets/images/ia.jpg" ,
       "modality": "Virtual",
       "certification": "Certificación virtual",
       "duration": "10 HORAS",
@@ -30,6 +33,7 @@
     {
       "id": 4,
       "title": "MACHINE LEARNING",
+      "imageUrl":"assets/images/machine-learning.jpg",
       "modality": "Presencial",
       "certification": "Certificación presencial",
       "duration": "20 HORAS",
@@ -39,6 +43,7 @@
     {
       "id": 5,
       "title": "DESARROLLO FULL STACK",
+      "imageUrl":"assets/images/fullstack.jpg",
       "modality": "Virtual",
       "certification": "Certificación virtual",
       "duration": "6 Meses",
@@ -48,6 +53,7 @@
     {
       "id": 6,
       "title": "DATA SCIENCE AVANZADO",
+      "imageUrl":"assets/images/data-science.jpg",
       "modality": "Presencial",
       "certification": "Certificación presencial",
       "duration": "5 Meses",
@@ -57,6 +63,7 @@
     {
       "id": 7,
       "title": "CIBERSEGURIDAD",
+      "imageUrl":"assets/images/ciberseguridad.jpg",
       "modality": "Virtual",
       "certification": "Certificación virtual",
       "duration": "4 Meses",
@@ -66,6 +73,7 @@
     {
       "id": 8,
       "title": "BLOCKCHAIN Y CRIPTOMONEDAS",
+      "imageUrl":"assets/images/blockchain.jpg",
       "modality": "Virtual",
       "certification": "Certificación virtual",
       "duration": "3 Meses",

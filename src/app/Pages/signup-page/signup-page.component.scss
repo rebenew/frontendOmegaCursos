@@ -1,56 +1,43 @@
-.container {
+$primary-color:rgb(28, 53, 196);
+$background-color: #EAEDEB;
+$input-bg: #fff;
+$border-radius: 10px;
+
+.signUpContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: #f5f5f5;
-}
-.form-box {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-.input-group {
-    margin-bottom: 1rem;
-}
-.input-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-}
-.input-group input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-.btn {
-    background: #007bff;
-    color: white;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.btn:hover {
-    background: #0056b3;
-}
-.login-link {
-    margin-top: 1rem;
+    //background-color: $primary-color;
+    //padding: 20px;
+    border-radius: 10px;
 }
 
-a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s;
-  }
-  
-  a:hover {
-    background-color: #0056b3;
-  }
+
+.signup-box {
+    background: var(--bg-color-card);
+    margin: 5%;
+    padding: 5%;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group{
+  margin: 10% 0;
+  height: 40px;
+}
+
+.input{
+  border-radius: 10px;
+  padding-left: 5%;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.btn{
+  background-color: var(--bg-color-blue);
+  color: #fff;
+  width: 100%;
+  margin: 5% 0;
+}
+

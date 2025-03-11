@@ -15,8 +15,8 @@
     color: #fff;
     font-weight: 600;
     margin-right: 100px;
-    padding: 10px;
-    width: 6%;
+    padding: 1px;
+    width: 15%;
   }
   @media screen and (max-width: 768px) {
     .go-back-btn {
@@ -32,15 +32,15 @@
 
 h1 {
   // font-family: $titleFont;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bolder;
 }
 
-
 .courses-details-container {
   display: grid;
-  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
 }
+
 @media screen and (max-width: 768px) {
   .courses-details-container {
     grid-template-columns: 1fr;
@@ -48,9 +48,10 @@ h1 {
   }
 }
 .course-details-img {
+  display: flex;
+  justify-content: center;
   width: 70%;
 }
-
 
 .course-details-img:hover {
   // @include grow();
@@ -58,11 +59,11 @@ h1 {
 
 // course info
 .course-details-name {
-  color: #040087;
+  color: (--text-color);
   display: flex;
-  font-size: 6em;
+  font-size: 2em;
   justify-content: center;
-  width: 80%;
+  width: 70%;
 }
 
 .course-details-info {
@@ -76,22 +77,23 @@ h1 {
 
 .description-label {
   font-weight: 600;
-  font-size: larger;
+  font-size: medium;
   color: #50ab7f;
   margin-bottom: 1px;
 }
 
 .course-description {
   font-weight: 600;
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 .course-price {
   background-color: #ff8f1c;
-  width: 20%;
   display: flex;
-  justify-content: center;
+  width: 30%;
   padding: 5px;
+  justify-content: center;
+  font-size: large;
   color: #fff;
   border-radius: 3px;
   border: 1px solid #000000;
@@ -111,6 +113,9 @@ h1 {
   font-weight: bold;
   font-size: large;
   justify-content: flex-start;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .list-content {
@@ -120,13 +125,13 @@ h1 {
 // Course details button
 .course-details-buttons {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
 }
 
 .buy-buttons {
   margin-top: 10%;
-  height: 20%;
-  width: 20%;
+  height: auto;
+  width: auto;
   color: #040087;
   font-weight: bolder;
   font-size: 1.4em;
@@ -134,15 +139,15 @@ h1 {
   font-family: "Roboto", sans-serif;
 
   @media screen and (max-width: 768px) {
-    height: 20%;
+    height: auto;
     width: 50%;
   }
   @media screen and (max-width: 1300px) {
-    height: 20%;
+    height: auto;
     width: 50%;
   }
   @media screen and (max-width: 700px) {
-    height: 50%;
+    height: auto;
     width: 50%;
   }
 }

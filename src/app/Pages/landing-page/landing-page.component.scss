@@ -1,24 +1,19 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+.Introduction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3%;
 }
-
-section {
-    padding: 40px 20px;
-    text-align: center;
-}
-
-.cta-button, .login-button {
+.cta-button, .login-button, .signup-button {
     background-color: #041570;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 16px;
     text-decoration: none;
-    font-size: 18px;
-    border-radius: 5px;
+    //font-size: 18px;
+    border-radius: 10px;
     margin-top: 20px;
+    width: 30%;
+    text-align: center;
 }
 
 .benefits, .testimonials {
@@ -30,17 +25,61 @@ section {
 .benefit, .testimonial {
     width: 30%;
     margin: 10px;
-    background-color: white;
+    background-color: var(--bg-color-card);
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
 }
 
-.form-group input, .form-group textarea {
-    width: 100%;
+form{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  //align-items: center;
+}
+
+.form-group {
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    //border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    color: var(--text-color);
 }
+
+.form-group input, .form-group textarea{
+  width: 100%;
+  border-radius: 10px;
+  border: 1.5px solid #041570;
+}
+
+.form-group input::placeholder, .form-group textarea::placeholder{
+  //color: var(--text-color);
+  opacity: 1;
+  padding: 10px;
+}
+
+.button{
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .benefits, .testimonials{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .benefit, .testimonial{
+    width: 70%;
+  }
+}
+
+.form-container {
+    background-color: white;
+    padding:30px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}// 
 

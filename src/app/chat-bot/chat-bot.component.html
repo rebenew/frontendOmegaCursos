@@ -1,0 +1,12 @@
+<div class="chat-container" [class.active]="isOpen">
+  <div class="chat-header" (click)="toggleChat()">
+    <h3>Chat Bot</h3>
+    <button class="close-btn">&times;</button>
+  </div>
+  <div class="chat-body">
+    <p>Hola, ¿cómo puedo ayudarte?</p>
+  </div>
+</div>
+
+<!-- Botón flotante -->
+<button class="chat-toggle-btn" (click)="toggleChat()">🤖</button>

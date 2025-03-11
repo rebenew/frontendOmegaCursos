@@ -1,40 +1,57 @@
-<app-sidebar></app-sidebar>
-<form [formGroup]="courseForm" (ngSubmit)="saveCourse()">
+<form [formGroup]="courseForm" (ngSubmit)="saveCourse()" class="course-form">
+  <!-- Título -->
   <label for="title">Título:</label>
   <input id="title" formControlName="title" type="text" required>
-  <div *ngIf="courseForm.get('title')?.invalid && courseForm.get('title')?.touched">
+  <div class="error" *ngIf="courseForm.get('title')?.invalid && courseForm.get('title')?.touched">
     *El título es obligatorio.
   </div>
 
+  <!-- Modalidad -->
   <label for="modality">Modalidad:</label>
   <select id="modality" formControlName="modality">
     <option value="Presencial">Presencial</option>
     <option value="Virtual">Virtual</option>
   </select>
-  <div *ngIf="courseForm.get('modality')?.invalid && courseForm.get('modality')?.touched">
-    *La modalidad es obligatoria.
-  </div>
 
-  <label for="certification">¿Incluye certificación?</label>
-  <input id="certification" formControlName="certification" type="checkbox">
+  <!-- Certificación (Cambiado a select) -->
+  <label for="certification">Certificación:</label>
+  <select id="certification" formControlName="certification">
+    <option [value]="true">Certificación virtual</option>
+    <option [value]="false">No certificable</option>
+  </select>
 
+  <!-- Duración -->
   <label for="duration">Duración:</label>
-  <input id="duration" formControlName="duration" type="text" placeholder="Ej: 3 meses/2 horas">
-  <div *ngIf="courseForm.get('duration')?.invalid && courseForm.get('duration')?.touched">
-    *Ingrese un valor válido: "30 minutos", "1 hora".
+  <input id="duration" formControlName="duration" type="text" placeholder="Ej: 3 meses / 2 horas">
+  <div class="error" *ngIf="courseForm.get('duration')?.invalid && courseForm.get('duration')?.touched">
+    *Ingrese una duración válida (Ej: "30 minutos", "1 hora").
   </div>
 
+  <!-- Descripción -->
   <label for="description">Descripción:</label>
   <textarea id="description" formControlName="description"></textarea>
-  <div *ngIf="courseForm.get('description')?.invalid && courseForm.get('description')?.touched">
-    *La descripción es obligatoria y debe tener al menos 10 caracteres.
+  <div class="error" *ngIf="courseForm.get('description')?.invalid && courseForm.get('description')?.touched">
+    *Debe tener al menos 10 caracteres.
   </div>
 
+  <!-- Precio -->
   <label for="price">Precio (COP):</label>
   <input id="price" formControlName="price" type="number">
-  <div *ngIf="courseForm.get('price')?.invalid && courseForm.get('price')?.touched">
+  <div class="error" *ngIf="courseForm.get('price')?.invalid && courseForm.get('price')?.touched">
     *Ingresa un valor numérico válido.
   </div>
 
-  <button type="submit" [disabled]="courseForm.invalid">{{ isEditMode ? 'Actualizar Curso' : 'Crear Curso' }}</button>
+  <!-- Botones -->
+  <div class="form-buttons">
+    <button type="submit" [disabled]="courseForm.invalid">
+      {{ isEditMode ? 'Actualizar Curso' : 'Crear Curso' }}
+    </button>
+    <button type="button" class="cancel-btn" (click)="cancel()">Cancelar</button>
+  </div>
 </form>
+
+<!-- Uso del componente de modal -->
+<app-confirmation *ngIf="showConfirmation"
+  [message]="confirmationMessage"
+  (close)="closeModal()">
+</app-confirmation>
