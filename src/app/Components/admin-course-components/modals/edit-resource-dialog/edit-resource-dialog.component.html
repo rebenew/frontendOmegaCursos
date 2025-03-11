@@ -1,22 +1,71 @@
-<h2 mat-dialog-title>{{ data.resource.ResourceName ? 'Editar recurso' : 'Agregar Recurso' }}</h2>
-<mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>Nombre del Recurso</mat-label>
-    <input matInput [(ngModel)]="data.resource.ResourceName">
-  </mat-form-field>
+<h2 mat-dialog-title class="modal-title">
+  {{ data.resource.ResourceName ? 'Editar recurso' : 'Agregar Recurso' }}
+</h2>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Link</mat-label>
-    <input matInput [(ngModel)]="data.resource.Link">
-  </mat-form-field>
+<mat-dialog-content class="modal-content">
+  <div class="modal-columns">
+    <!-- 📌 Columna Izquierda (Formulario) -->
+    <div class="modal-left">
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Nombre del Recurso</mat-label>
+          <input matInput [(ngModel)]="data.resource.ResourceName">
+        </mat-form-field>
+      </div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Embed</mat-label>
-    <input matInput [(ngModel)]="data.resource.Embed">
-  </mat-form-field>
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Link</mat-label>
+          <input matInput [(ngModel)]="data.resource.Link">
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="form-textarea">
+          <mat-label>Embed (opcional)</mat-label>
+          <textarea 
+          class="textarea"
+            matInput
+            rows="3"
+            [(ngModel)]="data.resource.Embed"
+            (ngModelChange)="updateSanitizedEmbed()"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- 📌 Columna Derecha (Drag & Drop + Vista Previa) -->
+    <div class="modal-right">
+      <div
+        class="drop-zone"
+        [class.dragging]="isDragging"
+        (drop)="onDrop($event)"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+      >
+        <p class="drop-zone-text">
+          Arrastra un archivo aquí o <label for="fileInput" class="upload-link">selecciona uno</label>
+        </p>
+        <input type="file" id="fileInput" hidden (change)="onFileSelected($event)">
+      </div>
+
+      <div *ngIf="data.resource.Link || data.resource.Embed" class="preview-container">
+        <p class="preview-title"><strong>Vista previa:</strong></p>
+        <img *ngIf="data.resource.Link?.startsWith('data:image')" [src]="data.resource.Link" class="preview-image">
+        <video *ngIf="data.resource.Link?.startsWith('data:video')" controls class="preview-video">
+          <source [src]="data.resource.Link">
+        </video>
+        <div [innerHTML]="sanitizedEmbed"></div>
+        <a *ngIf="data.resource.Link && !data.resource.Link.startsWith('data:')" [href]="data.resource.Link" target="_blank" class="preview-link">
+          Ver recurso
+        </a>
+      </div>
+    </div>
+  </div>
 </mat-dialog-content>
 
-<mat-dialog-actions>
-  <button mat-button (click)="dialogRef.close()">Cancelar</button>
-  <button mat-button (click)="save()">Guardar</button>
+<mat-dialog-actions class="modal-actions">
+  <button mat-button class="btn-cancel" (click)="dialogRef.close()">Cancelar</button>
+  <button mat-button class="btn-save" (click)="save()">Guardar</button>
 </mat-dialog-actions>
+

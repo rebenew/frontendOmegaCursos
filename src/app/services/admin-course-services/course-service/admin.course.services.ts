@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, combineLatest, forkJoin } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 
 export interface Course { 
@@ -63,6 +63,14 @@ export class CourseService {
     );
   }
 
+  getCourseNameById(courseId: string): Observable<string | null> {
+    return this.getCourses().pipe(
+      map(courses => {
+        const course = courses.find(c => c.id.toString() === courseId);
+        return course ? course.title : null;
+      })
+    );
+  }
   // Obtener curso por ID desde la caché 
   getCourseById(id: number): Observable<Course | null> {
     return this.courses$.pipe(
@@ -72,13 +80,16 @@ export class CourseService {
 
 // Obtener información publica + editable de un curso por su título 
 getCourseByTitle(title: string): Observable<{ public: Course | null, editable: editableCourse | null }> {
-  return this.http.get<editableCourse>(this.courseDetailsUrl).pipe(
-    map(editableData => ({
-      public: this.coursesSubject.getValue()?.find(course => course.title === title) || null,
-      editable: editableData.course === title ? editableData : null
-    }))
-  );
+  return forkJoin({
+    public: this.courses$.pipe(
+      map(courses => courses?.find(course => course.title === title) || null)
+    ),
+    editable: this.http.get<editableCourse>(this.courseDetailsUrl).pipe(
+      map(editableData => editableData.course === title ? editableData : null)
+    )
+  });
 }
+
 addCourse(newCourse: Course): Observable<void> {
   return this.courses$.pipe(
     take(1),
