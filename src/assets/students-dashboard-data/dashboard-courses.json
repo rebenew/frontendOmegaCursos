@@ -1,0 +1,34 @@
+[
+  {
+    "course_title": "IA Para todos",
+    "modality": "virtual",
+    "progress": "10%",
+    "activeTime": "0H",
+    "validation": "0/10",
+    "courseStarted": true
+  },
+  {
+    "course_title": "Fundamentals Web",
+    "modality": "virtual",
+    "progress": "0%",
+    "activeTime": "0H",
+    "validation": "0/10",
+    "courseStarted": false
+  },
+  {
+    "course_title": "FrontEnd",
+    "modality": "Bootcamp",
+    "progress": "0%",
+    "activeTime": "0H",
+    "validation": "0/33",
+    "courseStarted": false
+  },
+  {
+    "course_title": "Backend",
+    "modality": "Bootcamp",
+    "progress": "0%",
+    "activeTime": "0H",
+    "validation": "0/40",
+    "courseStarted": false
+  }
+]

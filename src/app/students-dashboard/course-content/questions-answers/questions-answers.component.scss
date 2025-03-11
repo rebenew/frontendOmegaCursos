@@ -1,0 +1,23 @@
+.qa-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5%;
+}
+
+.send-button {
+  width: max-content;
+  font-size: medium;
+  background-color: #818ac4;
+  color: #fff;
+  border-radius: 5px;
+}
+textarea {
+  width: 100%;
+  border-radius: 5px;
+}
+textarea::placeholder {
+  padding: 2%;
+  text-align: center;
+}

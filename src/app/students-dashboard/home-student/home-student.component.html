@@ -5,102 +5,48 @@
 
 <!--MENÚ DE OPCIONES-->
 <nav class="menu-section">
-  <button [routerLink]="['/home-student']" routerLinkActivate="active" class="bubble">Mis cursos</button>
-  <button [routerLink]="['/more-courses']" routerLinkActivate="active" class="bubble">Otros cursos</button>
-  <button [routerLink]="['/grades']" routerLinkActivate="active" class="bubble">Calificaciones</button>
-  <button [routerLink]="['/community']" routerLinkActivate="active" class="bubble">Comunidad</button>
+  <button [routerLink]="['/home-student']" routerLinkActivate="active" class="bubble">
+    Mis cursos
+  </button>
+  <button [routerLink]="['/more-courses']" routerLinkActivate="active" class="bubble">
+    Otros cursos
+  </button>
+  <button [routerLink]="['/grades']" routerLinkActivate="active" class="bubble">
+    Calificaciones
+  </button>
+  <button [routerLink]="['/community']" routerLinkActivate="active" class="bubble">
+    Comunidad
+  </button>
 </nav>
 
 <main class="content">
   <div class="main-container">
     <!--LISTA DE CURSOS-->
     <section class="courses-section">
-      <div class="course-card">
-        <div class="course-card-img">
-          <img src="assets/students-dashboard-imgs/fundamentals-nodo.jpg"
-            alt="Comienza este recorrido por Fundamentals, el denominado módulo cero. Lo llamamos así porque es el que toda persona que quiera hacer parte de este nivel base debe alcanzar. La invitación es a que abordes la lógica de programación, que analices cómo se resuelven los problemas desde la parte y el pensamiento computacional, y que comprendas cómo funciona una computadora y cómo nos genera soluciones. Ten en cuenta que este es el nivel que debes abordar antes de estudiar desarrollo Front, desarrollo Back y desarrollo en nube.    ¡Adelante con este corto módulo e inicia esta adaptación al mundo digital!"
-            class="course-img" title="Fundamentals web"> <!--aquí va la imagen de la card-->
-          <div class="course-card-content">
-            <div class="course-class-title">
-              <h3>FUNDAMENTALS</h3>
-              <p>Modalidad: Virual</p>
-              <button [routerLink]="['/course-content/fundamentals']" class="bubble">Continuar curso</button>
+      <div *ngFor="let dashboard of dashboardData" class="course-card">
+        <div class="course-card-content">
+          <div class="course-class-title">
+            <h3>{{dashboard.title | uppercase}}</h3>
+            <p>Modalidad: {{dashboard.modality}}</p>
+          </div>
+          <div class="back">
+            <h3 *ngIf="dashboard.courseStarted">SOBRE TU CURSO</h3>
+            <h3 *ngIf="!dashboard.courseStarted">CURSO SIN INICIAR</h3>
+            <ul>
+              <li>Progreso: {{dashboard.progress}} </li>
+              <li>Tiempo activo: {{dashboard.activeTime}} </li>
+              <li>Validaciones: {{dashboard.validaciones}} </li>
+            </ul>
+            <div class="container-btn">
+              <button *ngIf="dashboard.courseStarted" [routerLink]="['/course-content']" class="continue-btn">
+                Continuar curso
+              </button>
+              <button *ngIf="!dashboard.courseStarted" class="start-btn">
+                Iniciar
+              </button>
+              <button class="details-btn">Detalles</button>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="course-card">
-        <div class="course-card-img">
-          <img src="assets/students-dashboard-imgs/fundamentals-data-nodo.jpg"
-            alt="El Curso Fundamentals Data, de la ruta de aprendizaje de Analítica y ciencia de datos, ofrece el conocimiento básico que le da nombre a la ruta: cómo se obtiene y analiza la información obtenida, cómo se implementa en la toma de decisiones y cómo opera esta ciencia como campo. A lo largo de los módulos, comprenderás los fundamentos introductorios a la ciencia de datos. Con seguridad cambiará la forma como interactúas con la información. ¡Empecemos este camino!"
-            class="course-img" title="Fundamentals data "> <!--aquí va la imagen de la card-->
-          <div class="course-card-content">
-            <div class="course-class-title">
-              <h3>FUNDAMENTALS DATA</h3>
-              <p>Modalidad: Virtual</p>
-              <button class="btn">Continuar curso</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="course-card">
-        <div class="course-card-img">
-          <img src="assets/students-dashboard-imgs/frontend-nodo.jpg"
-            alt="Inicia el recorrido por este curso con el abordaje de cuatro temas esenciales: Estructura de Datos I, HTML, CSS y Typescript. Empieza en las ciencias básicas y llega hasta el ciclo especializado desde lo más general hasta lo más específico.   Recomendamos una dedicación mínima de 26 horas a la semana, para completar:  el contenido en plataforma diseñado con metodología Edublocks.   72 horas de mentorías con expertos en la industria. 72 horas de inglés para tecnología, con encuentros sincrónicos y actividades en plataforma. Potencia tus habilidades con Nodo EAFIT, contáctanos para conocer más sobre la ruta de formación en Desarrollo Web."
-            class="course-img" title="Frontend"> <!--aquí va la imagen de la card-->
-          <div class="course-card-content">
-            <div class="course-class-title">
-              <h3>FRONTEND</h3>
-              <p>Modalidad: Bootcamp</p>
-              <button class="btn">Continuar curso</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="course-card">
-        <div class="course-card-img">
-          <img src="assets/students-dashboard-imgs/backend-nodo.jpg"
-            alt="Aquí podrás crear los servicios y las funciones que procesan los datos del usuario y que retornan una respuesta. Aprenderás cómo se cumple este proceso y qué existe luego de que alguien teclea “Enviar”. En el módulo de Backend adquirirás habilidades en programación orientada a objetos con Java, manejo de APIs, utilización del framework Spring Boot, y bases de datos SQL y NoSQL, todo enriquecido con aplicaciones prácticas y trabajo colaborativo que te ayudará a desarrollar soft skills. Recomendamos una dedicación mínima de 26 horas a la semana, para completar: el contenido en plataforma diseñado con metodología Edublocks. 72 horas de mentorías con expertos en la industria. 72 horas de inglés para tecnología, con encuentros sincrónicos y actividades en plataforma. Potencia tus habilidades con Nodo EAFIT, contáctanos para conocer más sobre la ruta de formación en Desarrollo Web."
-            class="course-img" title="Backend"> <!--aquí va la imagen de la card-->
-          <div class="course-card-content">
-            <div class="course-class-title">
-              <h3>BACKEND</h3>
-              <p>Modalidad: Bootcamp</p>
-              <button class="btn">Continuar curso</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </section>
-
-    <!--PERFIL DEL ESTUDIANTE-->
-
-    <div class="profile">
-      <button (click)="visible =!visible" class="btn">
-        {{visible ? 'Cerrar perfil' : 'Abrir perfil'}}
-      </button>
-      <aside class="student-profile" [class.visible]="visible">
-        <div class="profile-header">
-          <img src="assets/students-dashboard-imgs/perfil-generico.jpg" alt="Foto de perfil">
-          <h2>Nombre del estudiante</h2>
-        </div>
-        <div class="skills">
-          <h3>Habilidades</h3>
-          <ul>
-            <li>Programación</li>
-            <li>Diseño UX/UI</li>
-            <li>Analítica de Datos</li>
-          </ul>
-          <h3>Actividad</h3>
-          <p>⌛Tiempo activo: 23H</p>
-          <p>🧑‍💻Último acceso: 12/12/2024</p>
-          <p>⭐Calificación promedio: 4.5</p>
-        </div>
-      </aside>
-    </div>
-  </div>
-</main>

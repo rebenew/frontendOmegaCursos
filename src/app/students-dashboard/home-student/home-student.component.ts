@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DashboardCourses } from '../../interfaces/students-dashboard-interfaces/dashboard-courses.interface';
+import { StudentsDashboard } from '../../services/students-dashboard-services/students-dashboard.service';
+import { DashboardHomeService } from '../../services/students-dashboard-services/dashboard-home.service';
+import { DashboardHomeCourses } from '../../interfaces/students-dashboard-interfaces/dashboard-home.interface';
 
 @Component({
   selector: 'home-student',
@@ -8,6 +12,17 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home-student.component.html',
   styleUrl: './home-student.component.scss',
 })
-export class HomeStudentComponent {
+export class HomeStudentComponent implements OnInit {
+  public dashboardData: DashboardHomeCourses[] = [];
   protected visible: boolean = false;
+  activateSideContent: boolean = false;
+
+
+  constructor(
+    private dashboardHomeService: DashboardHomeService,
+
+  ) {}
+  ngOnInit(): void {
+    this.dashboardHomeService.getDashboardHome().subscribe((data)=>{this.dashboardData = data});
 }
+ }

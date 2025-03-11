@@ -17,6 +17,11 @@ import {
 export class AppComponent {
   title = 'omega';
 
+  menuAbierto = false;
+  constructor(private readonly router: Router) { }
+  toggleMenu() {
+    this.menuAbierto = !this.menuAbierto;
+  }
   // menuAbierto = false;
   // constructor(private readonly router: Router) {}
   // toggleMenu() {

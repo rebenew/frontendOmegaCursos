@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 
-
 import { CoursesService } from '../../services/courses.service';
 import { CardComponent } from '../Cards/card.component';
+import { log } from 'console';
 
 @Component({
   selector: 'app-course-list',
   imports: [NgFor, CardComponent],
   templateUrl: './course-list.component.html',
-  styleUrl: './course-list.component.scss'
+  styleUrl: './course-list.component.scss',
 })
 export class CourseListComponent implements OnInit {
   courses: any[] = [];

@@ -1,0 +1,14 @@
+<div *ngIf="user$ | async as user" class="user-detail">
+    <h2>Detalles de Usuario</h2>
+    <div class="user-info">
+      <p><strong>Nombre:</strong> {{ user.first_name }} {{ user['last_name'] }}</p>
+      <p><strong>Tipo de Usuario:</strong> {{ user['user_type'] }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Contraseña:</strong> {{ user.password }}</p>
+    </div>
+  </div>
+  
+  <div *ngIf="!(user$ | async)">
+    <p>Usuario no encontrado.</p>
+  </div>
+  
