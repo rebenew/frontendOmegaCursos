@@ -12,7 +12,8 @@ import { HomelayoutComponent } from './layout/homelayout/homelayout.component';
 import { MainLayoutComponent } from './Pages/main-layout/main-layout.component';
 
 import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
-
+import path from 'path';
+import { UserCardComponent } from './admin-components/user-card/user-card.component';
 export const routes: Routes = [
   //RUTAS LANDING OK
   {
@@ -187,6 +188,70 @@ export const routes: Routes = [
             (m) => m.CommunityComponent
           ),
       },
+    ],
+  },
+
+  // Default path
+  {
+    path: '',
+    data: { renderMode: 'client' },
+    redirectTo: 'landing',
+    pathMatch: 'full',
+  }, // Redirige la raíz a la landing page
+  {
+    path: 'landing',
+    data: { renderMode: 'client' },
+    component: LandingPageComponent,
+  },
+  {
+    path: 'login2',
+    data: { renderMode: 'client' },
+    component: LoginPageComponent,
+  },
+  {
+    path: 'cursos',
+    data: { renderMode: 'client' },
+    component: CoursesPageComponent,
+  },
+  {
+    path: 'signup',
+    data: { renderMode: 'client' },
+    component: SignupPageComponent,
+  },
+
+  //Admin User
+  {
+    path: '',
+    component: HomelayoutComponent,
+    children: [
+        {
+          path: 'admin',
+          data: { renderMode: 'client' },
+          component: AdminComponent,
+        },
+        {
+          path: 'admin/user',
+          data: { renderMode: 'client' },
+          component: UserCardComponent,
+        },
+
+        {
+          path: 'admin/adduser',
+          data: { renderMode: 'client' },
+          component: UserFormComponent,
+        },
+
+        {
+          path: 'admin/user-detail/:id',
+          data: { renderMode: 'client' },
+          component: UserDetailComponent,
+        },
+
+        {
+          path: 'admin/user-edit/:id',
+          data: { renderMode: 'client' },
+          component: EditUserComponent,
+        },
     ],
   },
 ];
