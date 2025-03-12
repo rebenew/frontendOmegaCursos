@@ -50,7 +50,7 @@ export class AdminDashboardComponent {
 
   deleteCourse(id: number) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
-      width: '800px',
+      width: '400px',
       data: { itemName: `Curso ID: ${id}`, itemType: 'curso' }
     });
   
