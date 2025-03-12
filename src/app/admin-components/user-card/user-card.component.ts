@@ -6,10 +6,11 @@ import { UserService } from '../../services/admin-user-dashboard-services/user.s
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { SidecontentService } from '../../services/servicesDesign/sidecontent.service';
+import { AddUserButtonComponent } from "../add-user-button/add-user-button.component";
 
 @Component({
   selector: 'app-user-card',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, AddUserButtonComponent],
   templateUrl: './user-card.component.html',
   styleUrl: './user-card.component.scss'
 })
