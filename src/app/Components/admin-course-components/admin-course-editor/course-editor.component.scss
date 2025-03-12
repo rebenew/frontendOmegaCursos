@@ -272,11 +272,12 @@
   max-height: 60vh;
   overflow-y: auto;
   padding-right: 8px;
+  text-align: center;
 }
 
-/* 🔻 Zona de eliminación */
+/*  Zona de eliminación */
 .delete-area {
-  margin-top: auto; /* 🔥 Se empuja hacia abajo */
+  margin-top: auto;
   padding: 1rem;
   border-radius: 6px;
   background: #f8d7da;
