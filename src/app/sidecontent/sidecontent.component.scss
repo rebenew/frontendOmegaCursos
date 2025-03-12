@@ -1,4 +1,4 @@
-.sideContent{
+.sideContent {
   position: fixed;
   top: 0;
   right: -100%; /* Inicialmente oculto fuera de la pantalla */
@@ -8,6 +8,7 @@
   width: 40%;
 }
 
-.sideContent.openSideContent{
+.sideContent.openSideContent {
   right: 0; /* Muestra el contenido */
+  overflow-y: auto;
 }

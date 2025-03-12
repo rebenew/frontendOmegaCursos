@@ -1,0 +1,10 @@
+.learning-tools-container {
+  display: grid;
+  grid-template-rows: (1, 2fr);
+}
+
+a:hover {
+  background-color: #818ac4;
+  color: white;
+  padding: 2px;
+}

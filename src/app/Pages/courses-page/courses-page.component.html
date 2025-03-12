@@ -1,81 +1,23 @@
-<div class="sidebar">
-    <h2>Menú..</h2>
-    <ul>
-        <a href="http://">
-        <li>Inicio</li>
-    </a>
-    <a href="http://">
-        <li>Cursos</li>
-    </a>
-    <a href="http://">
-        <li>Sobre Nosotros</li>
-    </a>
-    <a href="http://">
-        <li>Contacto</li>
-    </a>
-    </ul>
-</div>
 <div class="main-content">
     <div class="search-bar">
-        <input type="text" placeholder="Buscar cursos...">
-        <a href="http://">
-        <button type="buscar"></button>
-    </a>
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar cursos...">
+        <button type="button" (click)="searchCourses(searchTerm)">Buscar</button>
     </div>
-    <div class="grid-container">
-        <div class="course-card">
-            <img src="placeholder.jpg" alt="Curso">
-            <a href="http://">
-            <button>Detalles</button>
-        </a>
+    <section class="content-cards">
+      <div class="card-courses" *ngFor="let course of courses">
+        <div class="title">
+          <div class="icon">
+            <img [src]="course.imageUrl" [alt]="course.title">
+          </div>
+          <h3>{{ course.title }}</h3>
         </div>
-        <div class="course-card">
-            <img src="placeholder.jpg" alt="Curso">
-            <a href="http://">
-            <button>Detalles</button>
-        </a>
+        <p>Modalidad: {{ course.modality }}</p>
+        <p>{{ course.certification }}</p>
+        <p>{{ course.price | currency }}</p>
+        <div class="buttons-container">
+          <button class="details-button">Details</button>
+          <button class="buy-button">Buy Course</button>
         </div>
-        <div class="course-card">
-            <img src="placeholder.jpg" alt="Curso">
-            <a href="http://">
-            <button>Detalles</button>
-        </a>
-        </div>
-        <div class="course-card">
-            <img src="placeholder.jpg" alt="Curso">
-            <a href="http://">
-            <button>Detalles</button>
-        </a>
-        </div>
-        <div class="course-card">
-            <img src="placeholder.jpg" alt="Curso">
-            <a href="http://">
-            <button>Detalles</button>
-        </a>
-        </div>
-        <div class="course-card">
-            <img src="placeholder.jpg" alt="Curso">
-            <a href="http://">
-            <button>Detalles</button>
-        </a>
-        </div>
-        <div class="course-card">
-            <img src="placeholder.jpg" alt="Curso">
-           <a href="http://">
-            <button>Detalles</button>
-        </a>
-        </div>
-        <div class="course-card">
-            <img src="placeholder.jpg" alt="Curso">
-         <a href="http://">
-            <button>Detalles</button>
-         </a>
-        </div>
-        <div class="course-card">
-            <img src="placeholder.jpg" alt="Curso">
-            <a href="http://">
-            <button>Detalles</button>
-            </a>
-        </div>
-    </div>
+      </div>
+    </section>
 </div>

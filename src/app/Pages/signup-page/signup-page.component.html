@@ -1,23 +1,21 @@
 <div class="signUpContainer">
-    <div class="signup-box">
-        <h2>Regístrate</h2>
-        <form>
-            <div class="input-group">
-                <label for="name">Nombre</label><br>
-                <input type="text" id="name" placeholder="Tu nombre" required>
-            </div>
-            <div class="input-group">
-                <label for="email">Correo Electrónico</label><br>
-                <input type="email" id="email" placeholder="Tu correo" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Contraseña</label><br>
-                <input type="password" id="password" placeholder="Tu contraseña" required>
-            </div> <br>
-            <button type="submit" class="btn">Registrarse</button>
-        </form>
-        <div class="login-link-group">
-        <p class="login-link">¿Ya tienes una cuenta? <a routerLink="/login2" routerLinkActive="active">Iniciar sesión</a></p>
-    </div>
-</div>
+  <div class="signup-box">
+    <h2>Regístrate</h2>
+    <form>
+      <div class="input-group">
+        <input class="input" type="text" id="name" placeholder="Tu nombre" required>
+      </div>
+      <div class="input-group">
+        <input class="input" type="email" id="email" placeholder="Tu correo" required>
+      </div>
+      <div class="input-group">
+        <input class="input" type="password" id="password" placeholder="Tu contraseña" required>
+      </div>
+      <div>
+        <button type="submit" class="btn">Registrarse</button>
+      </div>
+    </form>
+    <p class="login-link">¿Ya tienes una cuenta? <a routerLink="/login2" routerLinkActive="active" class="a">Iniciar
+        sesión</a></p>
+  </div>
 </div>

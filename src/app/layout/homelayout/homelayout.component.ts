@@ -5,11 +5,12 @@ import { RouterOutlet } from '@angular/router';
 import { hideMenuService } from '../../services/servicesDesign/hidemenu.service';
 import { SidecontentComponent } from '../../sidecontent/sidecontent.component';
 import { SidecontentService } from '../../services/servicesDesign/sidecontent.service';
+import { ChatBotComponent } from "../../chat-bot/chat-bot.component";
 
 
 @Component({
   selector: 'app-homelayout',
-  imports: [SideMenuComponent, FooterMenuComponent, RouterOutlet, SidecontentComponent ],
+  imports: [SideMenuComponent, FooterMenuComponent, RouterOutlet, SidecontentComponent, ChatBotComponent],
   templateUrl: './homelayout.component.html',
   styleUrl: './homelayout.component.scss'
 })
