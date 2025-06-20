@@ -30,6 +30,7 @@ export interface editableCourse {
 })
 
 export class CourseService {
+  private backendUrl = 'http://localhost:8080/courses';
   private coursesUrl = 'assets/db.json';
   private courseDetailsUrl = 'assets/resources_IA_para_todos.json';
   private coursesSubject = new BehaviorSubject<Course[] | null>(null);
@@ -109,11 +110,15 @@ updateCourse(updatedCourse: Course): Observable<void> {
   );
 }
 
-  deleteCourse(id: number) {
-    const currentCourses = this.coursesSubject.getValue();
-    if (currentCourses) {
-      const updatedCourses = currentCourses.filter(course => course.id !== id);
-      this.coursesSubject.next(updatedCourses);
-    }
-  }
+  deleteCourse(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.backendUrl}/${id}`).pipe(
+      tap(() => {
+        const currentCourses = this.coursesSubject.getValue();
+        if (currentCourses) {
+          const updatedCourses = currentCourses.filter(course => course.id !== id);
+          this.coursesSubject.next(updatedCourses);
+        }
+      })
+    );
+}
 }

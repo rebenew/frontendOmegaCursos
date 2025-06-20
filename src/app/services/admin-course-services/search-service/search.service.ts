@@ -28,6 +28,13 @@ setSearchTerm(term: string) {
 }
 
 deleteCourse(id: number) {
-  this.courseService.deleteCourse(id);
+  this.courseService.deleteCourse(id).subscribe({
+    next: () => {
+      this.setSearchTerm('');
+    },
+    error: err => {
+      console.error('Error al eliminar el curso', err);
+    }
+  });
 }
 }
