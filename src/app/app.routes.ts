@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { AdminCursoListComponent } from './components/admin-curso-list/admin-curso-list.component';
+import { AdminCursoFormComponent } from './components/admin-curso-form/admin-curso-form.component';
 
 import { HomeStudentComponent } from './students-dashboard/home-student/home-student.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
