@@ -1,13 +1,24 @@
 {
-  "name": "omega",
-  "version": "0.0.0",
+  "name": "omega-cursos-frontend",
+  "version": "1.0.0",
+  "description": "Frontend Angular para la plataforma de cursos Omega",
+  "author": "Omega Cursos Team",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:omega": "node dist/omega/server/server.mjs"
+    "test:coverage": "ng test --code-coverage",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
+    "serve:ssr:omega": "node dist/omega/server/server.mjs",
+    "build:ssr": "ng build && ng run omega:server",
+    "dev": "ng serve --port 4200 --host 0.0.0.0",
+    "clean": "rm -rf dist node_modules package-lock.json && npm install",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +53,27 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.6.2"
-  }
+    "typescript": "~5.6.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tu-usuario/omega-cursos-frontend.git"
+  },
+  "keywords": [
+    "angular",
+    "cursos",
+    "educacion",
+    "frontend",
+    "typescript"
+  ],
+  "bugs": {
+    "url": "https://github.com/tu-usuario/omega-cursos-frontend/issues"
+  },
+  "homepage": "https://github.com/tu-usuario/omega-cursos-frontend#readme"
 }

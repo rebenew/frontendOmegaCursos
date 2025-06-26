@@ -1,59 +1,283 @@
-# Omega.
+# Omega Cursos - Frontend Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.4.
+Este proyecto es una aplicación Angular para la gestión de cursos en línea, con diferentes roles de usuario (admin, mentor, estudiante).
 
-## Development server
+## 🚀 Características
 
-To start a local development server, run:
+- **Autenticación y Autorización**: Sistema completo de login/logout con roles
+- **Dashboard de Administrador**: Gestión de cursos y usuarios
+- **Dashboard de Mentor**: Gestión de cursos propios
+- **Dashboard de Estudiante**: Acceso a cursos, calificaciones y comunidad
+- **Interceptores HTTP**: Manejo automático de tokens y errores
+- **Guards de Ruta**: Protección de rutas por roles
+- **Configuración de Entornos**: Desarrollo y producción
 
+## 📋 Prerrequisitos
+
+- Node.js (versión 18 o superior)
+- Angular CLI (versión 19)
+- Backend API funcionando
+
+## 🛠️ Instalación
+
+1. **Clonar el repositorio**
 ```bash
-ng serve
+git clone <url-del-repositorio>
+cd frontendOmegaCursos
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+2. **Instalar dependencias**
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+3. **Configurar el backend**
+Edita los archivos de entorno según tu configuración:
 
-```bash
-ng generate --help
+**Desarrollo** (`src/environments/environment.ts`):
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080/api',
+  authUrl: 'http://localhost:8080/auth',
+  coursesUrl: 'http://localhost:8080/courses',
+  usersUrl: 'http://localhost:8080/users',
+  studentsUrl: 'http://localhost:8080/students',
+  mentorsUrl: 'http://localhost:8080/mentors',
+  communityUrl: 'http://localhost:8080/community',
+  gradesUrl: 'http://localhost:8080/grades',
+  contentUrl: 'http://localhost:8080/content'
+};
 ```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
+**Producción** (`src/environments/environment.prod.ts`):
+```typescript
+export const environment = {
+  production: true,
+  apiUrl: 'https://tu-backend-produccion.com/api',
+  authUrl: 'https://tu-backend-produccion.com/auth',
+  coursesUrl: 'https://tu-backend-produccion.com/courses',
+  usersUrl: 'https://tu-backend-produccion.com/users',
+  studentsUrl: 'https://tu-backend-produccion.com/students',
+  mentorsUrl: 'https://tu-backend-produccion.com/mentors',
+  communityUrl: 'https://tu-backend-produccion.com/community',
+  gradesUrl: 'https://tu-backend-produccion.com/grades',
+  contentUrl: 'https://tu-backend-produccion.com/content'
+};
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🚀 Ejecutar la aplicación
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
+### Desarrollo
 ```bash
-ng test
+npm start
+```
+La aplicación estará disponible en `http://localhost:4200`
+
+### Producción
+```bash
+npm run build
 ```
 
-## Running end-to-end tests
+## 📁 Estructura del Proyecto
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+```
+src/
+├── app/
+│   ├── core/                    # Funcionalidades centrales
+│   │   ├── guards/             # Guards de autenticación y roles
+│   │   ├── interceptors/       # Interceptores HTTP
+│   │   ├── models/             # Modelos de datos
+│   │   └── services/           # Servicios centralizados
+│   ├── Components/             # Componentes reutilizables
+│   ├── Pages/                  # Páginas principales
+│   ├── students-dashboard/     # Dashboard de estudiantes
+│   ├── Dashboard_Mentor/       # Dashboard de mentores
+│   └── admin-components/       # Componentes de administración
+├── assets/                     # Recursos estáticos
+└── environments/               # Configuración de entornos
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🔐 Autenticación y Autorización
 
-## Additional Resources
+### Roles de Usuario
+- **Admin**: Acceso completo a todas las funcionalidades
+- **Mentor**: Gestión de cursos propios
+- **Estudiante**: Acceso a cursos, calificaciones y comunidad
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Guards Implementados
+- `AuthGuard`: Verifica si el usuario está autenticado
+- `RoleGuard`: Verifica si el usuario tiene los permisos necesarios
+
+### Uso en Rutas
+```typescript
+{
+  path: 'admin-dashboard',
+  data: { roles: ['admin'] },
+  canActivate: [AuthGuard, RoleGuard],
+  component: AdminDashboardComponent
+}
+```
+
+## 🔧 Servicios Principales
+
+### AuthService
+Maneja la autenticación y el estado del usuario:
+```typescript
+// Login
+this.authService.login(credentials).subscribe(response => {
+  // Usuario autenticado
+});
+
+// Verificar rol
+if (this.authService.isAdmin()) {
+  // Lógica para admin
+}
+```
+
+### CourseService
+Gestión de cursos:
+```typescript
+// Obtener cursos
+this.courseService.getCourses().subscribe(courses => {
+  // Lista de cursos
+});
+
+// Crear curso
+this.courseService.createCourse(courseData).subscribe(newCourse => {
+  // Curso creado
+});
+```
+
+### UserService
+Gestión de usuarios:
+```typescript
+// Obtener usuarios
+this.userService.getUsers().subscribe(users => {
+  // Lista de usuarios
+});
+```
+
+## 🌐 Integración con Backend
+
+### Endpoints Esperados
+
+#### Autenticación
+- `POST /auth/login` - Login de usuario
+- `POST /auth/register` - Registro de usuario
+- `POST /auth/logout` - Logout
+- `POST /auth/refresh` - Renovar token
+
+#### Cursos
+- `GET /courses` - Obtener todos los cursos
+- `GET /courses/:id` - Obtener curso por ID
+- `POST /courses` - Crear curso
+- `PUT /courses/:id` - Actualizar curso
+- `DELETE /courses/:id` - Eliminar curso
+- `GET /courses/search?q=term` - Buscar cursos
+- `GET /courses/mentor/:mentorId` - Cursos por mentor
+
+#### Usuarios
+- `GET /users` - Obtener todos los usuarios
+- `GET /users/:id` - Obtener usuario por ID
+- `POST /users` - Crear usuario
+- `PUT /users/:id` - Actualizar usuario
+- `DELETE /users/:id` - Eliminar usuario
+- `GET /users/search?q=term` - Buscar usuarios
+- `GET /users/type/:userType` - Usuarios por tipo
+- `PUT /users/profile` - Actualizar perfil
+- `PUT /users/change-password` - Cambiar contraseña
+
+### Formato de Respuestas
+
+#### Login Response
+```json
+{
+  "user": {
+    "id": 1,
+    "first_name": "Juan",
+    "last_name": "Pérez",
+    "user_type": "admin",
+    "email": "juan@example.com"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "refresh_token_here"
+}
+```
+
+#### Course Response
+```json
+{
+  "id": 1,
+  "title": "Angular Avanzado",
+  "imageUrl": "https://example.com/image.jpg",
+  "modality": "Virtual",
+  "certification": "Certificado oficial",
+  "duration": "8 semanas",
+  "description": "Curso avanzado de Angular",
+  "price": 299.99,
+  "mentor_id": 1,
+  "created_at": "2024-01-01T00:00:00Z",
+  "updated_at": "2024-01-01T00:00:00Z"
+}
+```
+
+## 🔒 Seguridad
+
+### Headers de Autorización
+El interceptor automáticamente agrega el token JWT a todas las peticiones:
+```
+Authorization: Bearer <token>
+```
+
+### Manejo de Errores
+- **401**: Token expirado/inválido - Redirige al login
+- **403**: Acceso prohibido - Redirige a página de error
+- **404**: Recurso no encontrado
+- **500**: Error del servidor
+
+## 🧪 Testing
+
+```bash
+# Ejecutar tests unitarios
+npm test
+
+# Ejecutar tests con coverage
+npm run test:coverage
+```
+
+## 📦 Build y Deploy
+
+### Build de Producción
+```bash
+npm run build
+```
+
+### Build con SSR (Server-Side Rendering)
+```bash
+npm run build:ssr
+```
+
+## 🐛 Troubleshooting
+
+### Problemas Comunes
+
+1. **Error de CORS**
+   - Asegúrate de que el backend permita peticiones desde `http://localhost:4200`
+   - Configura los headers CORS en el backend
+
+2. **Token no válido**
+   - Verifica que el backend genere tokens JWT válidos
+   - Revisa el formato del token en el localStorage
+
+3. **Rutas no encontradas**
+   - Verifica que las rutas del backend coincidan con las configuradas en `environment.ts`
+   - Revisa que el servidor backend esté funcionando
+
+## 📞 Soporte
+
+Para soporte técnico o preguntas sobre la integración, contacta al equipo de desarrollo.
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT.
