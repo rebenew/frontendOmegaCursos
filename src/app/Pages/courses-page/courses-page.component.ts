@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Course } from '../../interfaces/courses.interface';
-import { CoursesResponse } from '../../interfaces/coursesResponse.interface';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -17,27 +16,10 @@ export class CoursesPageComponent implements OnInit {
   courses: Course[] = [];
   searchTerm: string = '';
   showFilters: boolean = false;
-  selectedCategory: string = '';
-  selectedLevel: string = '';
-  categories: string[] = [];
-  levels: string[] = [];
+  selectedModality: string = '';
+  tags: string[] = [];
 
   constructor(private http: HttpClient) { }
-
-  // ngOnInit() {
-  //   // Cargar los cursos desde el archivo JSON
-  //   this.http.get<CoursesResponse>('/assets/db.json').subscribe(response => {
-  //     this.courses = response.courses;
-  //   });
-  // }
-
-  // searchCourses(searchTerm: string) {
-  //   this.http.get<CoursesResponse>('/assets/db.json').subscribe(response => {
-  //     this.courses = response.courses.filter(course =>
-  //       course.title.toLowerCase().includes(searchTerm.toLowerCase())
-  //     );
-  //   });
-  // }
 
   ngOnInit() {
     this.loadCourses();
@@ -50,22 +32,26 @@ export class CoursesPageComponent implements OnInit {
 
   loadCourses() {
     let params = new HttpParams();
-
-    if (this.selectedCategory) {
-      params = params.set('category', this.selectedCategory);
+  
+    if (this.selectedModality?.trim()) {
+      params = params.set('modality', this.selectedModality.trim());
     }
+  
+    const term = this.searchTerm?.trim();
+      if (term) {
+        params = params.set('title', term);
+        params = params.append('tags', term);  
+}
 
-    if (this.selectedLevel) {
-      params = params.set('level', this.selectedLevel);
-    }
-
-    this.http.get<Course[]>(environment.coursesUrl, { params }).subscribe(courses => {
-      this.courses = this.searchTerm
-        ? courses.filter(course => course.title.toLowerCase().includes(this.searchTerm.toLowerCase()))
-        : courses;
+  
+    this.http.get<Course[]>(environment.coursesUrl, { params }).subscribe({
+      next: (courses) => {
+        this.courses = courses;
+      },
+      error: (err) => console.error('Error cargando cursos:', err)
     });
   }
-
+  
   searchCourses() {
     this.showFilters = false;
     this.loadCourses();
@@ -73,13 +59,8 @@ export class CoursesPageComponent implements OnInit {
 
   loadTags() {
     this.http.get<any[]>('http://localhost:8080/tags').subscribe(tags => {
-      this.categories = tags
-        .map(tag => tag.name)
-        .filter(name => !['Introductorio', 'Avanzado'].includes(name)); // Categorías = todos menos niveles
-
-      this.levels = tags
-        .map(tag => tag.name)
-        .filter(name => ['Introductorio', 'Avanzado'].includes(name)); // Solo niveles
+      this.tags = tags.map(tag => tag.name);
     });
   }
+  
 }
