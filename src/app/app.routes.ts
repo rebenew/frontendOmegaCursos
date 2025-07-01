@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
+import { AdminCursoListComponent } from './Components/admin-curso-list/admin-curso-list.component';
+import { AdminCursoFormComponent } from './Components/admin-curso-form/admin-curso-form.component';
 
 import { HomeStudentComponent } from './students-dashboard/home-student/home-student.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
@@ -19,11 +22,6 @@ import { UserFormComponent } from './admin-components/user-form/user-form.compon
 import { EditUserComponent } from './admin-components/edit-user/edit-user.component';
 import { AdminComponent } from './admin-dashboard/admin-dashboard.component';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
-
-// Guards
-import { AuthGuard } from './core/guards/auth.guard';
-import { RoleGuard } from './core/guards/role.guard';
-
 export const routes: Routes = [
   //RUTAS LANDING OK
   {
@@ -53,12 +51,11 @@ export const routes: Routes = [
       },
     ],
   },
-  //admin-dashboard - Protegido para administradores
+  //admin-dashboard
   {
     path: 'admin-dashboard',
-    data: { renderMode: 'client', roles: ['admin'] },
+    data: { renderMode: 'client' },
     component: HomelayoutComponent,
-    canActivate: [AuthGuard, RoleGuard],
     children: [
       {
         path: '',
@@ -71,7 +68,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         loadComponent: () =>
           import(
-            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
+            './Components/admin-course-components/admin-dashboard/admin-dashboard.component'
           ).then((m) => m.AdminDashboardComponent),
       },
       {
@@ -79,7 +76,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         loadComponent: () =>
           import(
-            './components/admin-course-components/admin-course-form/admin-course-form.component'
+            './Components/admin-course-components/admin-course-form/admin-course-form.component'
           ).then((m) => m.AdminCourseFormComponent),
       },
       {
@@ -87,7 +84,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         loadComponent: () =>
           import(
-            './components/admin-course-components/admin-course-form/admin-course-form.component'
+            './Components/admin-course-components/admin-course-form/admin-course-form.component'
           ).then((m) => m.AdminCourseFormComponent),
       },
       {
@@ -95,7 +92,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         loadComponent: () =>
           import(
-            './components/admin-course-components/admin-course-editor/course-editor.component'
+            './Components/admin-course-components/admin-course-editor/course-editor.component'
           ).then((m) => m.CourseEditorComponent),
       },
     ],
@@ -103,14 +100,12 @@ export const routes: Routes = [
   {
     path: '',
     component: HomelayoutComponent,
-    canActivate: [AuthGuard],
     children: [
-      //Dashboard mentor - Protegido para mentores
+      //Dashboard mentor
       {
         path: 'dashboard_mentor',
-        data: { renderMode: 'client', roles: ['mentor'] },
+        data: { renderMode: 'client' },
         component: DashboardComponent,
-        canActivate: [RoleGuard],
         children: [
           {
             path: '',
@@ -122,32 +117,29 @@ export const routes: Routes = [
           }
         ]
       },
-      //Home Student Component - Protegido para estudiantes
+      //Home Student Component
       {
         path: 'home-student',
-        data: { renderMode: 'client', roles: ['student'] },
+        data: { renderMode: 'client' },
         title: 'Home - Student',
         component: HomeStudentComponent,
-        canActivate: [RoleGuard],
       },
-      // More courses - Protegido para estudiantes
+      // More courses
       {
         path: 'more-courses',
-        data: { renderMode: 'client', roles: ['student'] },
+        data: { renderMode: 'client' },
         title: 'More Courses',
-        canActivate: [RoleGuard],
         loadComponent: () =>
           import(
             './students-dashboard/more-courses/more-courses.component'
           ).then((m) => m.MoreCoursesComponent),
       },
-      //Course content - Protegido para estudiantes
+      //Course content
       {
         path: 'course-content',
-        data: { renderMode: 'client', roles: ['student'] },
+        data: { renderMode: 'client' },
         title: 'Content',
         component: CourseContentComponent,
-        canActivate: [RoleGuard],
         children: [
           {
             path: 'content',
@@ -183,23 +175,21 @@ export const routes: Routes = [
           },
         ],
       },
-      // Grades route - Protegido para estudiantes
+      // Grades route
       {
         path: 'grades',
-        data: { renderMode: 'client', roles: ['student'] },
+        data: { renderMode: 'client' },
         title: 'Grades',
-        canActivate: [RoleGuard],
         loadComponent: () =>
           import('./students-dashboard/grades/grades.component').then(
             (m) => m.GradesComponent
           ),
       },
-      // Community route - Protegido para estudiantes
+      // Community route
       {
         path: 'community',
-        data: { renderMode: 'client', roles: ['student'] },
+        data: { renderMode: 'client' },
         title: 'Community',
-        canActivate: [RoleGuard],
         loadComponent: () =>
           import('./students-dashboard/community/community.component').then(
             (m) => m.CommunityComponent
@@ -236,12 +226,10 @@ export const routes: Routes = [
     component: SignupPageComponent,
   },
 
-  //Admin User - Protegido para administradores
+  //Admin User
   {
     path: '',
     component: HomelayoutComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['admin'] },
     children: [
         {
           path: 'admin',
@@ -270,7 +258,7 @@ export const routes: Routes = [
           path: 'admin/user-edit/:id',
           data: { renderMode: 'client' },
           component: EditUserComponent,
-       },
+        },
     ],
   },
 ];
