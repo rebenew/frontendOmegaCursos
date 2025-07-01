@@ -5,24 +5,20 @@
     <button type="button" class="filter-button" (click)="toggleFilters()">Filtrar</button>
   </div>
 
-  <!-- Filtros desplegables -->
-  <div *ngIf="showFilters" class="filters">
-    <select [(ngModel)]="selectedCategory">
-      <option value="">Todas las categorías</option>
-      <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
-    </select>
+<!-- Filtros actualizados -->
+<div *ngIf="showFilters" class="filters">
 
-    <select [(ngModel)]="selectedLevel">
-      <option value="">Todos los niveles</option>
-      <option *ngFor="let lvl of levels" [value]="lvl">{{ lvl }}</option>
-    </select>
-  </div>
-
+  <label>Modalidad:</label>
+  <select [(ngModel)]="selectedModality">
+    <option value="">Todas las modalidades</option>
+    <option value="Presencial">Presencial</option>
+    <option value="Virtual">Virtual</option>
+  </select>
+</div>
   <section class="content-cards">
     <div class="card-courses" *ngFor="let course of courses">
       <div class="title">
         <div class="icon">
-          <img [src]="course.imageUrl" [alt]="course.title">
         </div>
         <h3>{{ course.title }}</h3>
       </div>

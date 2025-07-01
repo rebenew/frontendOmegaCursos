@@ -4,7 +4,7 @@ import { Course } from '../../../services/admin-course-services/course-service/a
 import { Router, RouterModule } from '@angular/router';
 import { SearchBarComponent } from '../admin-search-bar/search-bar.component';
 import { SearchService } from '../../../services/admin-course-services/search-service/search.service';
-import { AdminCourseListComponent } from "../admin-course-list/admin-course-list.component";
+import { AdminCourseListComponent } from '../admin-course-list/admin-course-list.component';
 import { DeleteConfirmationComponent } from '../modals/delete-confirmation/delete-confirmation.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Observable } from 'rxjs'; 
