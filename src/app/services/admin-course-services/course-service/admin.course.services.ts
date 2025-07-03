@@ -1,18 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 export interface Course { 
   id: number;
   title: string;
-  imageUrl?: string;
   modality: 'Presencial' | 'Virtual';
   certification: string;
   duration: string;
   description: string;
   price: number;
+  tags: Tag[];
 }
+
+export interface Tag {
+  id: number;
+  name: string;
+}
+
 export interface editableCourse { 
   course: string;
   content: {
@@ -30,8 +37,7 @@ export interface editableCourse {
 })
 
 export class CourseService {
-  private backendUrl = 'http://localhost:8080/courses';
-  private coursesUrl = 'assets/db.json';
+  private backendUrl = environment.coursesUrl;
   private courseDetailsUrl = 'assets/resources_IA_para_todos.json';
   private coursesSubject = new BehaviorSubject<Course[] | null>(null);
   private searchTermSubject = new BehaviorSubject<string>('');
@@ -45,14 +51,21 @@ export class CourseService {
 
    // Cargar cursos una sola vez y almacenarlos en BehaviorSubject
    private loadCourses(): void {
-    this.http.get<{ courses: Course[] }>(this.coursesUrl)
+    this.http.get<Course[]>(this.backendUrl)
       .pipe(
-        map(data => data.courses),
-        tap(courses => this.coursesSubject.next(courses)) 
+        tap(courses => this.coursesSubject.next(courses))
       )
-      .subscribe();
+      .subscribe({
+        error: err => console.error('Error al cargar cursos', err)
+      });
   }
 
+  // Recargar cursos 
+  public reloadCourses(): void {
+    this.loadCourses();
+  }
+
+  // Establecer el término de búsqueda 
   setSearchTerm(term: string): void {
     this.searchTermSubject.next(term.toLowerCase());
   }
@@ -64,6 +77,7 @@ export class CourseService {
     );
   }
 
+  // Obtener el nombre de un curso por su ID 
   getCourseNameById(courseId: string): Observable<string | null> {
     return this.getCourses().pipe(
       map(courses => {
@@ -79,6 +93,7 @@ export class CourseService {
     );
   }
 
+
 // Obtener información publica + editable de un curso por su título 
 getCourseByTitle(title: string): Observable<{ public: Course | null, editable: editableCourse | null }> {
   return forkJoin({
@@ -91,34 +106,28 @@ getCourseByTitle(title: string): Observable<{ public: Course | null, editable: e
   });
 }
 
+//Agregar un curso 
 addCourse(newCourse: Course): Observable<void> {
-  return this.courses$.pipe(
-    take(1),
-    map(courses => courses ? [...courses, newCourse] : [newCourse]),
-    tap(updatedCourses => this.coursesSubject.next(updatedCourses)),
+  return this.http.post<Course>(this.backendUrl, newCourse).pipe(
+    tap(() => this.loadCourses()), 
     map(() => void 0)
   );
 }
 
+//Actualizar un curso 
 updateCourse(updatedCourse: Course): Observable<void> {
-  return this.courses$.pipe(
-    take(1),
-    map(courses => courses ? courses.map(course => 
-      course.id === updatedCourse.id ? updatedCourse : course) : []),
-    tap(updatedCourses => this.coursesSubject.next(updatedCourses)),
+  return this.http.put<Course>(`${this.backendUrl}/${updatedCourse.id}`, updatedCourse).pipe(
+    tap(() => this.loadCourses()),
     map(() => void 0)
   );
 }
 
-  deleteCourse(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.backendUrl}/${id}`).pipe(
-      tap(() => {
-        const currentCourses = this.coursesSubject.getValue();
-        if (currentCourses) {
-          const updatedCourses = currentCourses.filter(course => course.id !== id);
-          this.coursesSubject.next(updatedCourses);
-        }
-      })
-    );
+//Borrar un curso 
+deleteCourse(id: number): Observable<void> {
+  return this.http.delete<void>(`${this.backendUrl}/${id}`).pipe(
+    tap(() => {
+      this.loadCourses();
+    })
+  );
 }
 }

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core'; 
 import { CommonModule } from '@angular/common'; 
-import { Course } from '../../../services/admin-course-services/course-service/admin.course.services';
+import { Course, CourseService } from '../../../services/admin-course-services/course-service/admin.course.services';
 import { Router, RouterModule } from '@angular/router';
 import { SearchBarComponent } from '../admin-search-bar/search-bar.component';
 import { SearchService } from '../../../services/admin-course-services/search-service/search.service';
 import { AdminCourseListComponent } from '../admin-course-list/admin-course-list.component';
 import { DeleteConfirmationComponent } from '../modals/delete-confirmation/delete-confirmation.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { Observable } from 'rxjs'; 
+import { Observable, of, switchMap } from 'rxjs'; 
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -20,6 +20,7 @@ export class AdminDashboardComponent {
   private router: Router;
   private dialog: MatDialog;
   private searchService: SearchService;
+  private courseService: CourseService 
 
   filteredCourses$: Observable<Course[]>;
 
@@ -28,11 +29,13 @@ export class AdminDashboardComponent {
 
   constructor(
     searchService: SearchService,
+    courseService: CourseService,
     router: Router,
     dialog: MatDialog
     
   ) {
     this.searchService = searchService;
+    this.courseService = courseService;
     this.router = router;
     this.dialog = dialog;
     this.filteredCourses$ = this.searchService.filteredCourses$; 
@@ -54,10 +57,13 @@ export class AdminDashboardComponent {
       data: { itemName: `Curso ID: ${id}`, itemType: 'curso' }
     });
   
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.searchService.deleteCourse(id); 
-      }
+    dialogRef.afterClosed().pipe(
+      switchMap(result => result ? this.courseService.deleteCourse(id) : of(null))
+    ).subscribe({
+      next: () => {
+        this.courseService.reloadCourses(); 
+      },
+      error: err => console.error('Error al eliminar el curso', err)
     });
   }
   
@@ -80,4 +86,9 @@ export class AdminDashboardComponent {
   editCourseContent(id: number) {
     this.router.navigate(['admin-dashboard/courses/edit-content', id]);
   }
+
+  getTagNames(course: Course): string {
+    return course.tags?.map(tag => tag.name).join(', ') || '';
+  }
+
 }

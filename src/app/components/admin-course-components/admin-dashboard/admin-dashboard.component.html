@@ -44,6 +44,7 @@
                   <p *ngIf="course.duration"><strong>Duración:</strong> {{ course.duration }}</p>
                   <p *ngIf="course.description"><strong>Descripción:</strong> {{ course.description }}</p>
                   <p *ngIf="course.price"><strong>Valor:</strong> ${{ course.price }}</p>
+                  <p *ngIf="course.tags"><strong>Tags:</strong> {{ getTagNames(course) }}</p>
                 </div>
               </td>
             </tr>

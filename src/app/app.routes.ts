@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { AdminDashboardComponent } from './Components/admin-dashboard/admin-dashboard.component';
-import { AdminCursoListComponent } from './Components/admin-curso-list/admin-curso-list.component';
-import { AdminCursoFormComponent } from './Components/admin-curso-form/admin-curso-form.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { AdminCursoListComponent } from './components/admin-curso-list/admin-curso-list.component';
+import { AdminCursoFormComponent } from './components/admin-curso-form/admin-curso-form.component';
 
 import { HomeStudentComponent } from './students-dashboard/home-student/home-student.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
@@ -68,7 +68,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         loadComponent: () =>
           import(
-            './Components/admin-course-components/admin-dashboard/admin-dashboard.component'
+            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
           ).then((m) => m.AdminDashboardComponent),
       },
       {
@@ -76,7 +76,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         loadComponent: () =>
           import(
-            './Components/admin-course-components/admin-course-form/admin-course-form.component'
+            './components/admin-course-components/admin-course-form/admin-course-form.component'
           ).then((m) => m.AdminCourseFormComponent),
       },
       {
@@ -84,7 +84,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         loadComponent: () =>
           import(
-            './Components/admin-course-components/admin-course-form/admin-course-form.component'
+            './components/admin-course-components/admin-course-form/admin-course-form.component'
           ).then((m) => m.AdminCourseFormComponent),
       },
       {
@@ -92,7 +92,7 @@ export const routes: Routes = [
         data: { renderMode: 'client' },
         loadComponent: () =>
           import(
-            './Components/admin-course-components/admin-course-editor/course-editor.component'
+            './components/admin-course-components/admin-course-editor/course-editor.component'
           ).then((m) => m.CourseEditorComponent),
       },
     ],

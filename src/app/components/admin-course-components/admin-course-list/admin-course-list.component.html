@@ -7,7 +7,7 @@
         class="course-card" 
         *ngFor="let course of filteredCourses" 
         (click)="showDetails(course)"
-        [class.selected]="selectedCourse?.id === course.id"
+        [class.selected]="selectedCourseId === course.id"
       >
         <div class="course-image" [ngStyle]="{'background-image': 'url(' + course.imageUrl + ')'}"></div>
         <div class="course-content">
@@ -23,7 +23,8 @@
   <!-- Sección de Información del Curso -->
   <div class="course-details">
     <h2>Información del curso</h2>
-    <ng-container *ngIf="selectedCourse; else noDetails">
+    <ng-container *ngIf="selectedCourseId as id; else noDetails">
+      <ng-container *ngIf="getSelectedCourse() as selectedCourse; else noDetails">
       <p><strong>Modalidad:</strong> {{ selectedCourse.modality }}</p>
       <p><strong>Certificación:</strong> {{ selectedCourse.certification ? 'Sí' : 'No' }}</p>
       <p><strong>Duración:</strong> {{ selectedCourse.duration }}</p>
@@ -35,11 +36,12 @@
 
       <!-- Botones -->
       <div class="course-buttons">
-        <button class="button btn-edit" (click)="editCourseView(selectedCourse.id)">Editar vista</button>
-        <button class="button btn-content" (click)="editCourseContent(selectedCourse.id)">Editar contenido</button>
-        <button class="button btn-delete" (click)="deleteCourse(selectedCourse.id)">Eliminar</button>
+        <button class="button btn-edit" (click)="onEditView(selectedCourse.id)">Editar vista</button>
+        <button class="button btn-content" (click)="onEditContent(selectedCourse.id)">Editar contenido</button>
+        <button class="button btn-delete" (click)="onDelete(selectedCourse.id)">Eliminar</button>
       </div>
     </ng-container>
+  </ng-container>
     
     <ng-template #noDetails>
       <p>Selecciona un curso para ver los detalles.</p>

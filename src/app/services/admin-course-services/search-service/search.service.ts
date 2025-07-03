@@ -3,38 +3,27 @@ import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { CourseService } from '../course-service/admin.course.services';
 import { Course } from '../course-service/admin.course.services';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SearchService {
-private searchTerm = new BehaviorSubject<string>('');
-filteredCourses$: Observable<Course[]>;
+  private searchTerm = new BehaviorSubject<string>('');
+  filteredCourses$: Observable<Course[]>;
 
-constructor(private courseService: CourseService) {
-  this.filteredCourses$ = combineLatest([
-    this.courseService.courses$, 
-    this.searchTerm
-  ]).pipe(
-    map(([courses, term]) =>
-      courses?.filter((course: Course) =>
-        course.title.toLowerCase().includes(term.toLowerCase())
-      ) ?? []
-    )
-  );
-}
+  constructor(private courseService: CourseService) {
+    this.filteredCourses$ = combineLatest([
+      this.courseService.courses$, 
+      this.searchTerm
+    ]).pipe(
+      map(([courses, term]) =>
+        (courses ?? []).filter(course =>
+          course.title.toLowerCase().includes(term.toLowerCase())
+        )
+      )
+    );
+  }
 
-setSearchTerm(term: string) {
-  this.searchTerm.next(term);
-}
+  setSearchTerm(term: string) {
+    this.searchTerm.next(term);
+  }
 
-deleteCourse(id: number) {
-  this.courseService.deleteCourse(id).subscribe({
-    next: () => {
-      this.setSearchTerm('');
-    },
-    error: err => {
-      console.error('Error al eliminar el curso', err);
-    }
-  });
-}
+
 }
