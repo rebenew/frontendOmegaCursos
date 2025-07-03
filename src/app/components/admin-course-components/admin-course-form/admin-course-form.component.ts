@@ -82,32 +82,34 @@ export class AdminCourseFormComponent implements OnInit {
         ? 'Certificación virtual' 
         : 'No certificable';
   
-      console.log('Valor guardado de certification:', formData.certification); 
+      if (!this.isEditMode) {
+        delete formData.id;
+      }
+  
+      formData.price = Number(formData.price);
+  
+      formData.modality = formData.modality === 'Presencial' ? 'PRESENCIAL' : 'VIRTUAL';
   
       const courseOperation = this.isEditMode
-      ? this.courseService.updateCourse(formData)
-      : this.courseService.addCourse({ ...formData, id: Date.now() });
-
-    courseOperation.subscribe({
-      next: () => {
-        const dialogRef = this.dialog.open(ConfirmationComponent, {
-          width: '400px',
-          data: { message: this.isEditMode ? 'Curso actualizado correctamente' : 'Curso creado correctamente' }
-        });
-
-        dialogRef.afterClosed().subscribe(() => {
-          this.courseUpdated.emit();
-          this.router.navigate(['/admin-dashboard']);
-        });
-      },
-      error: (err: any) => console.error(`Error al ${this.isEditMode ? 'actualizar' : 'agregar'} el curso:`, err)
-    });
+        ? this.courseService.updateCourse(formData)
+        : this.courseService.addCourse(formData);
+  
+      courseOperation.subscribe({
+        next: () => {
+          const dialogRef = this.dialog.open(ConfirmationComponent, {
+            width: '400px',
+            data: { message: this.isEditMode ? 'Curso actualizado correctamente' : 'Curso creado correctamente' }
+          });
+  
+          dialogRef.afterClosed().subscribe(() => {
+            this.courseUpdated.emit();
+            this.router.navigate(['/admin-dashboard']);
+          });
+        },
+        error: (err: any) => console.error(`Error al ${this.isEditMode ? 'actualizar' : 'agregar'} el curso:`, err)
+      });
+    }
   }
-}
-  
-  
-  
-  
 
   showModal(message: string) {
     this.confirmationMessage = message;

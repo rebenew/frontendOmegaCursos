@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 
@@ -91,22 +91,23 @@ getCourseByTitle(title: string): Observable<{ public: Course | null, editable: e
   });
 }
 
-addCourse(newCourse: Course): Observable<void> {
-  return this.courses$.pipe(
-    take(1),
-    map(courses => courses ? [...courses, newCourse] : [newCourse]),
-    tap(updatedCourses => this.coursesSubject.next(updatedCourses)),
-    map(() => void 0)
+addCourse(newCourse: Course): Observable<Course> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.http.post<Course>(this.backendUrl, newCourse, { headers }).pipe(
+    tap((createdCourse) => {
+      const currentCourses = this.coursesSubject.getValue() || [];
+      this.coursesSubject.next([...currentCourses, createdCourse]);
+    })
   );
 }
 
-updateCourse(updatedCourse: Course): Observable<void> {
-  return this.courses$.pipe(
-    take(1),
-    map(courses => courses ? courses.map(course => 
-      course.id === updatedCourse.id ? updatedCourse : course) : []),
-    tap(updatedCourses => this.coursesSubject.next(updatedCourses)),
-    map(() => void 0)
+updateCourse(updatedCourse: Course): Observable<Course> {
+  return this.http.put<Course>(`${this.backendUrl}/${updatedCourse.id}`, updatedCourse).pipe(
+    tap((course) => {
+      const currentCourses = this.coursesSubject.getValue() || [];
+      const updatedCourses = currentCourses.map(c => c.id === course.id ? course : c);
+      this.coursesSubject.next(updatedCourses);
+    })
   );
 }
 
