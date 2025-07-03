@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, catchError, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Course {
   id: number;
   title: string;
-  modality: 'PRESENCIAL' | 'VIRTUAL';
+  modality: 'Presencial' | 'Virtual';
   certification: string;
   duration: string;
   description: string;
@@ -29,14 +30,14 @@ export interface Mentor {
   providedIn: 'root',
 })
 export class CoursesService {
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = environment.coursesUrl;
   private Urlcursos = '/assets/courses.json'; // Fallback para datos mock
 
   constructor(private http: HttpClient) {}
 
   // Obtener todos los cursos desde el backend
   getCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.apiUrl}/courses`).pipe(
+    return this.http.get<Course[]>(`${environment.coursesUrl}/courses`).pipe(
       catchError(error => {
         console.error('Error al obtener cursos del backend:', error);
         // Fallback a datos mock si el backend no está disponible
@@ -49,7 +50,7 @@ export class CoursesService {
 
   // Obtener un curso específico por ID
   getCourseById(id: number): Observable<Course> {
-    return this.http.get<Course>(`${this.apiUrl}/courses/${id}`).pipe(
+    return this.http.get<Course>(`${environment.coursesUrl}/courses/${id}`).pipe(
       catchError(error => {
         console.error(`Error al obtener curso ${id}:`, error);
         throw error;
@@ -59,7 +60,7 @@ export class CoursesService {
 
   // Crear un nuevo curso (requiere ADMIN)
   createCourse(course: Omit<Course, 'id'>): Observable<Course> {
-    return this.http.post<Course>(`${this.apiUrl}/courses`, course).pipe(
+    return this.http.post<Course>(`${environment.coursesUrl}/courses`, course).pipe(
       catchError(error => {
         console.error('Error al crear curso:', error);
         throw error;
@@ -69,7 +70,7 @@ export class CoursesService {
 
   // Actualizar un curso (requiere ADMIN)
   updateCourse(id: number, course: Partial<Course>): Observable<Course> {
-    return this.http.put<Course>(`${this.apiUrl}/courses/${id}`, course).pipe(
+    return this.http.put<Course>(`${environment.coursesUrl}/courses/${id}`, course).pipe(
       catchError(error => {
         console.error(`Error al actualizar curso ${id}:`, error);
         throw error;
@@ -79,7 +80,7 @@ export class CoursesService {
 
   // Eliminar un curso (requiere ADMIN)
   deleteCourse(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/courses/${id}`).pipe(
+    return this.http.delete<void>(`${environment.coursesUrl}/courses/${id}`).pipe(
       catchError(error => {
         console.error(`Error al eliminar curso ${id}:`, error);
         throw error;
@@ -125,7 +126,7 @@ export class CoursesService {
 
   // Verificar conexión con el backend
   testBackendConnection(): Observable<boolean> {
-    return this.http.get(`${this.apiUrl}/courses`).pipe(
+    return this.http.get(`${environment.coursesUrl}/courses`).pipe(
       map(() => true),
       catchError(() => {
         console.warn('Backend no disponible, usando datos mock');

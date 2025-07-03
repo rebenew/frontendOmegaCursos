@@ -1,11 +1,7 @@
 import { Routes } from '@angular/router';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { AdminCursoListComponent } from './components/admin-curso-list/admin-curso-list.component';
-import { AdminCursoFormComponent } from './components/admin-curso-form/admin-curso-form.component';
 
 import { HomeStudentComponent } from './students-dashboard/home-student/home-student.component';
 import { DashboardComponent } from './Dashboard_Mentor/dashboard.component';
-import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 
 import { LandingPageComponent } from './Pages/landing-page/landing-page.component';
 import { LoginPageComponent } from './Pages/login-page/login-page.component';
@@ -15,13 +11,12 @@ import { HomelayoutComponent } from './layout/homelayout/homelayout.component';
 import { MainLayoutComponent } from './Pages/main-layout/main-layout.component';
 
 import { CourseContentComponent } from './students-dashboard/course-content/course-content.component';
-import path from 'path';
 import { UserCardComponent } from './admin-components/user-card/user-card.component';
-import { UserDetailComponent } from './admin-components/user-detail/user-detail.component';
-import { UserFormComponent } from './admin-components/user-form/user-form.component';
-import { EditUserComponent } from './admin-components/edit-user/edit-user.component';
-import { AdminComponent } from './admin-dashboard/admin-dashboard.component';
-import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
+import { AdminComponent } from "./admin-dashboard/admin-dashboard.component";
+import { UserFormComponent } from "./admin-components/user-form/user-form.component";
+import { UserDetailComponent } from "./admin-components/user-detail/user-detail.component";
+import { EditUserComponent } from "./admin-components/edit-user/edit-user.component";
+
 export const routes: Routes = [
   //RUTAS LANDING OK
   {
@@ -35,7 +30,7 @@ export const routes: Routes = [
         component: LandingPageComponent,
       },
       {
-        path: 'login2',
+        path: 'login',
         data: { renderMode: 'client' },
         component: LoginPageComponent,
       },
@@ -51,71 +46,25 @@ export const routes: Routes = [
       },
     ],
   },
-  //admin-dashboard
-  {
-    path: 'admin-dashboard',
-    data: { renderMode: 'client' },
-    component: HomelayoutComponent,
-    children: [
-      {
-        path: '',
-        data: { renderMode: 'client' },
-        redirectTo: 'courses',
-        pathMatch: 'full',
-      },
-      {
-        path: 'courses',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
-          ).then((m) => m.AdminDashboardComponent),
-      },
-      {
-        path: 'courses/new',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './components/admin-course-components/admin-course-form/admin-course-form.component'
-          ).then((m) => m.AdminCourseFormComponent),
-      },
-      {
-        path: 'courses/edit-view/:id',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './components/admin-course-components/admin-course-form/admin-course-form.component'
-          ).then((m) => m.AdminCourseFormComponent),
-      },
-      {
-        path: 'courses/edit-content/:id',
-        data: { renderMode: 'client' },
-        loadComponent: () =>
-          import(
-            './components/admin-course-components/admin-course-editor/course-editor.component'
-          ).then((m) => m.CourseEditorComponent),
-      },
-    ],
-  },
   {
     path: '',
     component: HomelayoutComponent,
     children: [
       //Dashboard mentor
       {
-        path: 'dashboard_mentor',
-        data: { renderMode: 'client' },
+        path: 'dashboard-mentor/:id',
         component: DashboardComponent,
         children: [
           {
             path: '',
-            loadComponent: () => import('./Dashboard_Mentor/Courses_List/course-list.component').then(m => m.CourseListComponent)
-          },
-          {
-            path: ':mentorId/course/:id',
-            loadComponent: () => import('./Dashboard_Mentor/Courses_Detail/course-detail.component').then(m => m.CourseDetailComponent)
+            loadComponent: () => import('./Dashboard_Mentor/Courses_List/course-list.component')
+              .then(m => m.CourseListComponent)
           }
         ]
+      },
+      {
+        path: 'course/:id',
+        loadComponent: () => import('./Dashboard_Mentor/Courses_Detail/course-detail.component').then(m => m.CourseDetailComponent)
       },
       //Home Student Component
       {
@@ -195,70 +144,65 @@ export const routes: Routes = [
             (m) => m.CommunityComponent
           ),
       },
+      {
+        path: 'admin',
+        data: { renderMode: 'client' },
+        component: AdminComponent,
+      },
+      {
+        path: 'admin/user',
+        data: { renderMode: 'client' },
+        component: UserCardComponent,
+      },
+      {
+        path: 'admin/adduser',
+        data: { renderMode: 'client' },
+        component: UserFormComponent,
+      },
+      {
+        path: 'admin/user-detail/:id',
+        data: { renderMode: 'client' },
+        component: UserDetailComponent,
+      },
+      {
+        path: 'admin/user-edit/:id',
+        data: { renderMode: 'client' },
+        component: EditUserComponent,
+      },
+      {
+        path: 'admin-dashboard/courses',
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-dashboard/admin-dashboard.component'
+          ).then((m) => m.AdminDashboardComponent),
+      },
+      {
+        path: 'admin-dashboard/courses/new',
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-course-form/admin-course-form.component'
+          ).then((m) => m.AdminCourseFormComponent),
+      },
+      {
+        path: 'admin-dashboard/courses/edit-view/:id',
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-course-form/admin-course-form.component'
+          ).then((m) => m.AdminCourseFormComponent),
+      },
+      {
+        path: 'admin-dashboard/courses/edit-content/:id',
+        data: { renderMode: 'client' },
+        loadComponent: () =>
+          import(
+            './components/admin-course-components/admin-course-editor/course-editor.component'
+          ).then((m) => m.CourseEditorComponent),
+      },
     ],
   },
 
-  // Default path
-  {
-    path: '',
-    data: { renderMode: 'client' },
-    redirectTo: 'landing',
-    pathMatch: 'full',
-  }, // Redirige la raíz a la landing page
-  {
-    path: 'landing',
-    data: { renderMode: 'client' },
-    component: LandingPageComponent,
-  },
-  {
-    path: 'login2',
-    data: { renderMode: 'client' },
-    component: LoginPageComponent,
-  },
-  {
-    path: 'cursos',
-    data: { renderMode: 'client' },
-    component: CoursesPageComponent,
-  },
-  {
-    path: 'signup',
-    data: { renderMode: 'client' },
-    component: SignupPageComponent,
-  },
 
-  //Admin User
-  {
-    path: '',
-    component: HomelayoutComponent,
-    children: [
-        {
-          path: 'admin',
-          data: { renderMode: 'client' },
-          component: AdminComponent,
-        },
-        {
-          path: 'admin/user',
-          data: { renderMode: 'client' },
-          component: UserCardComponent,
-        },
-
-        {
-          path: 'admin/adduser',
-          data: { renderMode: 'client' },
-          component: UserFormComponent,
-        },
-
-        {
-          path: 'admin/user-detail/:id',
-          data: { renderMode: 'client' },
-          component: UserDetailComponent,
-        },
-
-        {
-          path: 'admin/user-edit/:id',
-          data: { renderMode: 'client' },
-          component: EditUserComponent,
-        },
-    ],
-  },
 ];

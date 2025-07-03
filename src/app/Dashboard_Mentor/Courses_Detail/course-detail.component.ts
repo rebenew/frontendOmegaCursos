@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { combineLatest } from 'rxjs';
 import { CourseDetailService } from '../../services/course_detail.service';
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -12,7 +13,9 @@ import { CourseDetailService } from '../../services/course_detail.service';
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.scss',
 })
+
 export class CourseDetailComponent implements OnInit {
+  mentorId: number = 0;
 
   NombreCurso: any;
   Completado: any;
@@ -20,7 +23,6 @@ export class CourseDetailComponent implements OnInit {
   modalOpen: boolean = false;
   ModalOpenNotas: boolean = false;
   selectedStudent: any = null;
-courseDetail: any;
 
 
   constructor(
@@ -28,30 +30,32 @@ courseDetail: any;
     private courseDetailService: CourseDetailService
   ) { }
 
-  ngOnInit() {
-    this.route.params.subscribe({
-      next: (params) => {
-        const mentorId = Number(params['mentorId']);
-        const courseId = Number(params['id']);
+ 
 
-        if (!isNaN(mentorId) && !isNaN(courseId)) {
-          this.courseDetailService.obtenerDetallesCurso(mentorId, courseId).subscribe({
-            next: data => {
-              this.NombreCurso = data.curso.nombre;
-              this.Completado = data.curso.completado
-              this.Estudiante = data.curso.estudiantes;
-            },
-            error: error => {
-              console.error("Error al obtener los detalles del curso:", error);
-            }
-          });
+ngOnInit() {
+  combineLatest([
+    this.route.parent?.params ?? this.route.params,
+    this.route.params
+  ]).subscribe(([parentParams, childParams]) => {
+    this.mentorId = Number(parentParams['mentorId']);
+    const courseId = Number(childParams['id']);
+
+    if (!isNaN(courseId)) {
+      this.courseDetailService.obtenerDetallesCurso(this.mentorId, courseId).subscribe({
+        next: data => {
+          const curso = data?.curso || data;
+          this.NombreCurso = curso?.nombre || curso?.title;
+          this.Completado = curso?.completado;
+          this.Estudiante = curso?.estudiantes || curso?.students;
+        },
+        error: error => {
+          console.error("Error al obtener los detalles del curso:", error);
         }
-      },
-      error: (error) => {
-        console.error('Error al obtener los parámetros de la ruta:', error);
-      }
-    });
-  }
+      });
+    }
+  });
+}
+
 
   calcularNotaFinal(estudiante: any): number {
     const notas = estudiante.notas;
@@ -102,6 +106,4 @@ courseDetail: any;
       this.closeModal();
     }
   }
-
-
 }

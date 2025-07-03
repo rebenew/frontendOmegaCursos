@@ -9,7 +9,6 @@
         (click)="showDetails(course)"
         [class.selected]="selectedCourseId === course.id"
       >
-        <div class="course-image" [ngStyle]="{'background-image': 'url(' + course.imageUrl + ')'}"></div>
         <div class="course-content">
           <h3>{{ course.title }}</h3>
         </div>

@@ -130,9 +130,14 @@ isTagSelected(tag: Tag): boolean {
             data: { message: this.isEditMode ? 'Curso actualizado correctamente' : 'Curso creado correctamente' }
           });
   
+          // Cerrar el modal automáticamente después de 2 segundos
+          setTimeout(() => {
+            dialogRef.close();
+          }, 2000);
+  
           dialogRef.afterClosed().subscribe(() => {
             this.courseUpdated.emit();
-            this.router.navigate(['/admin-dashboard']);
+            this.router.navigate(['/admin-dashboard/courses']);
           });
         },
         error: (err: any) => console.error(`Error al ${this.isEditMode ? 'actualizar' : 'agregar'} el curso:`, err)

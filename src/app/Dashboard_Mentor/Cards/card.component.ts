@@ -1,12 +1,16 @@
+import { NgFor } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-card',
-  imports: [],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.scss'
-})
+    selector: 'app-card',
+    standalone: true, // ← Agregar esta línea
+    imports: [],
+    templateUrl: './card.component.html',
+    styleUrl: './card.component.scss'
+  })
+  
+  
 export class CardComponent implements OnInit {
 
   @Input() course: any;
@@ -20,9 +24,10 @@ export class CardComponent implements OnInit {
 
   goToCourse() {
     if (this.course?.id && this.mentorId) {
-      this.router.navigate([`/dashboard_mentor/${this.mentorId}/course/${this.course.id}`]);
-    } else {
-      console.error('Error: No hay ID de curso o mentor', this.mentorId);
+      this.router.navigate([`/course/${this.course.id}`], {
+        queryParams: { mentorId: this.mentorId }
+      });
     }
   }
 }
+    

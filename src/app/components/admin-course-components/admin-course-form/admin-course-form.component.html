@@ -41,7 +41,20 @@
   <div class="error" *ngIf="courseForm.get('price')?.invalid && courseForm.get('price')?.touched">
     *Ingresa un valor numérico válido.
   </div>
-
+  
+<label for="tags">Tags:</label>
+<div class="tags-grid">
+  <label class="tag-checkbox" *ngFor="let tag of availableTags">
+    <input
+      type="checkbox"
+      [value]="tag.id"
+      (change)="onTagChange($event, tag)"
+      [checked]="isTagSelected(tag)"
+      id="tag-{{ tag.id }}"
+    />
+    <span>{{ tag.name }}</span>
+  </label>
+</div>
   <!-- Botones -->
   <div class="form-buttons">
     <button type="submit" [disabled]="courseForm.invalid">
@@ -51,19 +64,7 @@
   </div>
 
   <!-- Tags -->
-<label for="tags">Tags:</label>
-<div class="tag">
-  <div *ngFor="let tag of availableTags">
-    <input
-      type="checkbox"
-      [value]="tag.id"
-      (change)="onTagChange($event, tag)"
-      [checked]="isTagSelected(tag)"
-      id="tag-{{ tag.id }}"
-    />
-    <label [for]="'tag-' + tag.id">{{ tag.name }}</label>
-  </div>
-</div>
+
 
 </form>
 
