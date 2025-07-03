@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
@@ -44,6 +44,8 @@ export class CourseService {
 
   courses$ = this.coursesSubject.asObservable();
   searchTerm$ = this.searchTermSubject.asObservable();
+
+
 
   constructor(private http: HttpClient) {
     this.loadCourses();
@@ -104,6 +106,11 @@ getCourseByTitle(title: string): Observable<{ public: Course | null, editable: e
       map(editableData => editableData.course === title ? editableData : null)
     )
   });
+}
+
+// Obtener los tags 
+getTags(): Observable<Tag[]> {
+  return this.http.get<Tag[]>(environment.tagsUrl);
 }
 
 //Agregar un curso 

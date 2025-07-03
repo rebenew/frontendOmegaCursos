@@ -16,8 +16,9 @@
   <!-- Certificación -->
   <label for="certification">Certificación:</label>
   <select id="certification" formControlName="certification">
-    <option value="Certificación virtual">Certificación virtual</option>
-    <option value="No certificable">No certificable</option>
+    <option *ngFor="let option of certificationOptions" [value]="option">
+      {{ option }}
+    </option>
   </select>
 
   <!-- Duración -->
@@ -48,6 +49,22 @@
     </button>
     <button type="button" class="cancel-btn" (click)="cancel()">Cancelar</button>
   </div>
+
+  <!-- Tags -->
+<label for="tags">Tags:</label>
+<div class="tag">
+  <div *ngFor="let tag of availableTags">
+    <input
+      type="checkbox"
+      [value]="tag.id"
+      (change)="onTagChange($event, tag)"
+      [checked]="isTagSelected(tag)"
+      id="tag-{{ tag.id }}"
+    />
+    <label [for]="'tag-' + tag.id">{{ tag.name }}</label>
+  </div>
+</div>
+
 </form>
 
 

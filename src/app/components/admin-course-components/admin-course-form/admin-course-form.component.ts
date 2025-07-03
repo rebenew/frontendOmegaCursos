@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CourseService } from '../../../services/admin-course-services/course-service/admin.course.services';
+import { CourseService, Tag } from '../../../services/admin-course-services/course-service/admin.course.services';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
@@ -10,6 +10,12 @@ import { ConfirmationComponent } from '../modals/confirmation/confirmation.compo
 import { EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
+export enum CertificationType {
+  Virtual = 'Certificación virtual',
+  Presencial = 'Certificación presencial',
+  None = 'No certificable'
+}
+
 @Component({
   selector: 'app-admin-course-form',
   templateUrl: './admin-course-form.component.html',
@@ -17,6 +23,7 @@ import { MatDialog } from '@angular/material/dialog';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
 }) 
+
 export class AdminCourseFormComponent implements OnInit {
   @Output() courseUpdated = new EventEmitter<void>();
   courseForm!: FormGroup;
@@ -24,7 +31,11 @@ export class AdminCourseFormComponent implements OnInit {
   courseId: number | null = null;
   showConfirmation = false;
   confirmationMessage = '';
+  availableTags: Tag[] = [];
+  CertificationType = CertificationType;
+  certificationOptions = Object.values(CertificationType);
 
+  
   constructor(
     private fb: FormBuilder,
     private courseService: CourseService,
@@ -35,6 +46,7 @@ export class AdminCourseFormComponent implements OnInit {
 
   ngOnInit() {
     this.initializeForm();
+    this.loadAvailableTags(); 
   
     this.route.paramMap
       .pipe(
@@ -50,37 +62,54 @@ export class AdminCourseFormComponent implements OnInit {
       )
       .subscribe(course => {
         if (course) {
-          const formattedCourse = {
-            ...course,
-            certification: course.certification === 'Certificación virtual' ? true : false
-          };
-          this.courseForm.patchValue(formattedCourse);
+          this.courseForm.patchValue(course);
+          const selectedTagIds = course.tags?.map(tag => tag.id) || [];
+          this.courseForm.get('tags')?.setValue(selectedTagIds);
         }
       });
   }
   
+// Cargar los tags desde el backend
+loadAvailableTags() {
+  this.courseService.getTags().subscribe(tags => {
+    this.availableTags = tags;
+  });
+}
   
 
   private initializeForm() {
     this.courseForm = this.fb.group({
       id: [0],
-      title: ['', Validators.required], 
-      modality: ['Presencial', Validators.required],
-      certification: ['No certificable', Validators.required], 
+      title: ['', Validators.required],
+      modality: ['PRESENCIAL', Validators.required],
+      certification: ['No certificable', Validators.required],
       duration: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      price: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]]
+      price: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
+      tags: [[]] 
     });
   }
   
+  // Cuando se marca o desmarca un tag
+onTagChange(event: Event, tag: Tag) {
+  const selectedTags = this.courseForm.get('tags')?.value || [];
+  if ((event.target as HTMLInputElement).checked) {
+    selectedTags.push(tag.id);
+  } else {
+    const index = selectedTags.indexOf(tag.id);
+    if (index >= 0) selectedTags.splice(index, 1);
+  }
+  this.courseForm.get('tags')?.setValue(selectedTags);
+}
+
+// Para mantener checkbox marcado si ya estaba
+isTagSelected(tag: Tag): boolean {
+  return this.courseForm.get('tags')?.value?.includes(tag.id);
+}
 
   saveCourse() {
     if (this.courseForm.valid) {
       const formData = this.courseForm.value;
-  
-      formData.certification = formData.certification === 'Certificación virtual' 
-        ? 'Certificación virtual' 
-        : 'No certificable';
   
       if (!this.isEditMode) {
         delete formData.id;

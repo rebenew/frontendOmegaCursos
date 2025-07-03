@@ -3,6 +3,7 @@ export const environment = {
   apiUrl: 'http://localhost:8080/api',
   authUrl: 'http://localhost:8080/auth',
   coursesUrl: 'http://localhost:8080/courses',
+  tagsUrl: 'http://localhost:8080/tags',
   usersUrl: 'http://localhost:8080/users',
   studentsUrl: 'http://localhost:8080/students',
   mentorsUrl: 'http://localhost:8080/mentors',
